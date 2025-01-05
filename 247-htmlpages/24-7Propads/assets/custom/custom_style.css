@@ -1,0 +1,48 @@
+.widget-icon-line-height {
+    line-height: 116px;
+}
+
+.dropup .hide-toggle.dropdown-toggle::after {
+    display: none !important;
+}
+
+ul.add-type-item {
+    list-style-type: none;
+    padding: 20px 10px;
+    margin: 0;
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    margin-bottom: 30px;
+}
+
+.select-fields-type {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding-left: 10px;
+}
+
+ul.add-type-item li {
+    padding: 0px 0 0px 10px;
+    text-align: left;
+    display: inline-block;
+    width: 33%;
+    margin-bottom: 8px;
+}
+
+#type-table_length {
+    float: left !important;
+    margin-bottom: 1rem;
+}
+
+#dataTables_filter {
+    float: right !important;
+    margin-bottom: 1rem;
+}
+
+.property_image_show {
+    width: 100% !important;
+    height: 300px;
+}

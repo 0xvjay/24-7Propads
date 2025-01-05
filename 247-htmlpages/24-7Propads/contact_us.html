@@ -1,0 +1,1763 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Contact Us</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      content="A fully responsive admin theme which can be used to build CRM, CMS,ERP etc."
+      name="description"
+    />
+    <meta content="Techzaa" name="author" />
+
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="assets/images/favicon.png" />
+
+    <!-- Datatables css -->
+    <link
+      href="assets/vendor/datatables.net-bs5/css/dataTables.bootstrap5.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="assets/vendor/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="assets/vendor/datatables.net-fixedcolumns-bs5/css/fixedColumns.bootstrap5.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="assets/vendor/datatables.net-fixedheader-bs5/css/fixedHeader.bootstrap5.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="assets/vendor/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="assets/vendor/datatables.net-select-bs5/css/select.bootstrap5.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <!-- Vector Map css -->
+    <link
+      rel="stylesheet"
+      href="assets/vendor/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css"
+    />
+
+    <!-- Theme Config Js -->
+    <script src="assets/js/config.js"></script>
+
+    <!-- App css -->
+    <link
+      href="assets/css/app.min.css"
+      rel="stylesheet"
+      type="text/css"
+      id="app-style"
+    />
+
+    <!-- Icons css -->
+    <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" href="assets/custom/custom_style.css" />
+  </head>
+
+  <body>
+    <!-- Begin page -->
+    <div class="wrapper">
+      <!-- ========== Topbar Start ========== -->
+      <div class="navbar-custom">
+        <div class="topbar container-fluid">
+          <div class="d-flex align-items-center gap-1">
+            <!-- Topbar Brand Logo -->
+            <div class="logo-topbar">
+              <!-- Logo light -->
+              <a href="index.html" class="logo-light">
+                <span class="logo-lg">
+                  <img src="assets/images/logo.png" alt="logo" />
+                </span>
+                <span class="logo-sm">
+                  <img src="assets/images/logo-sm.png" alt="small logo" />
+                </span>
+              </a>
+
+              <!-- Logo Dark -->
+              <a href="index.html" class="logo-dark">
+                <span class="logo-lg">
+                  <img src="assets/images/logo-dark.png" alt="dark logo" />
+                </span>
+                <span class="logo-sm">
+                  <img src="assets/images/logo-sm.png" alt="small logo" />
+                </span>
+              </a>
+            </div>
+
+            <!-- Sidebar Menu Toggle Button -->
+            <button class="button-toggle-menu">
+              <i class="ri-menu-line"></i>
+            </button>
+
+            <!-- Horizontal Menu Toggle Button -->
+            <button
+              class="navbar-toggle"
+              data-bs-toggle="collapse"
+              data-bs-target="#topnav-menu-content"
+            >
+              <div class="lines">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </button>
+          </div>
+
+          <ul class="topbar-menu d-flex align-items-center gap-3">
+            <li class="d-inline-block">
+              <a
+                href="properties.html"
+                class="btn btn-outline-primary"
+                target="_blank"
+              >
+                <i class="ri-add-line d-block d-sm-none"></i>
+                <span class="d-none d-sm-inline-block">Add Properties</span>
+              </a>
+            </li>
+
+            <li class="d-inline-block">
+              <a
+                href="https://www.propertyvisit.in/"
+                class="btn btn-outline-primary"
+                target="_blank"
+              >
+                <i class="ri-eye-line d-block d-sm-none"></i>
+                <span class="d-none d-sm-inline-block">Visit Website</span>
+              </a>
+            </li>
+
+            <li class="d-inline-block">
+              <div class="nav-link" id="light-dark-mode">
+                <i class="ri-moon-line fs-22"></i>
+              </div>
+            </li>
+
+            <li class="dropdown">
+              <a
+                class="nav-link dropdown-toggle arrow-none nav-user"
+                data-bs-toggle="dropdown"
+                href="#"
+                role="button"
+                aria-haspopup="false"
+                aria-expanded="false"
+              >
+                <span class="account-user-avatar">
+                  <img
+                    src="assets/images/users/avatar-1.jpg"
+                    alt="user-image"
+                    width="32"
+                    class="rounded-circle"
+                  />
+                </span>
+                <span class="d-lg-block d-none">
+                  <h5 class="my-0 fw-normal">
+                    Thomson
+                    <i
+                      class="ri-arrow-down-s-line d-none d-sm-inline-block align-middle"
+                    ></i>
+                  </h5>
+                </span>
+              </a>
+              <div
+                class="dropdown-menu dropdown-menu-end dropdown-menu-animated profile-dropdown"
+              >
+                <!-- item-->
+                <div class="dropdown-header noti-title">
+                  <h6 class="text-overflow m-0">Welcome Thomson!</h6>
+                </div>
+
+                <a href="pages-profile.html" class="dropdown-item">
+                  <i class="ri-account-circle-line fs-18 align-middle me-1"></i>
+                  <span>Profile</span>
+                </a>
+
+                <a href="logout.html" class="dropdown-item">
+                  <i class="ri-logout-box-line fs-18 align-middle me-1"></i>
+                  <span>Logout</span>
+                </a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <!-- ========== Topbar End ========== -->
+
+      <!-- ========== Left Sidebar Start ========== -->
+      <div class="leftside-menu">
+        <!-- Brand Logo Light -->
+        <a href="index.html" class="logo logo-light">
+          <span class="logo-lg">
+            <img src="assets/images/logo.png" alt="logo" />
+          </span>
+          <span class="logo-sm">
+            <img src="assets/images/logo-sm.png" alt="small logo" />
+          </span>
+        </a>
+
+        <!-- Brand Logo Dark -->
+        <a href="index.html" class="logo logo-dark">
+          <span class="logo-lg">
+            <img src="assets/images/logo-dark.png" alt="dark logo" />
+          </span>
+          <span class="logo-sm">
+            <img src="assets/images/logo-sm.png" alt="small logo" />
+          </span>
+        </a>
+
+        <!-- Sidebar -left -->
+        <div class="h-100" id="leftside-menu-container" data-simplebar>
+          <!--- Sidemenu -->
+          <ul class="side-nav">
+            <!-- <li class="side-nav-title">Main</li> -->
+
+            <li class="side-nav-item">
+              <a href="index.html" class="side-nav-link">
+                <i class="ri-dashboard-3-line"></i>
+                <span class="badge bg-success float-end"></span>
+                <span> Dashboard </span>
+              </a>
+            </li>
+
+            <li class="side-nav-item">
+              <a href="type.html" class="side-nav-link">
+                <i class="bi bi-diagram-3"></i>
+                <span class="badge bg-success float-end"></span>
+                <span> Type </span>
+              </a>
+            </li>
+
+            <li class="side-nav-item">
+              <a href="properties.html" class="side-nav-link">
+                <i class="ri-map-pin-line"></i>
+                <span class="badge bg-success float-end"></span>
+                <span> Properties </span>
+              </a>
+            </li>
+
+            <li class="side-nav-item">
+              <a href="users.html" class="side-nav-link">
+                <i class="bi-people"></i>
+                <span class="badge bg-success float-end"></span>
+                <span> Users </span>
+              </a>
+            </li>
+
+            <li class="side-nav-item">
+              <a href="advertisements.html" class="side-nav-link">
+                <i class="bi-badge-ad"></i>
+                <span class="badge bg-success float-end"></span>
+                <span> Advertisements </span>
+              </a>
+            </li>
+
+            <li class="side-nav-item">
+              <a href="disqus_comment.html" class="side-nav-link">
+                <i class="mdi mdi-comment-processing-outline"></i>
+                <span class="badge bg-success float-end"></span>
+                <span> Disqus Comment </span>
+              </a>
+            </li>
+
+            <li class="side-nav-item">
+              <a href="mail_chimp.html" class="side-nav-link">
+                <i class="mdi mdi-earth"></i>
+                <span class="badge bg-success float-end"></span>
+                <span> Mail Chimp </span>
+              </a>
+            </li>
+
+            <li class="side-nav-item">
+              <a href="contact_us.html" class="side-nav-link">
+                <i class="mdi mdi-email-outline"></i>
+                <span class="badge bg-success float-end"></span>
+                <span> Contact Us </span>
+              </a>
+            </li>
+
+            <li class="side-nav-item">
+              <a href="subscription_plan.html" class="side-nav-link">
+                <i class="bi bi-file-earmark-text"></i>
+                <span class="badge bg-success float-end"></span>
+                <span> Subscription Plan </span>
+              </a>
+            </li>
+
+            <li class="side-nav-item">
+              <a href="user_subscription.html" class="side-nav-link">
+                <i class="bi bi-file-earmark-person"></i>
+                <span class="badge bg-success float-end"></span>
+                <span> User Subscription </span>
+              </a>
+            </li>
+
+            <li class="side-nav-item">
+              <a href="faq.html" class="side-nav-link">
+                <i class="ri-dashboard-3-line"></i>
+                <span class="badge bg-success float-end"></span>
+                <span> FAQ </span>
+              </a>
+            </li>
+
+            <li class="side-nav-item">
+              <a href="smtp_settings.html" class="side-nav-link">
+                <i class="mdi mdi-email-fast-outline"></i>
+                <span class="badge bg-success float-end"></span>
+                <span> SMTP Settings </span>
+              </a>
+            </li>
+
+            <li class="side-nav-item">
+              <a href="settings.html" class="side-nav-link">
+                <i class="ri-settings-5-line"></i>
+                <span class="badge bg-success float-end"></span>
+                <span> Settings </span>
+              </a>
+            </li>
+          </ul>
+          <!--- End Sidemenu -->
+
+          <div class="clearfix"></div>
+        </div>
+      </div>
+      <!-- ========== Left Sidebar End ========== -->
+
+      <!-- ============================================================== -->
+      <!-- Start Page Content here -->
+      <!-- ============================================================== -->
+
+      <div class="content-page">
+        <div class="content">
+          <!-- Start Content-->
+          <div class="container-fluid">
+            <div class="row pt-3">
+              <div class="col">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="card-title">
+                      <span class="fs-3 m-0">Manage Contact Us</span>
+                      <hr />
+                    </div>
+                    <div class="card-content">
+                      <ul class="nav nav-pills border-bottom mb-3">
+                        <li class="nav-item">
+                          <a
+                            href="#contact-list"
+                            data-bs-toggle="tab"
+                            aria-expanded="true"
+                            class="nav-link bg-nav-pills rounded-0 active"
+                          >
+                            Contact List
+                          </a>
+                        </li>
+                        <li class="nav-item">
+                          <a
+                            href="#edit-map"
+                            data-bs-toggle="tab"
+                            aria-expanded="false"
+                            class="nav-link bg-nav-pills rounded-0"
+                          >
+                            Edit Map
+                          </a>
+                        </li>
+                      </ul>
+                      <div class="tab-content">
+                        <div class="tab-pane show active" id="contact-list">
+                          <div class="responsive-table-plugin">
+                            <div class="table-rep-plugin">
+                              <div
+                                class="table-responsive"
+                                data-pattern="priority-columns"
+                              >
+                                <table
+                                  id="contact-us-table"
+                                  class="table table-striped w-100"
+                                >
+                                  <thead>
+                                    <tr>
+                                      <th>Name</th>
+                                      <th>Email</th>
+                                      <th>PhoneNo</th>
+                                      <th>Message</th>
+                                      <th>Action</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr>
+                                      <td>Michael Slemp</td>
+                                      <td>slemp.gino@gmail.com</td>
+                                      <td>(07) 4599 9126</td>
+                                      <td>
+                                        Development Outsourcing Agency —
+                                        Development Outsourcing... Leading
+                                        Outsource Development Company. Trusted
+                                        for 10+ years. Our top devs join your
+                                        team. Let's talk about the our
+                                        Advantage! Leading Outsource Development
+                                        Company for 10+ years. Prices for a
+                                        simple website starts @ $80. Ecommerce
+                                        sites $300. Hourly Rate of $7. Contact
+                                        us now.
+                                        https://outsource-bpo.com/website/ Also,
+                                        Introducing Turbo Charged, Super
+                                        Powerful Backlinks for your website's
+                                        SEO. Building Quality Links is tough.
+                                        Let The Experts Do It Right For Your
+                                        Target Market. We Provide Backlink
+                                        Services that Offer the Strongest, But
+                                        Affordable Links. Read carefully here -
+                                        https://alwaysdigital.co/lgt and See
+                                        your SEO rankings Sky Rocket
+                                      </td>
+                                      <td>
+                                        <a
+                                          href="javascript:void(0)"
+                                          data-id="213"
+                                          class="btn btn-danger btn_delete"
+                                          data-toggle="tooltip"
+                                          data-tooltip="Delete"
+                                          ><i class="ri-delete-bin-line"></i
+                                        ></a>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>James Midgette</td>
+                                      <td>midgette.robby@googlemail.com</td>
+                                      <td>66 446 10 66</td>
+                                      <td>
+                                        If you hire a wordpress developer in
+                                        your country, they will charge you in
+                                        two ways 1. Project basis 2. Hourly
+                                        Basis Project basis - the minimum rate
+                                        for a ecommerce website starts $1000,
+                                        But if you hire us, You can save more
+                                        than 65% Hourly basis - The minimum rate
+                                        for an experienced Wordpress developer
+                                        is $15, But you can hire us at $6/ hour
+                                        I can send the resume/ CV of my
+                                        developer and the samples of the work
+                                        done. More details:
+                                        https://wpexpertspro.co/website/ We also
+                                        do Best Monthly SEO Services. Individual
+                                        SEO strategies, tailored from the
+                                        scratch. Generate more leads, sales
+                                        &amp; revenue. We help companies rank
+                                        page #1 and reach their true potential
+                                        online. We’ll show you exactly what
+                                        we’ll do, how much it’ll cost, and how
+                                        we’re going to crush your competitors.
+                                        Talk Customized SEO Strategy with Our
+                                        Team Today. -
+                                        https://digitalpromax.co/la/
+                                      </td>
+                                      <td>
+                                        <a
+                                          href="javascript:void(0)"
+                                          data-id="212"
+                                          class="btn btn-danger btn_delete"
+                                          data-toggle="tooltip"
+                                          data-tooltip="Delete"
+                                          ><i class="ri-delete-bin-line"></i
+                                        ></a>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>Susan Karsh</td>
+                                      <td>northfield.leticia@yahoo.com</td>
+                                      <td>(07) 3267 3453</td>
+                                      <td>
+                                        Just checked out your site. Are you guys
+                                        already using AI in your business? Would
+                                        you be open to getting a FREE 7-Day
+                                        trial of our AI Agents, like ChatGPT,
+                                        but much better? In fact, we have close
+                                        to 10,000 AI agents skilled in hundreds
+                                        of industries, just pic the agents you
+                                        want and create an AI team in minutes.
+                                        As Soon As You Sign Up, Our AI Agents
+                                        Can: • Assist your team with tasks,
+                                        projects and research, which will
+                                        increase productivity. • Crush to-do
+                                        list by writing - ads, code, emails,
+                                        content, sales copy, contracts &amp;
+                                        more. • Give you time to focus on
+                                        important things instead of handling
+                                        mundane tasks. • Save you time, save you
+                                        money and make your team much more
+                                        effective. • Make sales calls, take
+                                        inbound calls and book appointments
+                                        (available 02/15/24) ... and much, MUCH
+                                        more! Watch our video here and see how
+                                        we can help: https://bit.ly/myaa-trial
+                                        Our clients are saving 20%- 30% on
+                                        operational costs each month by using
+                                        our AI Agents to handle hundreds of
+                                        tasks. Claim your FREE Trial Of our AI
+                                        Agents Now, before this offer ends. Get
+                                        started here: https://bit.ly/myaa-trial
+                                        Best, Susan Karsh
+                                      </td>
+                                      <td>
+                                        <a
+                                          href="javascript:void(0)"
+                                          data-id="211"
+                                          class="btn btn-danger btn_delete"
+                                          data-toggle="tooltip"
+                                          data-tooltip="Delete"
+                                          ><i class="ri-delete-bin-line"></i
+                                        ></a>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>James Walter</td>
+                                      <td>jamewalt01@gmail.com</td>
+                                      <td>89886829682</td>
+                                      <td>
+                                        I hope this mail finds you well. May I
+                                        use this opportunity to present my
+                                        proposal for a mutual private business
+                                        of USD 147 Million. I am James Walter
+                                        the Funds Manager. I hold a mandate from
+                                        a Russian Client who wants his funds
+                                        reinvested using 3rd party due to the
+                                        current sanctions, which means all
+                                        aspect of the transaction will remain
+                                        confidential, you will be paid 25% or
+                                        you can buy shares into the new
+                                        investment, we can also invest in your
+                                        company if it’s for expansion only, we
+                                        believe you are trusted and capable
+                                        that’s why we have contacted you. Please
+                                        note that there is no risk involved as
+                                        funds are legal and currently in an
+                                        European Bank, all details will be
+                                        available as soon as you indicate
+                                        interest by contacting me via the email
+                                        or phone number bellow to discuss this
+                                        opportunity in more detail. Sincerely,
+                                        Mr. James Walter
+                                        Email:jameswalterxyz1@gmail.com TEL: +44
+                                        7706 280570
+                                      </td>
+                                      <td>
+                                        <a
+                                          href="javascript:void(0)"
+                                          data-id="210"
+                                          class="btn btn-danger btn_delete"
+                                          data-toggle="tooltip"
+                                          data-tooltip="Delete"
+                                          ><i class="ri-delete-bin-line"></i
+                                        ></a>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>Callum Cason</td>
+                                      <td>callum.cason19@msn.com</td>
+                                      <td>(61) 7628-2018</td>
+                                      <td>
+                                        You received this message and I can send
+                                        your ad message to millions of sites the
+                                        same way. It's a cheap and effective way
+                                        to get your message out there.If you are
+                                        interested, you can reach me via email
+                                        or skype below. P. Stewart Email:
+                                        h2lktg@gomail2.xyz Skype:
+                                        live:.cid.37ffc6c14225a4a8
+                                      </td>
+                                      <td>
+                                        <a
+                                          href="javascript:void(0)"
+                                          data-id="209"
+                                          class="btn btn-danger btn_delete"
+                                          data-toggle="tooltip"
+                                          data-tooltip="Delete"
+                                          ><i class="ri-delete-bin-line"></i
+                                        ></a>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>Micky Follett</td>
+                                      <td>shawn.follett@yahoo.com</td>
+                                      <td>53 882 81 26</td>
+                                      <td>
+                                        Nobody Beats Our Pricing And Quality. #1
+                                        Rated Backlink Building SEO Agency. Get
+                                        Started. 1,500+ SEO's Use Our Backlink
+                                        Service Every Month To Power Their SEO
+                                        Campaign. Our backlink service is used
+                                        and trusted by 1,500+ digital marketing
+                                        agencies to power their clients SEO.
+                                        Whether you're a business owner or an
+                                        agency, we can help propel your SEO.
+                                        Check out for the Best SEO LINK BUILDING
+                                        Packages: https://alwaysdigital.co/lgt/
+                                      </td>
+                                      <td>
+                                        <a
+                                          href="javascript:void(0)"
+                                          data-id="208"
+                                          class="btn btn-danger btn_delete"
+                                          data-toggle="tooltip"
+                                          data-tooltip="Delete"
+                                          ><i class="ri-delete-bin-line"></i
+                                        ></a>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>Chloe Smith</td>
+                                      <td>beardsmore.filomena@gmail.com</td>
+                                      <td>466 2047</td>
+                                      <td>
+                                        Hey there, I wanted to reach out and let
+                                        you know about our new service called
+                                        Myaa Dialogue Agents, the latest
+                                        breakthrough in artificial intelligence
+                                        technology. Our Myaa Dialogue Agents
+                                        have been engineered to handle a wide
+                                        range of tasks, from making outbound
+                                        telephone calls and taking inbound calls
+                                        to booking appointments and providing
+                                        top-notch customer service. The best
+                                        part is, they possess all the
+                                        capabilities of a skilled telemarketer,
+                                        and more! These agents can seamlessly
+                                        communicate with your customers without
+                                        them even realizing they are speaking to
+                                        an AI. It's truly mind-blowing! To give
+                                        you a taste of the extraordinary
+                                        capabilities of Myaa Dialogue Agents, we
+                                        are currently offering a free 30-day
+                                        trial. However, please note that this
+                                        offer is only valid until February 15th,
+                                        so time is of the essence! To learn more
+                                        about our AI Agents click here:
+                                        https://bit.ly/myaa-voice-promo Just
+                                        imagine the possibilities. Our Myaa
+                                        Dialogue Agents are already helping
+                                        businesses like yours, resulting in
+                                        significant savings of thousands of
+                                        dollars on overhead costs. In fact, the
+                                        demand for Myaa Dialogue Agents has been
+                                        so overwhelming that we had to triple
+                                        our staff just to keep up! However, due
+                                        to the custom programming required for
+                                        each agent, we can currently only
+                                        produce around 20 per week. Remember,
+                                        our free 30-day trial won't last
+                                        forever. Get started now:
+                                        https://bit.ly/myaa-voice-promo To your
+                                        future success, Chloe Smith
+                                      </td>
+                                      <td>
+                                        <a
+                                          href="javascript:void(0)"
+                                          data-id="207"
+                                          class="btn btn-danger btn_delete"
+                                          data-toggle="tooltip"
+                                          data-tooltip="Delete"
+                                          ><i class="ri-delete-bin-line"></i
+                                        ></a>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>Jacob Chappel</td>
+                                      <td>chappel.leandro@googlemail.com</td>
+                                      <td>055 360 24 28</td>
+                                      <td>
+                                        Professional Web Designers - For Hire
+                                        Need a Website Built For Your Business?
+                                        Get an Experienced Dedicated Designer
+                                        From Us. Our website development
+                                        services can create your dream website.
+                                        We design engaging and user-friendly
+                                        websites that improve the customer
+                                        experience, we work with you to
+                                        understand your business goals and
+                                        preferences. From simple blogs to
+                                        complex e-commerce platforms, we are
+                                        dedicated to delivering high-quality
+                                        solutions that exceed your expectations.
+                                        Let us bring your vision to life and
+                                        enhance your online presence. Talk To
+                                        Our Software Experts Today Chat With A
+                                        Live Representative
+                                        https://outsource-bpo.com/website/
+                                      </td>
+                                      <td>
+                                        <a
+                                          href="javascript:void(0)"
+                                          data-id="206"
+                                          class="btn btn-danger btn_delete"
+                                          data-toggle="tooltip"
+                                          data-tooltip="Delete"
+                                          ><i class="ri-delete-bin-line"></i
+                                        ></a>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>Benito Dodge</td>
+                                      <td>dodge.benito@googlemail.com</td>
+                                      <td>09431 50 93 28</td>
+                                      <td>
+                                        Here is everything to know about Theresa
+                                        Luboya, a loving mom, wife and grandma.
+                                        She is currently seeking aid while
+                                        battling for her life every single day.
+                                        Yes, we need help to save a life, the
+                                        family dry out of the money, no
+                                        insurance and the bills piling up. We
+                                        urgently reach out to you with a plea
+                                        that carries the weight of a young life
+                                        in need of your collective support.
+                                        Theresa Luboya, a vibrant soul battling
+                                        congenital heart failure, a condition
+                                        stemming from a defective heart that has
+                                        placed her in the midst of a
+                                        life-altering struggle. All donations go
+                                        directly to making a difference for a
+                                        cause. If you have the means, please do
+                                        contribute, otherwise, your prayers can
+                                        also do wonders. Please help save life
+                                        by donating as much as you can to this
+                                        link:
+                                        https://www.gofundme.com/f/help-save-rosies-heart-a-lifesaving-journey?utm_campaign=p_cp+share-sheet&amp;utm_medium=copy_link_all&amp;utm_source=customer
+                                        Regards, Jaime.
+                                      </td>
+                                      <td>
+                                        <a
+                                          href="javascript:void(0)"
+                                          data-id="205"
+                                          class="btn btn-danger btn_delete"
+                                          data-toggle="tooltip"
+                                          data-tooltip="Delete"
+                                          ><i class="ri-delete-bin-line"></i
+                                        ></a>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>Mikki Beverly</td>
+                                      <td>beverly.mikki@hotmail.com</td>
+                                      <td>026 958 83 30</td>
+                                      <td>
+                                        Here is everything to know about Theresa
+                                        Luboya, a loving mom, wife and grandma.
+                                        She is currently seeking aid while
+                                        battling for her life every single day.
+                                        Yes, we need help to save a life, the
+                                        family dry out of the money, no
+                                        insurance and the bills piling up. We
+                                        urgently reach out to you with a plea
+                                        that carries the weight of a young life
+                                        in need of your collective support.
+                                        Theresa Luboya, a vibrant soul battling
+                                        congenital heart failure, a condition
+                                        stemming from a defective heart that has
+                                        placed her in the midst of a
+                                        life-altering struggle. All donations go
+                                        directly to making a difference for a
+                                        cause. If you have the means, please do
+                                        contribute, otherwise, your prayers can
+                                        also do wonders. Please help save life
+                                        by donating as much as you can to this
+                                        link:
+                                        https://www.gofundme.com/f/help-save-rosies-heart-a-lifesaving-journey?utm_campaign=p_cp+share-sheet&amp;utm_medium=copy_link_all&amp;utm_source=customer
+                                        Regards, Jaime.
+                                      </td>
+                                      <td>
+                                        <a
+                                          href="javascript:void(0)"
+                                          data-id="204"
+                                          class="btn btn-danger btn_delete"
+                                          data-toggle="tooltip"
+                                          data-tooltip="Delete"
+                                          ><i class="ri-delete-bin-line"></i
+                                        ></a>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>Charlotte Chapman</td>
+                                      <td>charlottechapman035@gmail.com</td>
+                                      <td>052 428 15 25</td>
+                                      <td>
+                                        Hi, We run an email marketing service
+                                        with an audience of over 50 million
+                                        people and businesses. We can promote
+                                        your product or service, as well as your
+                                        blog posts, articles, events, videos,
+                                        your brand, and we can also generate
+                                        leads for you. Is this something that
+                                        you would be interested in? If you have
+                                        no interest, click here and we won't
+                                        bother you again:
+                                        https://removeme.click/em/unsubscribe.php?d=propertyvisit.in
+                                        Kind Regards, Charlotte
+                                      </td>
+                                      <td>
+                                        <a
+                                          href="javascript:void(0)"
+                                          data-id="203"
+                                          class="btn btn-danger btn_delete"
+                                          data-toggle="tooltip"
+                                          data-tooltip="Delete"
+                                          ><i class="ri-delete-bin-line"></i
+                                        ></a>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>Sam Ibrahim</td>
+                                      <td>aramco@mbox.re</td>
+                                      <td>87653317925</td>
+                                      <td>
+                                        Hello, We extend warm greetings to your
+                                        esteemed company and formally invite you
+                                        to register as a vendor for potential
+                                        partnerships in upcoming projects with
+                                        SAUDI ARAMCO/UAE in 2024/2025. These
+                                        projects offer a global opportunity,
+                                        welcoming participation from companies
+                                        worldwide. Should your company express
+                                        interest in this endeavor, we kindly
+                                        request confirmation by contacting
+                                        ibrahim@aramcointernational.net of
+                                        intent by requesting the necessary
+                                        documents. Your interest is highly
+                                        valued, and we eagerly await your prompt
+                                        response. Best Regards, Mr. Sam Ibrahim
+                                        ibrahim@aramcointernational.net
+                                        http://www.aramcointernational.net/
+                                        Contract &amp; Supplier Services
+                                        Management
+                                      </td>
+                                      <td>
+                                        <a
+                                          href="javascript:void(0)"
+                                          data-id="202"
+                                          class="btn btn-danger btn_delete"
+                                          data-toggle="tooltip"
+                                          data-tooltip="Delete"
+                                          ><i class="ri-delete-bin-line"></i
+                                        ></a>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>Ruthie Dullo</td>
+                                      <td>ruthie.dullo@hotmail.com</td>
+                                      <td>Ohrejhs zog</td>
+                                      <td>
+                                        Earn up to $60,000 USD as a 4U2 Inc.
+                                        Independent Contractor Agent! We're
+                                        seeking individuals worldwide with
+                                        computer access, fluent English
+                                        communication skills, and a desire to
+                                        save time and money for suppliers,
+                                        buyers, and salespersons in our
+                                        E-Commerce Marketplace. Join our mission
+                                        to "Save Suppliers, Buyers, and
+                                        Salespersons Time, Money, and make
+                                        Money!" Contact us at
+                                        4u2inc123@gmail.com for more info..
+                                      </td>
+                                      <td>
+                                        <a
+                                          href="javascript:void(0)"
+                                          data-id="201"
+                                          class="btn btn-danger btn_delete"
+                                          data-toggle="tooltip"
+                                          data-tooltip="Delete"
+                                          ><i class="ri-delete-bin-line"></i
+                                        ></a>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>Theresa Smith</td>
+                                      <td>seabolt.eloy@yahoo.com</td>
+                                      <td>0301-2949762</td>
+                                      <td>
+                                        Hello, Do you sometimes find yourself in
+                                        a tug of war between work and fitness?
+                                        We have the perfect solution for you -
+                                        Elebands! Elebands offers ultra-thin,
+                                        fashionable all day wearable body weight
+                                        bands that seamlessly integrate into
+                                        your daily routine. Burn up to 1,500
+                                        calories a day by simply wearing our
+                                        bands on your wrist, ankle, and waist
+                                        while you go about your normal day. The
+                                        best part is we have full body weight
+                                        sets ranging from 3lbs – 30lbs to ensure
+                                        optimal results no matter what your
+                                        fitness goals are. Plus! We have bands
+                                        for sports, casual, and formal occasions
+                                        that you can wear with any outfit,
+                                        ensuring you stay stylish while
+                                        achieving your fitness goals. With
+                                        Elebands, you no longer have to choose
+                                        between work and exercise. Our body
+                                        weight bands enable you to lose weight
+                                        and get fit regardless of your location
+                                        or activity. Enjoy these instant
+                                        benefits: 1. Burn Calories: Effortlessly
+                                        burn up to 1,500 calories daily, toning
+                                        your body as you go about your day. 2.
+                                        Natural Weight Loss: Say goodbye to
+                                        intense workouts and stressful diets.
+                                        Elebands helps you lose weight
+                                        naturally. 3. Build Strength: Develop
+                                        lean muscles and enhance your strength
+                                        as you carry out your regular
+                                        activities. Imagine achieving your dream
+                                        body without stepping foot in a gym or
+                                        following a strict diet plan. With
+                                        Elebands, it's possible. Many of our
+                                        clients are losing 2-3 pounds per week
+                                        while experiencing significant health
+                                        improvements. To help you get started
+                                        for the NEW YEAR, use coupon code
+                                        SAVE-20%-TODAY for a 20% discount. Visit
+                                        our website now at
+                                        https://bit.ly/elebands-special and
+                                        embrace the Elebands experience. Let
+                                        Elebands be your partner in achieving a
+                                        fit and healthy lifestyle. Start your
+                                        transformation today! Warm regards,
+                                        Theresa Smith Brand Ambassador Elebands
+                                        USA Visit our website NOW!
+                                        https://bit.ly/elebands-special
+                                      </td>
+                                      <td>
+                                        <a
+                                          href="javascript:void(0)"
+                                          data-id="200"
+                                          class="btn btn-danger btn_delete"
+                                          data-toggle="tooltip"
+                                          data-tooltip="Delete"
+                                          ><i class="ri-delete-bin-line"></i
+                                        ></a>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>Michael Sinclair</td>
+                                      <td>nichole.edgley@gmail.com</td>
+                                      <td>07651 11 93 92</td>
+                                      <td>
+                                        Hello, I checked out your business today
+                                        and wanted to know if you would be open
+                                        to the opportunity to reach out to a
+                                        staggering 1.25 million potential
+                                        clients on a weekly basis through our
+                                        highly effective email marketing
+                                        campaign that can start getting you
+                                        leads in just a few days? And the best
+                                        part? It's available to you at an
+                                        incredibly affordable rate of just $240
+                                        per week! Plus, as a bonus, we provide
+                                        the B2B prospect list so you can
+                                        effortlessly expand your reach weekly
+                                        and generate consistent leads and sales.
+                                        I’m with HiveMailers, we use a robust
+                                        email system to get clients daily leads
+                                        and/or sales 24/7. WE DO ALL THE WORK: -
+                                        We create the content for the email(s).
+                                        - We provide the email list (contacts).
+                                        - We forward leads to you daily. - We
+                                        manage your email campaigns 24/7. WHO
+                                        THIS IS FOR: - Companies who sell to
+                                        businesses (B2B). - Companies who
+                                        provide a product/service with wide
+                                        appeal (not a small niche). - Companies
+                                        whose product/service can be sold across
+                                        the USA and/or international. Just
+                                        imagine, getting hot leads within days
+                                        of getting started with us. You might be
+                                        wondering if our system works, well if
+                                        you are reading this message, it works.
+                                        Get started now!!! For just $240 a week,
+                                        we’ll send 1.25-Million emails weekly
+                                        and start filling your inbox with
+                                        qualified leads. Book a 10 min call with
+                                        us:
+                                        https://bit.ly/hivemailer-240-special
+                                        NOTE: To buy an email list and hire an
+                                        email manager to run your campaign (like
+                                        our system) would cost around $3,500 a
+                                        month, but with us, you pay just $240 a
+                                        week. So, you save over $2,000 a month.
+                                        Sincerely, Michael P.S. This offer is
+                                        good for the first 20 clients, don’t
+                                        miss out. Book appointment now and start
+                                        getting leads within a few days:
+                                        https://bit.ly/hivemailer-240-special
+                                      </td>
+                                      <td>
+                                        <a
+                                          href="javascript:void(0)"
+                                          data-id="199"
+                                          class="btn btn-danger btn_delete"
+                                          data-toggle="tooltip"
+                                          data-tooltip="Delete"
+                                          ><i class="ri-delete-bin-line"></i
+                                        ></a>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>Dyan Barth</td>
+                                      <td>barth.dyan@gmail.com</td>
+                                      <td>06-40630417</td>
+                                      <td>
+                                        You're reading this message and I can
+                                        make millions of people read your
+                                        message the exact same way!. You can
+                                        reach a million sites for just under
+                                        $100 Hit me up via email or skype for
+                                        details. Phil Stewart Skype:
+                                        live:.cid.e169e59bb6e6d159 Email: ps2162
+                                        Jh@gomail2.xyz
+                                      </td>
+                                      <td>
+                                        <a
+                                          href="javascript:void(0)"
+                                          data-id="198"
+                                          class="btn btn-danger btn_delete"
+                                          data-toggle="tooltip"
+                                          data-tooltip="Delete"
+                                          ><i class="ri-delete-bin-line"></i
+                                        ></a>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>Sam Blyth</td>
+                                      <td>shasta.blyth@hotmail.com</td>
+                                      <td>3141786539</td>
+                                      <td>
+                                        Affordable Website Design with High
+                                        Quality. Receive a complimentary quote
+                                        for Free Web Designing, including a
+                                        5-page website with Free Flash, Contact
+                                        Forms, and a basic Logo, all backed by
+                                        our satisfaction guarantee. Enjoy
+                                        UNLIMITED revisions for the prototype,
+                                        Free basic SEO, and adherence to W3C
+                                        standards. Our Corporate, Business, and
+                                        Informational website package is priced
+                                        at $80 and will be completed within 4
+                                        days. Trust us to create your online
+                                        store, with packages starting at $150.
+                                        Benefit from our development center in
+                                        Bangalore, offering the highest
+                                        expertise at the lowest cost. Contact us
+                                        NOW for more information.
+                                        https://outsource-bpo.com/website/ We
+                                        also do Monthly SEO Services at
+                                        https://digitalpromax.co/la/
+                                      </td>
+                                      <td>
+                                        <a
+                                          href="javascript:void(0)"
+                                          data-id="197"
+                                          class="btn btn-danger btn_delete"
+                                          data-toggle="tooltip"
+                                          data-tooltip="Delete"
+                                          ><i class="ri-delete-bin-line"></i
+                                        ></a>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>Samuel Maples</td>
+                                      <td>gayle.maples@gmail.com</td>
+                                      <td>9034169269</td>
+                                      <td>
+                                        Affordable Website Design with High
+                                        Quality. Receive a complimentary quote
+                                        for Free Web Designing, including a
+                                        5-page website with Free Flash, Contact
+                                        Forms, and a basic Logo, all backed by
+                                        our satisfaction guarantee. Enjoy
+                                        UNLIMITED revisions for the prototype,
+                                        Free basic SEO, and adherence to W3C
+                                        standards. Our Corporate, Business, and
+                                        Informational website package is priced
+                                        at $80 and will be completed within 4
+                                        days. Trust us to create your online
+                                        store, with packages starting at $150.
+                                        Benefit from our development center in
+                                        Bangalore, offering the highest
+                                        expertise at the lowest cost. Contact us
+                                        NOW for more information.
+                                        https://outsource-bpo.com/website/ We
+                                        also do Monthly SEO Services at
+                                        https://digitalpromax.co/la/
+                                      </td>
+                                      <td>
+                                        <a
+                                          href="javascript:void(0)"
+                                          data-id="196"
+                                          class="btn btn-danger btn_delete"
+                                          data-toggle="tooltip"
+                                          data-tooltip="Delete"
+                                          ><i class="ri-delete-bin-line"></i
+                                        ></a>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>Jennifer Cooper</td>
+                                      <td>uhr.jerold74@hotmail.com</td>
+                                      <td>06-66245854</td>
+                                      <td>
+                                        Hey there, Was looking at your site
+                                        today and I thought this would probably
+                                        interest you. Are you tired of managing
+                                        staff who lack the expertise to handle
+                                        complex tasks? Feeling overwhelmed by
+                                        the thought of diving into AI? Look no
+                                        further! We have the game-changing
+                                        solution you've been waiting for: Myaa's
+                                        Remote Live Agents, expertly trained in
+                                        AI. Imagine having the best of both
+                                        worlds - a remote live personal
+                                        assistant who is also an expert at
+                                        leveraging the power of thousands of
+                                        Chat AI Agents. With Myaa, that's
+                                        exactly what you get. Our Live Agents
+                                        are trained to perfection in writing
+                                        excellent prompts and harnessing the
+                                        capabilities of our AI Agents. But
+                                        here's the exciting part: we are
+                                        offering a one-week free trial for you
+                                        to experience the transformative
+                                        capabilities of our agents firsthand. No
+                                        obligations, no strings attached. Just
+                                        an opportunity to see how our Remote
+                                        Live Agents, the experts in leveraging
+                                        AI technology, can revolutionize the way
+                                        you manage your business. But this offer
+                                        is only good this week, for the first 20
+                                        clients, so you need to claim your
+                                        Remote Live Agent Now, before you miss
+                                        out. Schedule a call with us by clicking
+                                        the link below and secure your one-week
+                                        free trial:
+                                        https://bit.ly/myaa-live-agent With our
+                                        Remote Live Agents equipped with AI, you
+                                        can: • Delegate a variety of tasks and
+                                        projects, boosting your productivity. •
+                                        Ensure daily progress by leveraging
+                                        internal and external resources through
+                                        our agents. • Reclaim your time to focus
+                                        on business growth rather than
+                                        administrative tasks. And that's not
+                                        all! This FREE Remote Live Agent offer
+                                        is valued at over $400, and you are
+                                        getting it for ABSOLUTELY FREE. Don't
+                                        miss out on this incredible opportunity!
+                                        Click the link below to schedule a call
+                                        and claim your one-week free trial:
+                                        https://bit.ly/myaa-live-agent If you
+                                        have any questions or need further
+                                        information, please don't hesitate to
+                                        reach out. We are here to assist you
+                                        every step of the way. Cheers, Jennifer
+                                        Cooper P.S. Act fast! This exclusive
+                                        offer is only available for a limited
+                                        time and to a select few. Don't miss
+                                        your chance to experience the power of
+                                        our Remote Live Agents trained in AI.
+                                        Schedule your call today!
+                                      </td>
+                                      <td>
+                                        <a
+                                          href="javascript:void(0)"
+                                          data-id="195"
+                                          class="btn btn-danger btn_delete"
+                                          data-toggle="tooltip"
+                                          data-tooltip="Delete"
+                                          ><i class="ri-delete-bin-line"></i
+                                        ></a>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>Abi</td>
+                                      <td>contentwriting011994@outlook.com</td>
+                                      <td>01.26.76.93.15</td>
+                                      <td>
+                                        Hello, I'm Abi, an English SEO
+                                        copywriter and content writer. I excel
+                                        in crafting blogs, articles, e-commerce
+                                        product descriptions, SEO content,
+                                        website content, business service
+                                        descriptions, newsletter content,
+                                        brochures, proofreading, social media
+                                        captions, LinkedIn content, and SOPs. My
+                                        rate is USD 20 for every 1000 words of
+                                        content. If you don't have time to plan
+                                        out your content, we can help you with
+                                        that. Feel free to email me at
+                                        Contentwriting011994@outlook.com with
+                                        any current requirements. Thanks, Abi
+                                      </td>
+                                      <td>
+                                        <a
+                                          href="javascript:void(0)"
+                                          data-id="194"
+                                          class="btn btn-danger btn_delete"
+                                          data-toggle="tooltip"
+                                          data-tooltip="Delete"
+                                          ><i class="ri-delete-bin-line"></i
+                                        ></a>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>Kassandra Taft</td>
+                                      <td>kassandra.taft@outlook.com</td>
+                                      <td>06243 11 04 54</td>
+                                      <td>
+                                        Your ad message sent to contact forms on
+                                        millions of sites. It's not as expensive
+                                        as you think. Contact me at my email or
+                                        skype below for details. Phil Stewart
+                                        Skype: live:.cid.e169e59bb6e6d159 Email:
+                                        ps67592@gomail2.xyz
+                                      </td>
+                                      <td>
+                                        <a
+                                          href="javascript:void(0)"
+                                          data-id="193"
+                                          class="btn btn-danger btn_delete"
+                                          data-toggle="tooltip"
+                                          data-tooltip="Delete"
+                                          ><i class="ri-delete-bin-line"></i
+                                        ></a>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>Jillian Hollis</td>
+                                      <td>jillian.hollis@msn.com</td>
+                                      <td>(11) 4643-3500</td>
+                                      <td>
+                                        Whats up!? I immediately thought of you
+                                        guys at propertyvisit.in when I got
+                                        this. Let me know what you think This
+                                        site on boosting website traffic has
+                                        been a lifesaver. It's full of
+                                        practical, effective strategies. check
+                                        out their techniques for web traffic
+                                        growth:
+                                        https://www.socialsurge.ai/recommends/boost-website-traffic/
+                                      </td>
+                                      <td>
+                                        <a
+                                          href="javascript:void(0)"
+                                          data-id="192"
+                                          class="btn btn-danger btn_delete"
+                                          data-toggle="tooltip"
+                                          data-tooltip="Delete"
+                                          ><i class="ri-delete-bin-line"></i
+                                        ></a>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>Jimmy Wise</td>
+                                      <td>erik.wise@hotmail.com</td>
+                                      <td>6909814483</td>
+                                      <td>
+                                        Why choose Our ongoing monthly SEO
+                                        services? SEO is a great addition to
+                                        your digital marketing plan if you want
+                                        to help your business reach more
+                                        valuable traffic and earn new leads. By
+                                        investing in monthly SEO services,
+                                        you’ll continue to optimize your site
+                                        and earn new traffic. At our company, we
+                                        have more than 16 years of experience
+                                        creating SEO plans that drive results.
+                                        We have a team of 50+ experts that will
+                                        bring their knowledge and expertise to
+                                        your campaign. Our team will help you
+                                        create an SEO plan that works for your
+                                        business. If you’re looking for an SEO
+                                        company that drives results, look no
+                                        further than us. To date, we’ve driven
+                                        over 3x in sales and over 2x leads for
+                                        our clients. We focus on driving
+                                        successful campaigns for our clients
+                                        first. Know more about us at
+                                        https://digitalpromax.co/lb/ Also if you
+                                        have Web development needs, Hire our Web
+                                        developer at
+                                        https://outsource-bpo.com/website/
+                                      </td>
+                                      <td>
+                                        <a
+                                          href="javascript:void(0)"
+                                          data-id="191"
+                                          class="btn btn-danger btn_delete"
+                                          data-toggle="tooltip"
+                                          data-tooltip="Delete"
+                                          ><i class="ri-delete-bin-line"></i
+                                        ></a>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>Kristy Hardy</td>
+                                      <td>kristy.hardy56@msn.com</td>
+                                      <td>Ycou Gwffkvu</td>
+                                      <td>
+                                        Do you need targeted Customers emails
+                                        and phone numbers , so I am here to help
+                                        you check out my Fiverr 5 stares profile
+                                        serving over 880 happy customers contact
+                                        me here and tell me what you need =====
+                                        &gt; https://tinyurl.com/3ckxfu2c See
+                                        you there Regards Awals
+                                      </td>
+                                      <td>
+                                        <a
+                                          href="javascript:void(0)"
+                                          data-id="190"
+                                          class="btn btn-danger btn_delete"
+                                          data-toggle="tooltip"
+                                          data-tooltip="Delete"
+                                          ><i class="ri-delete-bin-line"></i
+                                        ></a>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>Sammy Mann</td>
+                                      <td>mann.raleigh@googlemail.com</td>
+                                      <td>3920572192</td>
+                                      <td>
+                                        We're an expert link building agency
+                                        that offers services to build incredible
+                                        backlinks to your website. Trusted by
+                                        SEO professionals Worldwide. Our
+                                        affordable SEO link building packages
+                                        prices for your online business. Choose
+                                        the best Link building service packages
+                                        that suits your website's needs. Click
+                                        here for more options:
+                                        https://alwaysdigital.co/ls/ PS: Need
+                                        Wordpress website? Hire Our Wordpress
+                                        Developer at
+                                        https://wpexpertspro.co/website/
+                                      </td>
+                                      <td>
+                                        <a
+                                          href="javascript:void(0)"
+                                          data-id="189"
+                                          class="btn btn-danger btn_delete"
+                                          data-toggle="tooltip"
+                                          data-tooltip="Delete"
+                                          ><i class="ri-delete-bin-line"></i
+                                        ></a>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>Leah Wester</td>
+                                      <td>leah.wester19@gmail.com</td>
+                                      <td>0353 4487855</td>
+                                      <td>
+                                        I now offer contact form blasting
+                                        service. With my DFY service you can
+                                        either do a targeted blast to only
+                                        websites that match your criteria or
+                                        bulk blast large volumes of sites
+                                        worldwide. Prices start at just $50 to
+                                        reach 500,000 bulk sites. Contact me at
+                                        my email or skype below for details. P.
+                                        Stewart Skype:
+                                        live:.cid.e169e59bb6e6d159 Email:
+                                        ps41014@gomail2.xyz
+                                      </td>
+                                      <td>
+                                        <a
+                                          href="javascript:void(0)"
+                                          data-id="188"
+                                          class="btn btn-danger btn_delete"
+                                          data-toggle="tooltip"
+                                          data-tooltip="Delete"
+                                          ><i class="ri-delete-bin-line"></i
+                                        ></a>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>Monte Broadhurst</td>
+                                      <td>broadhurst.monte@gmail.com</td>
+                                      <td>0487 27 12 74</td>
+                                      <td>
+                                        With keyword targeted PPV ads I can get
+                                        you qualified website visitors for less
+                                        than a penny per click. This method
+                                        works for both local and online
+                                        businesses. Very easy to get started.
+                                        Just sign up, give me your website and
+                                        I'll provide the traffic. For details,
+                                        shoot me an email or Skype me at my
+                                        contact info below. P. Stewart Skype:
+                                        live:.cid.ad0ee8f191cd36b4 Email:
+                                        ps7040@gomail2.xyz
+                                      </td>
+                                      <td>
+                                        <a
+                                          href="javascript:void(0)"
+                                          data-id="187"
+                                          class="btn btn-danger btn_delete"
+                                          data-toggle="tooltip"
+                                          data-tooltip="Delete"
+                                          ><i class="ri-delete-bin-line"></i
+                                        ></a>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>Maham McCarron</td>
+                                      <td>mccarron.alecia30@outlook.com</td>
+                                      <td>(08) 8901 2639</td>
+                                      <td>
+                                        The Instagram social media platform has
+                                        seen explosive growth over the last two
+                                        years. It now has 500 million users that
+                                        are desperate for fun and exciting
+                                        content and this is a massive
+                                        opportunity for you to promote your
+                                        business. I can help you to grow and
+                                        promote your Instagram account
+                                        organically visit my 5 star profile and
+                                        join over 3000 happy customer Click here
+                                        to check out and lets start work
+                                        together ===== &gt;
+                                        https://tinyurl.com/mw6x9duz See you
+                                        there! Regards Maham
+                                      </td>
+                                      <td>
+                                        <a
+                                          href="javascript:void(0)"
+                                          data-id="186"
+                                          class="btn btn-danger btn_delete"
+                                          data-toggle="tooltip"
+                                          data-tooltip="Delete"
+                                          ><i class="ri-delete-bin-line"></i
+                                        ></a>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>Nataliakl</td>
+                                      <td>nataliakl@pascolocksmiths.com</td>
+                                      <td>83183618198</td>
+                                      <td>
+                                        Ні! Ι'vе noticed thаt manу guуs рrеfеr
+                                        regular gіrlѕ. I applaudе thе men оut
+                                        there who hаd thе bаlls tо еnϳоy the
+                                        love of mаnу women and сhооsе thе оne
+                                        thаt hе knew wоuld bе hіѕ beѕt friend
+                                        during thе bumpy аnd crаzу thing сalled
+                                        life. Ι wаntеd tо bе thаt frіend, nоt
+                                        juѕt а ѕtablе, rеlіablе and boring
+                                        hоusewіfе. I аm 27 уearѕ оld, Natаlіа,
+                                        frоm the Сzеch Rерublіc, know English
+                                        lаnguagе alsо. Аnуwaу, уou сan find mу
+                                        рrоfilе hеrе:
+                                        http://tiaberzemeblioki.tk/idl-62747/
+                                      </td>
+                                      <td>
+                                        <a
+                                          href="javascript:void(0)"
+                                          data-id="185"
+                                          class="btn btn-danger btn_delete"
+                                          data-toggle="tooltip"
+                                          data-tooltip="Delete"
+                                          ><i class="ri-delete-bin-line"></i
+                                        ></a>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>Theresa Smith</td>
+                                      <td>johnson.parish@msn.com</td>
+                                      <td>06432 33 25 52</td>
+                                      <td>
+                                        Hello, Do you sometimes find yourself in
+                                        a tug of war between work and fitness?
+                                        We have the perfect solution for you -
+                                        Elebands! Elebands offers ultra-thin,
+                                        fashionable body weight bands that
+                                        seamlessly integrate into your daily
+                                        routine. Burn up to 1,500 calories a day
+                                        by simply wearing our bands on your
+                                        wrist, ankle, and waist. What's more, we
+                                        have bands suitable for sports, casual,
+                                        and formal occasions, ensuring you stay
+                                        stylish while achieving your fitness
+                                        goals. With Elebands, you no longer have
+                                        to choose between work and exercise. Our
+                                        bands enable you to lose weight and get
+                                        fit regardless of your location or
+                                        activity. Enjoy these instant benefits:
+                                        1. Burn Calories: Effortlessly burn up
+                                        to 1,500 calories daily, toning your
+                                        body as you go about your day. 2.
+                                        Natural Weight Loss: Say goodbye to
+                                        intense workouts and stressful diets.
+                                        Elebands helps you lose weight
+                                        naturally. 3. Build Strength: Develop
+                                        lean muscles and enhance your strength
+                                        as you carry out your regular
+                                        activities. Imagine achieving your dream
+                                        body without stepping foot in a gym or
+                                        following a strict diet plan. With
+                                        Elebands, it's possible. Many of our
+                                        clients are losing 2-3 pounds per week
+                                        while experiencing significant health
+                                        improvements. To help you get started
+                                        for the NEW YEAR, use coupon code
+                                        SAVE-20%-TODAY for a 20% discount. Visit
+                                        our website now at
+                                        https://bit.ly/elebands and embrace the
+                                        Elebands experience. Let Elebands be
+                                        your partner in achieving a fit and
+                                        healthy lifestyle. Start your
+                                        transformation today! Warm regards,
+                                        Theresa Smith Brand Ambassador Elebands
+                                        USA Visit our website NOW!
+                                        https://bit.ly/elebands
+                                      </td>
+                                      <td>
+                                        <a
+                                          href="javascript:void(0)"
+                                          data-id="184"
+                                          class="btn btn-danger btn_delete"
+                                          data-toggle="tooltip"
+                                          data-tooltip="Delete"
+                                          ><i class="ri-delete-bin-line"></i
+                                        ></a>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>NXTL</td>
+                                      <td>innsolutions@yahoo.com</td>
+                                      <td>89134535136</td>
+                                      <td>
+                                        Dear business owner, Unlock global
+                                        business success with NXTL Mobile's eSIM
+                                        services! Elevate your connectivity game
+                                        with local phone numbers and
+                                        crystal-clear HD voice. Whether you're a
+                                        business owner or frequent traveler, our
+                                        solution ensures seamless communication.
+                                        Enhance your digital presence and stay
+                                        connected effortlessly. Ready to
+                                        revolutionize your connections? Visit
+                                        us: http://esim.laderma.skin Best
+                                        regards, NXTL
+                                      </td>
+                                      <td>
+                                        <a
+                                          href="javascript:void(0)"
+                                          data-id="183"
+                                          class="btn btn-danger btn_delete"
+                                          data-toggle="tooltip"
+                                          data-tooltip="Delete"
+                                          ><i class="ri-delete-bin-line"></i
+                                        ></a>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>Sammy Walcott</td>
+                                      <td>joeann.walcott@msn.com</td>
+                                      <td>4467534228</td>
+                                      <td>
+                                        I hope this message finds you well. We'd
+                                        like to highlight the advantages of
+                                        outsourcing your web development to us:
+                                        Specialized Expertise: Cost Efficiency:
+                                        Focus on Core Functions: Flexibility and
+                                        Scalability: Timely Delivery: Access to
+                                        Latest Technologies: We'd love to
+                                        discuss this further. When would be a
+                                        convenient time for you? Looking forward
+                                        to the possibility of partnering with
+                                        you for your web development needs.
+                                        Click here for more details:
+                                        https://outsource-bpo.com/website/ PS:
+                                        If you are looking for high quality
+                                        SEMRush links, we have handpicked/
+                                        selected links up for grabs at
+                                        https://alwaysdigital.co/ls/
+                                      </td>
+                                      <td>
+                                        <a
+                                          href="javascript:void(0)"
+                                          data-id="182"
+                                          class="btn btn-danger btn_delete"
+                                          data-toggle="tooltip"
+                                          data-tooltip="Delete"
+                                          ><i class="ri-delete-bin-line"></i
+                                        ></a>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>Mary Quintero</td>
+                                      <td>rochell.quintero@gmail.com</td>
+                                      <td>5555555555</td>
+                                      <td>
+                                        Hello from Apixelofhope.com! We
+                                        specialize in enhancing websites like
+                                        http://propertyvisit.in/contact.php with
+                                        our high-quality SEO and content
+                                        solutions. Curious about boosting your
+                                        site’s potential? Let’s explore
+                                        possibilities together!
+                                      </td>
+                                      <td>
+                                        <a
+                                          href="javascript:void(0)"
+                                          data-id="181"
+                                          class="btn btn-danger btn_delete"
+                                          data-toggle="tooltip"
+                                          data-tooltip="Delete"
+                                          ><i class="ri-delete-bin-line"></i
+                                        ></a>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>Robin Longford</td>
+                                      <td>tobias.longford@gmail.com</td>
+                                      <td>06-75850896</td>
+                                      <td>
+                                        If the conversion rates of your online
+                                        store are too low, and you are looking
+                                        for someone to help you to Boost Your
+                                        Sales, Then you're in the right place. I
+                                        can Provide You with: - WordPress
+                                        Landing page. - Sales Page, or Sales
+                                        Funnel. - 3 Steps Sales Funnel. -
+                                        Elementor Pro - Squeeze Page. - Lead
+                                        Page. - Membership Funnel. - Webinar
+                                        Funnel. - Autoresponder Integration. -
+                                        Payment Gateway Check Out How I can help
+                                        you and join our happy customers ===&gt;
+                                        https://tinyurl.com/2z4n7fkx See u there
+                                        Thanks
+                                      </td>
+                                      <td>
+                                        <a
+                                          href="javascript:void(0)"
+                                          data-id="180"
+                                          class="btn btn-danger btn_delete"
+                                          data-toggle="tooltip"
+                                          data-tooltip="Delete"
+                                          ><i class="ri-delete-bin-line"></i
+                                        ></a>
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="tab-pane" id="edit-map">
+                          <form
+                            action="contact_us_edit_map_submit"
+                            method="post"
+                            class="form"
+                          >
+                            <div class="row mb-2">
+                              <div class="col-md-2 d-flex align-items-center">
+                                <label for="latitude" class="form-label m-0"
+                                  >Latitude/Longitude:</label
+                                >
+                              </div>
+                              <div class="col-md-5">
+                                <input
+                                  type="text"
+                                  id="latitude"
+                                  name="latitude"
+                                  class="form-control"
+                                  placeholder="Enter Latitude"
+                                />
+                              </div>
+                              <div class="col-md-5">
+                                <input
+                                  type="text"
+                                  id="longitude"
+                                  name="longitude"
+                                  class="form-control"
+                                  placeholder="Enter Longitude"
+                                />
+                              </div>
+                            </div>
+
+                            <div class="form-group">
+                              <button
+                                type="submit"
+                                name="submit"
+                                class="btn btn-primary float-end"
+                              >
+                                Save
+                              </button>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- container -->
+        </div>
+        <!-- content -->
+
+        <!-- Footer Start -->
+        <footer class="footer">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-12 text-center">
+                <script>
+                  document.write(new Date().getFullYear());
+                </script>
+                © 24/7 PROP ADS
+              </div>
+            </div>
+          </div>
+        </footer>
+        <!-- end Footer -->
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- End Page content -->
+      <!-- ============================================================== -->
+    </div>
+    <!-- END wrapper -->
+
+    <!-- Vendor js -->
+    <script src="assets/js/vendor.min.js"></script>
+
+    <!-- Datatables js -->
+    <script src="assets/vendor/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="assets/vendor/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
+    <script src="assets/vendor/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="assets/vendor/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js"></script>
+
+    <!-- App js -->
+    <script src="assets/js/app.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $("#contact-us-table").DataTable({
+          columnDefs: [{ orderable: false, targets: -1 }],
+        });
+      });
+    </script>
+  </body>
+</html>
