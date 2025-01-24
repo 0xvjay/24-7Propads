@@ -1,0 +1,152 @@
+{% extends "customer/base.html" %}
+{% load static %}
+
+{% block title %}Reviews{% endblock %}
+
+{% block extra_head %}
+    <!--dashboard CSS-->
+    <link href="{% static "customer/css/dashboard.css" %}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block content %}
+    {% url "accounts:reviews" as title_url %}
+    {% include "customer/partials/breadcrumb.html" with title="Dashboard" subtitle="Reviews" title_url=title_url %}
+
+    <div id="dashboard" class="pt-10 pb-10">
+        <div class="container">
+            <div class="dashboard-main">
+                <div class="row">
+                    {% include "customer/partials/profile-card.html" %}
+
+                    <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">    
+                        <div class="dashboard-content">
+                            <div class="dashboard-review single-comments">
+                                <div class="comments">
+                                    <div class="comment-box d-flex align-items-center justify-content-between">
+                                        <div class="comment-image">
+                                            <img src="{% static "customer/images/lead_profile/photo-1607346256330-dee7af15f7c5.jpg" %}" alt="image">
+                                        </div>
+                                        <div class="comment-content">
+                                            <h4 class="mb-1">Nishchay</h4>
+                                            <p class="comment-date mb-2">January 25, 2024 at 10:46 am</p>
+                                            <span class="num-rating white">4.6/5</span>
+                                            <span class="comment-title"><i>"Was too noisy and not suitable for business meetings"</i></span>
+                                            <p class="comment mt-2">Take in the iconic skyline and visit the neighbourhood hangouts that you've only ever seen on TV. Take in the iconic skyline and visit the neighbourhood.</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="comment-box d-flex align-items-center justify-content-between">
+                                        <div class="comment-image">
+                                            <img src="{% static "customer/images/lead_profile/photo-1607346256330-dee7af15f7c5.jpg" %}" alt="image">
+                                        </div>
+                                        <div class="comment-content">
+                                            <h4 class="mb-1">Nishchay</h4>
+                                            <p class="comment-date mb-2">January 25, 2024 at 10:46 am</p>
+                                            <span class="num-rating white">4.6/5</span>
+                                            <span class="comment-title"><i>"Was too noisy and not suitable for business meetings"</i></span>
+                                            <p class="comment mt-2">Take in the iconic skyline and visit the neighbourhood hangouts that you've only ever seen on TV. Take in the iconic skyline and visit the neighbourhood.</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="comment-box d-flex align-items-center justify-content-between">
+                                        <div class="comment-image">
+                                            <img src="{% static "customer/images/lead_profile/photo-1607346256330-dee7af15f7c5.jpg" %}" alt="image">
+                                        </div>
+                                        <div class="comment-content">
+                                            <h4 class="mb-1">Nishchay</h4>
+                                            <p class="comment-date mb-2">January 25, 2024 at 10:46 am</p>
+                                            <span class="num-rating white">4.6/5</span>
+                                            <span class="comment-title"><i>"Was too noisy and not suitable for business meetings"</i></span>
+                                            <p class="comment mt-2">Take in the iconic skyline and visit the neighbourhood hangouts that you've only ever seen on TV. Take in the iconic skyline and visit the neighbourhood.</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="comment-box d-flex align-items-center justify-content-between">
+                                        <div class="comment-image">
+                                            <img src="{% static "customer/images/lead_profile/photo-1607346256330-dee7af15f7c5.jpg" %}" alt="image">
+                                        </div>
+                                        <div class="comment-content">
+                                            <h4 class="mb-1">Nishchay</h4>
+                                            <p class="comment-date mb-2">January 25, 2024 at 10:46 am</p>
+                                            <span class="num-rating white">4.6/5</span>
+                                            <span class="comment-title"><i>"Was too noisy and not suitable for business meetings"</i></span>
+                                            <p class="comment mt-2">Take in the iconic skyline and visit the neighbourhood hangouts that you've only ever seen on TV. Take in the iconic skyline and visit the neighbourhood.</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="comment-box d-flex align-items-center justify-content-between">
+                                        <div class="comment-image">
+                                            <img src="{% static "customer/images/lead_profile/photo-1607346256330-dee7af15f7c5.jpg" %}" alt="image">
+                                        </div>
+                                        <div class="comment-content">
+                                            <h4 class="mb-1">Nishchay</h4>
+                                            <p class="comment-date mb-2">January 25, 2024 at 10:46 am</p>
+                                            <span class="num-rating white">4.6/5</span>
+                                            <span class="comment-title"><i>"Was too noisy and not suitable for business meetings"</i></span>
+                                            <p class="comment mt-2">Take in the iconic skyline and visit the neighbourhood hangouts that you've only ever seen on TV. Take in the iconic skyline and visit the neighbourhood.</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="comment-box d-flex align-items-center justify-content-between">
+                                        <div class="comment-image">
+                                            <img src="{% static "customer/images/lead_profile/photo-1607346256330-dee7af15f7c5.jpg" %}" alt="image">
+                                        </div>
+                                        <div class="comment-content">
+                                            <h4 class="mb-1">Nishchay</h4>
+                                            <p class="comment-date mb-2">January 25, 2024 at 10:46 am</p>
+                                            <span class="num-rating white">4.6/5</span>
+                                            <span class="comment-title"><i>"Was too noisy and not suitable for business meetings"</i></span>
+                                            <p class="comment mt-2">Take in the iconic skyline and visit the neighbourhood hangouts that you've only ever seen on TV. Take in the iconic skyline and visit the neighbourhood.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="pagination-main text-center">
+                                    <ul class="pagination">
+                                        <li><a href="#"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a></li>
+                                        <li class="active"><a href="#">1</a></li>
+                                        <li><a href="#">2</a></li>
+                                        <li><a href="#">3</a></li>
+                                        <li><a href="#">4</a></li>
+                                        <li><a href="#"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+            </div>    
+            <!-- Content / End -->
+        </div>
+    </div>
+    <!-- Dashboard / End -->
+
+
+    <!-- content-line start -->
+    <section class="newsletter p-0 position-relative">
+        <div class="newsletter-main bg-theme2 p-5 pb-3">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-8 mb-2">
+                        <div class="newsletter-content">
+                            <h2 class="mb-0 white text-lg-start text-center">
+                                Do You Need Help With Anything?
+                            </h2>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 mb-2">
+                        <div class="newsletter-form w-100">
+                            <form action="#" method="get" accept-charset="utf-8" class="border-0">
+                                <input type="text" placeholder="Email Address">
+                                <button class="nir-btn-black">Subscribe</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block extra_body %}
+    <script src="{% static "customer/js/dashboard-custom.js" %}"></script>
+{% endblock %}

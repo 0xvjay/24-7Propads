@@ -1,0 +1,114 @@
+{% extends "admin/base.html" %}
+
+{% load static %}
+
+{% block title %}Edit FAQ{% endblock %}
+
+{% block extra_head %}
+    <!-- Quill css -->
+    <link href="{% static "vendor/quill/quill.core.css" %}" rel="stylesheet" type="text/css" />
+    <link href="{% static "vendor/quill/quill.snow.css" %}" rel="stylesheet" type="text/css" />
+    <link href="{% static "vendor/quill/quill.bubble.css" %}" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" href="{% static "vendor/apexcharts/apexcharts.css" %}" />
+
+    <link rel="stylesheet" href="{% static "custom/custom_style.css" %}" />
+{% endblock  %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row pt-3">
+            <div class="col">
+                <div>
+                    <span class="fs-4 m-0 text-primary"><a href="javascript:history.back()"><i class="ri-arrow-left-line"></i> Back</a></span>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-title">
+                            <span class="fs-3 m-0">Edit FAQ</span>
+                            <hr>
+                        </div>
+                        <div class="card-content">
+                            <form action="{% url "core:edit_faq" pk=object.pk %}" method="post">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="col-md-12 mb-2">
+                                        <label for="title" class="form-label mb-0">FAQ Title</label>
+                                        <input type="text" id="title" name="title" class="form-control" placeholder="Enter FAQ Title" value="{{object.title}}">
+                                        {% if form.errors %}
+                                            <div class='text-danger'>{{form.errors.title}}</div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-6 mb-2">
+                                        <div class="form-check form-switch">
+                                            <label for="is_active" class="form-label mb-0">Active</label>
+                                            <input class="form-check-input" name="is_active" type="checkbox" id="is_active" {% if object.is_active %}checked{% endif %} />
+                                            {% if form.errors %}
+                                                <div class="text-danger">{{form.errors.is_active}}</div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-12 mb-2">
+                                        <label for="description" class="form-label mb-0">FAQ Description</label>
+                                        <textarea id="description" name="description" class="form-control d-none" placeholder="Enter FAQ Qescription" value="{{object.description}}"></textarea>
+                                        <!-- start Snow-editor-->
+                                        <div id="snow-editor" style="height: 300px;"></div>
+                                        <!-- end Snow-editor-->
+                                        {% if form.errors %}
+                                            <div class='text-danger'>{{form.errors.description}}</div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-12 mb-2">
+                                        <div class="form-group">
+                                            <button type="submit" name="submit" class="btn btn-primary float-end">Save</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock  %}
+
+{% block extra_body %}
+    <!-- Quill Editor js -->
+    <script src="{% static "vendor/quill/quill.min.js" %}"></script>
+
+    <script>
+        $(document).ready(function () {
+            var quill = new Quill("#snow-editor", {
+                theme: "snow",
+                modules: {
+                    toolbar: [
+                        [{ font: [] }, { size: [] }],
+                        ["bold", "italic", "underline", "strike"],
+                        [{ color: [] }, { background: [] }],
+                        [{ script: "super" }, { script: "sub" }],
+                        [
+                            { header: [!1, 1, 2, 3, 4, 5, 6] },
+                            "blockquote",
+                            "code-block",
+                        ],
+                        [
+                            { list: "ordered" },
+                            { list: "bullet" },
+                            { indent: "-1" },
+                            { indent: "+1" },
+                        ],
+                        ["direction", { align: [] }],
+                        ["link", "image", "video"],
+                        ["clean"],
+                    ],
+                },
+            });
+
+            quill.on('text-change',function() {
+                $('#faq_description').val($('#snow-editor').html());
+            });
+
+        });
+    </script>
+{% endblock  %}

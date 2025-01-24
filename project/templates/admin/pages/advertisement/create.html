@@ -1,0 +1,77 @@
+{% extends "admin/base.html" %}
+
+{% load static %}
+
+{% block title %}Add Advertisement{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row pt-3">
+            <div class="col">
+                <div>
+                    <span class="fs-4 m-0 text-primary">
+                        <a href="javascript:history.back()"><i class="ri-arrow-left-line"></i> Back</a>
+                    </span>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-title">
+                            <span class="fs-3 m-0">Add Advertisement</span>
+                            <hr>
+                        </div>
+                        <div class="card-content">
+                            <form action="{% url "advertisement:add_advertisement" %}" method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="col-md-6 mb-2">
+                                        <label for="position" class="form-label mb-0">Advertisement Position</label>
+                                        <select id="position" name="position" class="form-select">
+                                            {% for value, label in form.position.field.choices %}
+                                                <option {% if not value %}selected{% endif %}>{% if not value %}Select Position{% else %}{{ value }}{% endif %}</option>
+                                            {% endfor %}
+                                        </select>
+                                        {% if form.errors %}
+                                            <div class='text-danger'>{{form.errors.position}}</div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-6 mb-2">
+                                        <label for="link" class="form-label mb-0">Advertisement Link</label>
+                                        <input type="text" id="link" name="link" class="form-control" placeholder="Enter Advertisement Link">
+                                        {% if form.errors %}
+                                            <div class='text-danger'>{{form.errors.link}}</div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-12 mb-2">
+                                        <label for="image" class="form-label mb-0">Profile Image</label>
+                                        <input type="file" id="image" name="image" class="form-control" accept="image/*"/>
+                                        {% if form.errors %}
+                                            <div class='text-danger'>{{form.errors.image}}</div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-6 mb-2">
+                                        <div class="form-check form-switch">
+                                            <label for="is_active" class="form-label mb-0">Active</label>
+                                            <input class="form-check-input" name="is_active" type="checkbox" id="is_active"/>
+                                            {% if form.errors %}
+                                                <div class="text-danger">{{form.errors.is_active}}</div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 mb-2">
+                                        <div class="form-group">
+                                            <button type="submit" name="submit"
+                                                class="btn btn-primary float-end">Save</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock  %}
+
+

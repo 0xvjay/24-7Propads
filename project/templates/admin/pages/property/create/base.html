@@ -1,0 +1,80 @@
+{% extends "admin/base.html" %}
+
+{% load static %}
+
+{% block title %}Add Property{% endblock %}
+
+{% block extra_head %}
+    <!-- Quill css -->
+    <link href="{% static "vendor/quill/quill.core.css" %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static "vendor/quill/quill.snow.css" %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static "vendor/quill/quill.bubble.css" %}" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="{% static "custom/custom_style.css" %}" />
+{% endblock %}
+
+{% block modal %}
+  <!-- file preview template -->
+  <div class="d-none" id="uploadPreviewTemplate">
+    <div class="card mt-1 mb-0 shadow-none border">
+      <div class="p-2">
+        <div class="row align-items-center">
+          <div class="col-auto">
+            <img data-dz-thumbnail src="#" class="avatar-sm rounded bg-light" alt=""/>
+          </div>
+          <div class="col ps-0">
+            <a href="javascript:void(0);" class="text-muted fw-bold" data-dz-name></a>
+            <p class="mb-0" data-dz-size></p>
+          </div>
+          <div class="col-auto">
+            <!-- Button -->
+            <a href="" class="btn btn-link btn-lg text-danger" data-dz-remove>
+              <i class="ri-close-line"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block extra_body %}
+  <!-- Quill Editor js -->
+  <script src="{% static "vendor/quill/quill.min.js" %}"></script>
+
+  <!-- Dropzone File Upload js -->
+  <script src="{% static "vendor/dropzone/min/dropzone.min.js" %}"></script>
+
+  <!-- File Upload Demo js -->
+  <script src="{% static "js/pages/fileupload.init.js" %}"></script>
+
+  <script>
+    $(document).ready(function () {
+      var quill = new Quill("#snow-editor", {
+        theme: "snow",
+        modules: {
+          toolbar: [
+            [{ font: [] }, { size: [] }],
+            ["bold", "italic", "underline", "strike"],
+            [{ color: [] }, { background: [] }],
+            [{ script: "super" }, { script: "sub" }],
+            [{ header: [!1, 1, 2, 3, 4, 5, 6] }, "blockquote", "code-block"],
+            [
+              { list: "ordered" },
+              { list: "bullet" },
+              { indent: "-1" },
+              { indent: "+1" },
+            ],
+            ["direction", { align: [] }],
+            ["link", "image", "video"],
+            ["clean"],
+          ],
+        },
+      });
+
+      quill.on("text-change", function () {
+        $("#property_description").val($("#snow-editor").html());
+      });
+    });
+  </script>
+{% endblock %}

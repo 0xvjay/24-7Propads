@@ -1,0 +1,96 @@
+{% extends "admin/base.html" %}
+
+{% load static %}
+
+{% block title %}FAQ{% endblock %}
+
+{% block extra_head %}
+    <!-- Datatables css -->
+    <link href="{% static "vendor/datatables.net-bs5/css/dataTables.bootstrap5.min.css" %}" rel="stylesheet" type="text/css" />
+    <link href="{% static "vendor/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css" %}" rel="stylesheet" type="text/css" />
+    <link href="{% static "vendor/datatables.net-fixedcolumns-bs5/css/fixedColumns.bootstrap5.min.css" %}" rel="stylesheet" type="text/css" />
+    <link href="{% static "vendor/datatables.net-fixedheader-bs5/css/fixedHeader.bootstrap5.min.css" %}" rel="stylesheet" type="text/css" />
+    <link href="{% static "vendor/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css" %}" rel="stylesheet" type="text/css" />
+    <link href="{% static "vendor/datatables.net-select-bs5/css/select.bootstrap5.min.css" %}" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" href="{% static "vendor/apexcharts/apexcharts.css" %}" />
+    <link rel="stylesheet" href="{% static "custom/custom_style.css" %}" />
+{% endblock  %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row pt-3">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="card-title">
+                                <span class="fs-3 m-0">Manage FAQ</span>
+                                <a href="{% url "core:add_faq" %}" class="float-end btn btn-outline-primary" >Add FAQ</a >
+                                <hr />
+                            </div>
+                            <div class="card-content">
+                                <div class="responsive-table-plugin">
+                                    <div class="table-rep-plugin">
+                                        <div class="table-responsive" data-pattern="priority-columns" >
+                                            <table id="faq-table" class="table table-striped">
+                                                <thead>
+                                                <tr>
+                                                    <th>FAQ Title</th>
+                                                    <th data-priority="3">Status</th>
+                                                    <th data-priority="1">Action</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for object in object_list %}
+                                                        <tr>
+                                                            <td>{{object.title}}</td>
+                                                            <td>
+                                                                {% if object.is_active %}
+                                                                    <span class="badge text-bg-primary rounded-pill p-1">Active</span>
+                                                                {% else %}
+                                                                    <span class="badge text-bg-secondary rounded-pill p-1">Inactive</span>
+                                                                {% endif %}
+                                                            </td>
+                                                            <td class="d-flex">
+                                                                <a href="{% url "core:edit_faq" pk=object.pk %}" class="btn btn-success btn-sm me-1 tooltips" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edit">
+                                                                    <i class="ri-pencil-fill"></i>
+                                                                </a>
+                                                                <form id="delete_faq" action="{% url "core:delete_faq" pk=object.pk %}" method="post">
+                                                                    {% csrf_token %}
+                                                                    <button class="btn btn-danger btn-sm tooltips" type="submit" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Delete"><i class="ri-delete-bin-line"></i></button>
+                                                                </form>
+                                                            </td>
+                                                        </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <!-- end .table-responsive -->
+                                    </div>
+                                <!-- end .table-rep-plugin-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock  %}
+
+{% block extra_body %}
+    <!-- Datatables js -->
+    <script src="{% static "vendor/datatables.net/js/jquery.dataTables.min.js" %}"></script>
+    <script src="{% static "vendor/datatables.net-bs5/js/dataTables.bootstrap5.min.js" %}"></script>
+    <script src="{% static "vendor/datatables.net-responsive/js/dataTables.responsive.min.js" %}"></script>
+    <script src="{% static "vendor/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js" %}"></script>
+    
+    <script>
+        $(document).ready(function () {
+          $("#faq-table").DataTable({
+            columnDefs: [{ orderable: false, targets: -1 }],
+          });
+        });
+    </script>
+{% endblock  %}

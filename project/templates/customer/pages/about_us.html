@@ -1,0 +1,265 @@
+{% extends "customer/base.html" %}
+
+{% load static %}
+
+{% block title %}About Us{% endblock %}
+
+{% block content %}
+    {% url "core:about_us" as title_url %}
+    {% include "customer/partials/breadcrumb.html" with title="Home" subtitle="About Us" title_url=title_url %}
+
+    <section class="about-us pb-6">
+        <div class="container">
+            <div class="about-image-box">
+                <div class="row d-flex align-items-center justify-content-between">
+                    <div class="col-lg-7 col-sm-12 mb-4">
+                        <div class="col-lg-10 offset-1">
+                            <div class="pb-1 section-title vfx3">
+                                <h2>Welcome to <b>Property Visit</b></h2>
+                            </div>
+                            <div class="about-text res-box text-justify">
+                                <p>propertyvisit.in&nbsp;is an online platform where you can buy and sell verified properties. Buying a property can change your lifestyle - So, why not invest in a reliable way for your bright future!</p>
+                                <p>This is the best site for all customers whoever really wants property.</p>
+                                <ul>
+                                    <li>
+                                        <p><strong>Assurance</strong></p>
+                                        <p>We certify projects and verify all aspects of it. When you select an ‘IP Verified’ property on propertyvisit.in, you can be assured that the property has been evaluated from all angles &amp; buy it with 100% confidence.</p>
+                                    </li>
+                                    <li>
+                                        <p><strong>Convenience</strong></p>
+                                        <p>We constantly innovate and create new means to make property search easier for you. Our TruView, 3D Floor Plans &amp; Virtual Tours ensure that you get a feel of the property without even having to visit it.</p>
+                                    </li>
+                                    <li>
+                                        <p><strong>Assistance</strong></p>
+                                        <p>Through our flagship service called Assisted Property, we provide end to end assistance in property buying - right from property search to home loans to legal formalities and purchase. We have experienced property advisors who will guide you through the property buying journey and ensure you make the right choice with minimum stress.</p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 col-sm-12 mb-4">
+                        <div class="about-image p-3 box-shadow position-relative">
+                            <img src="{% static "customer/images/About Us.png" %}" alt="" class="w-100">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-us bg-white pb-6 pt-0">
+        <div class="container">
+            <div class="why-us">
+                <div class="why-us-box">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6 col-sm-6 mb-4">
+                            <div class="why-us-item text-center bg-lgrey">
+                                <div class="why-us-icon">
+                                    <i class="flaticon-call theme"></i>
+                                </div>
+                                <div class="why-us-content">
+                                    <h4><a href="services-detail.html">Trusted By Thousands</a></h4>
+                                    <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6 mb-4">
+                            <div class="why-us-item text-center bg-lgrey">
+                                <div class="why-us-icon">
+                                    <i class="flaticon-global theme"></i>
+                                </div>
+                                <div class="why-us-content">
+                                    <h4><a href="services-detail.html">Wide Renge Properties</a></h4>
+                                    <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6 mb-4">
+                            <div class="why-us-item text-center bg-lgrey">
+                                <div class="why-us-icon">
+                                    <i class="flaticon-building theme"></i>
+                                </div>
+                                <div class="why-us-content">
+                                    <h4><a href="services-detail.html">Financing Made Easy</a></h4>
+                                    <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6 mb-4">
+                            <div class="why-us-item text-center bg-lgrey">
+                                <div class="why-us-icon">
+                                    <i class="flaticon-location-pin theme"></i>
+                                </div>
+                                <div class="why-us-content">
+                                    <h4><a href="services-detail.html">We are here near you</a></h4>
+                                    <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section  id="subscription_plan" class="bg-lgrey border-bottom border-t pb-6">
+        <div class="container">
+            <div class="section-title mb-6 pb-1 w-75 mx-auto text-center">
+                <h2 class="m-0">Featured <span>Pricing</span></h2>
+                <p>Subscribe to Premium today to save 50,000 on brokerage, along with other benefits.</p>
+            </div>  
+            <div class="row">
+                <div class="col-lg-4 col-md-12 mb-4">
+                    <div class="pkg-container text-center box-shadow p-4 border">
+                        <div class="pg-title">
+                            <i class="icon fas fa-database display-6 bg-theme1 mb-2 white"></i>
+                            <h4 class="theme mb-0">Basic</h4>
+                            <h2 class="theme2"><i class="fas fa-rupee-sign"></i> 1499 <span class="grey">per user, per month</span></h2>
+                            <p>Hurry. Purchase a plan before your exclusive discount expires!</p>
+                        </div>
+                        <div class="pg-main">
+                            <ul>
+                                <li><i class="fas fa-check"></i> Zero Brokerage owners contacts</li>
+                                <li><i class="fas fa-check"></i> Priority Customer support</li>
+                            </ul>
+                            <button class="btn nir-btn mt-2">Read More</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12 mb-4">
+                    <div class="pkg-container text-center box-shadow p-4 border">
+                        <div class="pg-title">
+                            <i class="icon fas fa-cog display-6 bg-theme1 mb-2 white"></i>
+                            <h4 class="theme mb-0">Standard</h4>
+                            <h2 class="theme2"><i class="fas fa-rupee-sign"></i> 2499 <span class="grey">per user, per month</span></h2>
+                            <p>Hurry. Purchase a plan before your exclusive discount expires!</p>
+                        </div>
+                        <div class="pg-main">
+                            <ul>
+                                <li><i class="fas fa-check"></i> Zero Brokerage owners contacts</li>
+                                <li><i class="fas fa-check"></i> Instant alerts on new properties</li>
+                                <li><i class="fas fa-check"></i> Personal Help Support</li>
+                            </ul>
+                            <button class="btn nir-btn-black mt-2">Read More</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12 mb-4">
+                    <div class="pkg-container text-center box-shadow p-4 border">
+                        <div class="pg-title">
+                            <i class="icon fas fa-rocket display-6 bg-theme1 mb-2 white"></i>
+                            <h4 class="theme mb-0">Platinum</h4>
+                            <h2 class="theme2"><i class="fas fa-rupee-sign"></i> 4499 <span class="grey">per user, per month</span></h2>
+                            <p>Hurry. Purchase a plan before your exclusive discount expires!</p>
+                        </div>
+                        <div class="pg-main">
+                            <ul>
+                                <li><i class="fas fa-check"></i> Zero Brokerage owners contacts</li>
+                                <li><i class="fas fa-check"></i> Instant alerts on new properties</li>
+                                <li><i class="fas fa-check"></i> Personal Help Support</li>
+                                <li><i class="fas fa-check"></i> Dedicated relationship manager</li>
+                                <li><i class="fas fa-check"></i> Refund guarantee if not satisfied<li>
+                            </ul>
+                            <button class="btn nir-btn mt-2">Read More</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="discount-action pt-0 bg-grey">
+        <div class="container">
+            <div class="call-banner" style="background-image: url({% static "customer/images/looking_to_buy.png" %});">
+                <div class="row d-flex align-items-center">
+                    <div class="col-lg-6 col-md-8 p-0 pt-10">
+                        <div class="call-banner-inner bg-theme1 p-5">
+                            <div class="trend-content-main">
+                                <div class="trend-content p-5">
+                                    <h5 class="mb-1 white">Wanna to Sell Or Rent??</h5>
+                                    <h2 class="mb-4"><a href="detail-fullwidth.html" class="white">Looking to Buy a New Property or Sell an Existing One?</a></h2>
+                                    <div class="section-btns d-flex align-items-center">
+                                        <a href="grid-leftfilter.html" class="nir-btn me-4">Rent Properties <i class="fa fa-arrow-right white pl-1"></i></a>
+                                        <a href="#" class="nir-btn">Buy Properties <i class="fa fa-arrow-right white pl-1"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-4 p-0"></div>
+                </div>
+            </div>
+            <div class="partner-wrapper bg-white px-5 py-3">
+                <ul class="attract-slider">
+                    <li class="px-3"><a href="#"><img src="{% static "customer/images/Ad-Projects/Ad-Projects-1.png" %}" alt=""></a></li>
+                    <li class="px-3"><a href="#"><img src="{% static "customer/images/Ad-Projects/Ad-Projects-2.png" %}" alt=""></a></li>
+                    <li class="px-3"><a href="#"><img src="{% static "customer/images/Ad-Projects/Ad-Projects-3.png" %}" alt=""></a></li>
+                    <li class="px-3"><a href="#"><img src="{% static "customer/images/Ad-Projects/Ad-Projects-4.png" %}" alt=""></a></li>
+                    <li class="px-3"><a href="#"><img src="{% static "customer/images/Ad-Projects/Ad-Projects-5.png" %}" alt=""></a></li>
+                    <li class="px-3"><a href="#"><img src="{% static "customer/images/Ad-Projects/Ad-Projects-1.png" %}" alt=""></a></li>
+                    <li class="px-3"><a href="#"><img src="{% static "customer/images/Ad-Projects/Ad-Projects-2.png" %}" alt=""></a></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="our-team pt-9" style="background-image: url(images/shape-1.png);">
+        <div class="container">
+            <div class="section-title mb-6 pb-1 w-75 text-center mx-auto">
+                <h2 class="m-0">PROPERTY VISIT <span>EXCLUSIVE IN FOCUS</span></h2>
+            </div>
+            <div class="team-main">
+                <div class="row shop-slider">
+                    <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+                        <div class="team-list">
+                            <div class="team-image">
+                                <img src="{% static "customer/images/Carousal/carousal-1.png" %}" alt="team">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-12 mb-4"> 
+                        <div class="team-list">
+                            <div class="team-image">
+                                <img src="{% static "customer/images/Carousal/carousal-1.png" %}" alt="team">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+                        <div class="team-list">
+                            <div class="team-image">
+                                <img src="{% static "customer/images/Carousal/carousal-1.png" %}" alt="team">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+                        <div class="team-list">
+                            <div class="team-image">
+                                <img src="{% static "customer/images/Carousal/carousal-1.png" %}" alt="team">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="newsletter p-0 position-relative">
+        <div class="newsletter-main bg-theme2 p-5 pb-3">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-8 mb-2">
+                        <div class="newsletter-content">
+                            <h2 class="mb-0 white text-lg-start text-center">Do You Need Help With Anything?</h2>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 mb-2">
+                        <div class="newsletter-form w-100">
+                            <form action="#" method="get" accept-charset="utf-8" class="border-0">
+                                <input type="text" placeholder="Email Address">
+                                <button class="nir-btn-black">Subscribe</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

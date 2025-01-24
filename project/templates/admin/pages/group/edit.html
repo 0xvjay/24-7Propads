@@ -1,0 +1,78 @@
+{% extends "admin/base.html" %}
+
+{% load static %}
+
+{% block title %}Edit Group{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static "custom/custom_style.css" %}" />
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row pt-3">
+            <div class="col">
+                <div>
+                    <span class="fs-4 m-0 text-primary"><a href="javascript:history.back()"><i class="ri-arrow-left-line"></i> Back</a></span>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-title">
+                            <span class="fs-3 m-0">Edit Group</span>
+                            <hr>
+                        </div>
+                        <div class="card-content">
+                            <form action="{% url "accounts:edit_group" pk=object.pk %}" method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="col-md-12 mb-2">
+                                        <label for="name" class="form-label mb-0">Name</label>
+                                        <input type="text" id="name" name="name" class="form-control" placeholder="Enter Group Name" value="{{object.name}}">
+                                        {% if form.errors %}
+                                            <div class='text-danger'>{{form.errors.name}}</div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="mb-3">
+                                        <ul class="add-type-item">
+                                            <div class="col-md-12 select-fields-type">Select Permissions :-
+                                                <p class="control-label-help"></p>
+                                            </div>
+                                            <li>
+                                                <input id="select-all" class="form-check-input" type="checkbox">
+                                                <label for="select-all">Select All</label>
+                                            </li>
+                                            {% for permission in permissions %}
+                                                <li>
+                                                    <input id="permission-{{ permission.id }}" class="form-check-input permission-checkbox" type="checkbox" name="permissions" value="{{ permission.id }}" {% if permission in object.permissions.all %}checked{% endif %}>
+                                                    <label for="permission-{{ permission.id }}">{{permission.name}}</label>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+
+                                    <div class="col-12 mb-2">
+                                        <div class="form-group">
+                                            <button type="submit" name="submit" class="btn btn-primary float-end">Save</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_body %}
+    <script>
+        document.getElementById('select-all').addEventListener('change', function() {
+            const permissionCheckboxes = document.querySelectorAll('.permission-checkbox');
+            
+            permissionCheckboxes.forEach(function(checkbox) {
+                checkbox.checked = document.getElementById('select-all').checked;
+            });
+        });
+    </script>
+{% endblock  %}

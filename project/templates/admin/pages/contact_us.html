@@ -1,0 +1,124 @@
+{% extends "admin/base.html" %}
+
+{% load static %}
+
+{% block title %}Contact Us{% endblock %}
+
+{% block extra_head %}
+  <!-- Datatables css -->
+  <link href="{% static "vendor/datatables.net-bs5/css/dataTables.bootstrap5.min.css" %}" rel="stylesheet" type="text/css"/>
+  <link href="{% static "vendor/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css" %}" rel="stylesheet" type="text/css"/>
+  <link href="{% static "vendor/datatables.net-fixedcolumns-bs5/css/fixedColumns.bootstrap5.min.css" %}" rel="stylesheet" type="text/css"/>
+  <link href="{% static "vendor/datatables.net-fixedheader-bs5/css/fixedHeader.bootstrap5.min.css" %}" rel="stylesheet" type="text/css"/>
+  <link href="{% static "vendor/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css" %}" rel="stylesheet" type="text/css"/>
+  <link href="{% static "vendor/datatables.net-select-bs5/css/select.bootstrap5.min.css" %}" rel="stylesheet" type="text/css"/>
+
+  <!-- Vector Map css -->
+  <link rel="stylesheet" href="{% static "vendor/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css" %}"/>
+  <link rel="stylesheet" href="{% static "custom/custom_style.css" %}" />
+{% endblock %}
+
+{% block content %}
+  <div class="container-fluid">
+    <div class="row pt-3">
+      <div class="col">
+        <div class="card">
+          <div class="card-body">
+            <div class="card-title">
+              <span class="fs-3 m-0">Manage Contact Us</span>
+              <hr />
+            </div>
+            <div class="card-content">
+              <ul class="nav nav-pills border-bottom mb-3">
+                <li class="nav-item">
+                  <a href="#contact-list" data-bs-toggle="tab" aria-expanded="true" class="nav-link bg-nav-pills rounded-0 active">
+                    Contact List
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="#edit-map" data-bs-toggle="tab" aria-expanded="false" class="nav-link bg-nav-pills rounded-0">
+                    Edit Map
+                  </a>
+                </li>
+              </ul>
+              <div class="tab-content">
+                <div class="tab-pane show active" id="contact-list">
+                  <div class="responsive-table-plugin">
+                    <div class="table-rep-plugin">
+                      <div class="table-responsive" data-pattern="priority-columns">
+                        <table id="contact-us-table" class="table table-striped w-100">
+                          <thead>
+                            <tr>
+                              <th>Name</th>
+                              <th>Email</th>
+                              <th>PhoneNo</th>
+                              <th>Message</th>
+                              <th>Action</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% for object in object_list %}
+                              <tr>
+                                <td>{{object.first_name}} {{object.last_name}}</td>
+                                <td>{{object.email}}</td>
+                                <td>{{object.phone}}</td>
+                                <td>{{object.message}}</td>
+                                <td class="d-flex">
+                                  <form id="delete_contact_us" action="{% url "core:delete_contact_us" pk=object.pk %}" method="post">
+                                    {% csrf_token %}
+                                    <button class="btn btn-danger btn-sm tooltips" type="submit" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Delete"><i class="ri-delete-bin-line"></i></button>
+                                  </form>
+                                </td>
+                              </tr>
+                            {% endfor %}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-pane" id="edit-map">
+                  <form method="get" action="{% url "core:admin_contact_us" %}" class="form">
+                    <div class="row mb-2">
+                      <div class="col-md-2 d-flex align-items-center">
+                        <label for="latitude" class="form-label m-0">Latitude/Longitude:</label>
+                      </div>
+                      <div class="col-md-5">
+                        <input type="text" id="latitude" name="latitude" class="form-control" placeholder="Enter Latitude"/>
+                      </div>
+                      <div class="col-md-5">
+                        <input type="text" id="longitude" name="longitude" class="form-control" placeholder="Enter Longitude"/>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <button type="submit" name="submit" class="btn btn-primary float-end">
+                        Save
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block extra_body %}
+  <!-- Datatables js -->
+  <script src="{% static "vendor/datatables.net/js/jquery.dataTables.min.js" %}"></script>
+  <script src="{% static "vendor/datatables.net-bs5/js/dataTables.bootstrap5.min.js" %}"></script>
+  <script src="{% static "vendor/datatables.net-responsive/js/dataTables.responsive.min.js" %}"></script>
+  <script src="{% static "vendor/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js" %}"></script>
+
+  <script>
+    $(document).ready(function () {
+      $("#contact-us-table").DataTable({
+        columnDefs: [{ orderable: false, targets: -1 }],
+      });
+    });
+  </script>
+{% endblock %}

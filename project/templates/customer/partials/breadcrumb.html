@@ -1,0 +1,18 @@
+{% load static %}
+
+<section class="breadcrumb-main pb-5 pt-20" style="background-image: url({% static "customer/images/bg/bg2.jpg" %})">
+    <div class="breadcrumb-outer">
+        <div class="container">
+            <div class="breadcrumb-content d-md-flex align-items-center pt-6">
+                <h1 class="mb-0">{{subtitle}}</h1>
+                <nav aria-label="breadcrumb">
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{title_url}}">{{title}}</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{subtitle}}</li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <div class="dot-overlay"></div>
+</section>

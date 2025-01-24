@@ -1,0 +1,262 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block extra_head %}
+  <!-- Daterangepicker css -->
+  <link rel="stylesheet" href="{% static "vendor/daterangepicker/daterangepicker.css" %}"/>
+
+  <!-- Vector Map css -->
+  <link rel="stylesheet" href="{% static "vendor/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css" %}"/>
+
+  <!-- Icons css -->
+  <link rel="stylesheet" href="{% static "vendor/apexcharts/apexcharts.css" %}" />
+  
+  <link rel="stylesheet" href="{% static "custom/custom_style.css" %}" />
+{% endblock %}
+
+{% block content %}
+  <div class="container-fluid">
+    <div class="row pt-3">
+      <div class="col-xxl-4 col-sm-6">
+        <div class="card widget-flat text-bg-purple">
+          <div class="card-body">
+            <div class="float-end">
+              <i class="bi bi-diagram-3 widget-icon widget-icon-line-height"></i>
+            </div>
+            <h4 class="text-uppercase mt-0" title="Customers">Type</h4>
+            <h2 class="my-2">{{type_count}}</h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xxl-4 col-sm-6">
+        <div class="card widget-flat text-bg-info">
+          <div class="card-body">
+            <div class="float-end">
+              <i class="ri-map-pin-line widget-icon widget-icon-line-height"></i>
+            </div>
+            <h4 class="text-uppercase mt-0" title="Customers">Properties</h4>
+            <h2 class="my-2">{{property_count}}</h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xxl-4 col-sm-6">
+        <div class="card widget-flat text-bg-primary">
+          <div class="card-body">
+            <div class="float-end">
+              <i class="bi-people widget-icon widget-icon-line-height"></i>
+            </div>
+            <h4 class="text-uppercase mt-0" title="Customers">Users</h4>
+            <h2 class="my-2">{{user_count}}</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex justify-content-between">
+              <h2 class="header-title mb-2">Users Analysis</h2>
+              <div class="btn-group mb-2 float-end">
+                <button type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dropdown-btn">
+                  2024
+                </button>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="javascript:;">2022</a>
+                  <a class="dropdown-item" href="javascript:;">2023</a>
+                  <a class="dropdown-item" href="javascript:;">2024</a>
+                </div>
+              </div>
+            </div>
+            <div dir="ltr">
+              <div
+                id="line-chart"
+                class="apex-charts"
+                data-colors="#edc755"
+              ></div>
+            </div>
+          </div>
+          <!-- end card body-->
+        </div>
+      </div>
+    </div>
+    <!-- end row -->
+
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card">
+          <div class="card-body">
+            <h3 class="card-title">Most Recent viewed</h3>
+            <p>Property with more Recent views.</p>
+            <table class="table table-hover">
+              <tbody>
+                {% for property in viewed_properties %}
+                  <tr>
+                    <td>
+                      <div class="d-flex flex-row">
+                        <img src="{{property.image}}" width="40" height="40" alt="property" class="rounded-circle"/>
+                        <div class="d-flex flex-column ms-2">
+                          <div>{{property.name}}</div>
+                          <div class="fw-bold">
+                            Views: <span class="propertyView">{{property.views}}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="card">
+          <div class="card-body">
+            <h3 class="card-title">Latest Property</h3>
+            <p>Latest uploaded property.</p>
+            <table class="table table-hover">
+              <tbody>
+                {% for property in latest_properties %}
+                  <tr>
+                    <td>
+                      <div class="d-flex flex-row">
+                        <img src="{{property.image}}" width="40" height="40" alt="property" class="rounded-circle"/>
+                        <div class="d-flex flex-column ms-2">
+                          <div>{{property.name}}</div>
+                          <div class="fw-bold">
+                            Views: <span class="propertyView">{{property.views}}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="card">
+          <div class="card-body">
+            <h3 class="card-title">Most Favourite Property</h3>
+            <p>Property with more Favourite.</p>
+            <table class="table table-hover">
+              <tbody>
+                {% for property in popular_properties %}
+                  <tr>
+                    <td>
+                      <div class="d-flex flex-row">
+                        <img src="{{property.image}}" width="40" height="40" alt="property" class="rounded-circle"/>
+                        <div class="d-flex flex-column ms-2">
+                          <div>{{property.name}}</div>
+                          <div class="fw-bold">
+                            Views: <span class="propertyView">{{property.views}}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block extra_body %}
+  <!-- Daterangepicker js -->
+  <script src="{% static "vendor/daterangepicker/moment.min.js" %}"></script>
+  <script src="{% static "vendor/daterangepicker/daterangepicker.js" %}"></script>
+
+  <!-- Apex Charts js -->
+  <script src="{% static "vendor/apexcharts/apexcharts.min.js" %}"></script>
+
+  <!-- Vector Map js -->
+  <script src="{% static "vendor/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.min.js" %}"></script>
+  <script src="{% static "vendor/admin-resources/jquery.vectormap/maps/jquery-jvectormap-world-mill-en.js" %}"></script>
+  
+  <script>
+    $(document).ready(function () {
+      var elements = document.getElementsByClassName("dropdown-item");
+      Array.from(elements).forEach((element) => {
+        element.addEventListener("click", (event) => {
+          const selectedYear = event.target.innerText;
+          document.getElementById("dropdown-btn").innerHTML = selectedYear;
+        });
+      });
+
+      const months = {{months|safe}};
+
+      var chartLineColor = $("#line-chart").data("colors");
+      var options = {
+        chart: {
+          height: 400,
+          type: "line",
+          stacked: false,
+        },
+        dataLabels: {
+          enabled: false,
+        },
+        colors: [chartLineColor],
+        series: [
+          {
+            name: "Series A",
+            data: {{users}},
+          },
+        ],
+        stroke: {
+          width: [4, 4],
+        },
+        plotOptions: {
+          bar: {
+            columnWidth: "20%",
+          },
+        },
+        xaxis: {
+          categories: months,
+        },
+        yaxis: [
+          {
+            labels: {
+              style: {
+                colors: chartLineColor,
+              },
+            },
+            title: {
+              text: "No. of users",
+              style: {
+                color: chartLineColor,
+              },
+            },
+          },
+        ],
+        tooltip: {
+          shared: false,
+          intersect: true,
+          x: {
+            show: false,
+          },
+        },
+        legend: {
+          horizontalAlign: "left",
+          offsetX: 40,
+        },
+      };
+
+      var chart = new ApexCharts(document.querySelector("#line-chart"), options);
+      chart.render();
+    });
+  </script>
+{% endblock %}

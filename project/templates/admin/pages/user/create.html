@@ -1,0 +1,180 @@
+{% extends "admin/base.html" %}
+
+{% load static %}
+
+{% block title %}Add User{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static "vendor/apexcharts/apexcharts.css" %}" />
+    <link rel="stylesheet" href="{% static "custom/custom_style.css" %}" />
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row pt-3">
+            <div class="col">
+                <div>
+                    <span class="fs-4 m-0 text-primary"><a href="javascript:history.back()"><i class="ri-arrow-left-line"></i> Back</a></span>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-title">
+                            <span class="fs-3 m-0">Add User</span>
+                            <hr>
+                        </div>
+                        <div class="card-content">
+                            <form action="{% url "accounts:add_user" %}" method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="col-md-6 mb-2">
+                                        <label for="username" class="form-label mb-0">Name</label>
+                                        <input type="text" id="username" name="username" class="form-control" placeholder="Enter User Name">
+                                        {% if form.errors %}
+                                            <div class='text-danger'>{{form.errors.username}}</div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-6 mb-2">
+                                        <label for="groups" class="form-label mb-0">User Type</label>
+                                        <select id="groups" name="groups" class="form-select">
+                                            <option value="">Select User Group</option>
+                                            {% for group in groups %}
+                                                <option value="{{group.id}}">{{group.name}}</option>
+                                            {% endfor %}
+                                        </select>
+                                        {% if form.errors %}
+                                            <div class='text-danger'>{{form.errors.groups}}</div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-6 mb-2">
+                                        <label for="first_name" class="form-label mb-0">First Name</label>
+                                        <input type="text" id="first_name" name="first_name" class="form-control" placeholder="Enter First Name">
+                                        {% if form.errors %}
+                                            <div class='text-danger'>{{form.errors.first_name}}</div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-6 mb-2">
+                                        <label for="last_name" class="form-label mb-0">First Name</label>
+                                        <input type="text" id="last_name" name="last_name" class="form-control" placeholder="Enter Last Name">
+                                        {% if form.errors %}
+                                            <div class='text-danger'>{{form.errors.last_name}}</div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-6 mb-2">
+                                        <label for="email" class="form-label mb-0">Email</label>
+                                        <input type="text" id="email" name="email" class="form-control" placeholder="Enter Email">
+                                        {% if form.errors %}
+                                            <div class='text-danger'>{{form.errors.email}}</div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-6 mb-2">
+                                        <label for="password" class="form-label mb-0">Password</label>
+                                        <input type="password" id="password" name="password" autocomplete="off" class="form-control" placeholder="Enter Password">
+                                        {% if form.errors %}
+                                            <div class='text-danger'>{{form.errors.password}}</div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-6 mb-2">
+                                        <label for="phone" class="form-label mb-0">Contact no.</label>
+                                        <input type="text" id="phone" name="phone" class="form-control" placeholder="Enter Contact">
+                                        {% if form.errors %}
+                                            <div class='text-danger'>{{form.errors.phone}}</div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-6 mb-2">
+                                        <label for="company" class="form-label mb-0">Company Name</label>
+                                        <input type="text" id="company" name="company" class="form-control" placeholder="Enter Company Name">
+                                        {% if form.errors %}
+                                            <div class='text-danger'>{{form.errors.company}}</div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-6 mb-2">
+                                        <label for="skype" class="form-label mb-0">Skype Link</label>
+                                        <input type="text" id="skype" name="skype" class="form-control" placeholder="Enter Skype Link">
+                                        {% if form.errors %}
+                                            <div class='text-danger'>{{form.errors.skype}}</div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-6 mb-2">
+                                        <label for="facebook" class="form-label mb-0">Facebook Link</label>
+                                        <input type="text" id="facebook" name="facebook" class="form-control" placeholder="Enter Facebook Link">
+                                        {% if form.errors %}
+                                            <div class='text-danger'>{{form.errors.facebook}}</div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-6 mb-2">
+                                        <label for="twitter" class="form-label mb-0">Twitter Link</label>
+                                        <input type="text" id="twitter" name="twitter" class="form-control" placeholder="Enter Twitter Link">
+                                        {% if form.errors %}
+                                            <div class='text-danger'>{{form.errors.twitter}}</div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-6 mb-2">
+                                        <label for="linkedin" class="form-label mb-0">LinkedIn Link</label>
+                                        <input type="text" id="linkedin" name="linkedin" class="form-control" placeholder="Enter LinkedIn Link">
+                                        {% if form.errors %}
+                                            <div class='text-danger'>{{form.errors.linkedin}}</div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-6 mb-2">
+                                        <label for="instagram" class="form-label mb-0">Instagram Link</label>
+                                        <input type="text" id="instagram" name="instagram" class="form-control" placeholder="Enter Instagram Link">
+                                        {% if form.errors %}
+                                            <div class='text-danger'>{{form.errors.instagram}}</div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-6 mb-2">
+                                        <label for="pinterest" class="form-label mb-0">Pinterest Link</label>
+                                        <input type="text" id="pinterest" name="pinterest" class="form-control" placeholder="Enter Pinterest Link">
+                                        {% if form.errors %}
+                                            <div class='text-danger'>{{form.errors.pinterest}}</div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-6 mb-2">
+                                        <div class="form-check form-switch">
+                                            <label for="is_active" class="form-label mb-0">Active</label>
+                                            <input class="form-check-input" name="is_active" type="checkbox" id="is_active"/>
+                                            {% if form.errors %}
+                                                <div class="text-danger">{{form.errors.is_active}}</div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-6 mb-2">
+                                        <label for="profile" class="form-label mb-0">Profile Image</label>
+                                        <input type="file" id="profile" name="profile" class="form-control" accept="image/*"/>
+                                        {% if form.errors %}
+                                            <div class='text-danger'>{{form.errors.profile}}</div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-12 mb-2">
+                                        <label for="address" class="form-label mb-0">Address</label>
+                                        <textarea class="form-control" name="address" id="address" rows="4" placeholder="Enter Address"></textarea>
+                                        {% if form.errors %}
+                                            <div class='text-danger'>{{form.errors.address}}</div>
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="col-12 mb-2">
+                                        <div class="form-group">
+                                            <button type="submit" name="submit" class="btn btn-primary float-end">Save</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_body %}
+    <!-- Quill Editor js -->
+    <script src="{% static "vendor/quill/quill.min.js" %}"></script>
+
+    <!-- Dropzone File Upload js -->
+    <script src="{% static "vendor/dropzone/min/dropzone.min.js" %}"></script>
+
+    <!-- File Upload Demo js -->
+    <script src="{% static "js/pages/fileupload.init.js" %}"></script>
+{% endblock %}

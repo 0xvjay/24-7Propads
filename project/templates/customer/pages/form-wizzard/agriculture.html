@@ -1,0 +1,204 @@
+{% extends "customer/base.html" %}
+{% load static %}
+
+{% block title %}Add Property{% endblock %}
+
+{% block extra_head %}
+    <style>
+        .custom-dropdown {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .selected-option {
+            padding: 10px;
+            border: 1px solid #ccc;
+            cursor: pointer;
+            display: block;
+        }
+
+        .dropdown-list {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            max-height: 200px;
+            /* Set your desired max height */
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            background: white;
+            z-index: 10;
+        }
+
+        .dropdown-list li {
+            padding: 10px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .dropdown-list li:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div id="dashboard" class="pt-10 pb-10">
+        <div class="container">
+            <div class="dashboard-main">
+                <div class="row">
+                    <div class="dashboard-content">
+                        <div class="add-listing dashboard-form">
+                            <div class="listing-main">
+                                <div class="addlist-inner bg-white">
+                                    <div class="addlist-content bg-white">
+                                        <form action="/">
+                                            <div class="row">
+                                                <div class="col-lg-6 col-md-6 col-xs-12">
+                                                    <div class="form-group">
+                                                        <div class="input-box">
+                                                            <label class="form-label">Village Name</label>
+                                                            <input type="text" class="" placeholder="Enter Community / Project / Colony Name">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                                                        <div class="form-group">
+                                                            <div class="input-box">
+                                                                <label class="form-label">Acres</label>
+                                                                <input type="text" class="" placeholder="Enter Acres">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                                                        <div class="form-group">
+                                                            <div class="input-box">
+                                                                <label>Approach Road (Square Feet)</label>
+                                                                <input type="text" class="" placeholder="Enter Approach Road  ">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                                                        <div class="form-group">
+                                                            <label>Facing </label>
+                                                            <div class="input-box">
+                                                                <select class="niceSelect ">
+                                                                    <option>East</option>
+                                                                    <option>West</option>
+                                                                    <option>North</option>
+                                                                    <option>South</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                                                        <div class="form-group">
+                                                            <div class="input-box">
+                                                                <label>Total Price (INR)*</label>
+                                                                <input type="text" class="" placeholder="Enter Total Price Amount">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                                                        <div class="form-group">
+                                                            <label>Commission </label>
+                                                            <div class="input-box form-select">
+                                                                <div class="custom-dropdown">
+                                                                    <span class="selected-option">0.5% of Sale Amount</span>
+                                                                    <ul class="dropdown-list">
+                                                                        <li>0.5% of Sale Amount</li>
+                                                                        <li>1.0% of Sale Amount</li>
+                                                                        <li>1.5% of Sale Amount</li>
+                                                                        <li>2.0% of Sale Amount</li>
+                                                                        <li>Contact Me For Details</li>
+                                                                        <li>Not Applicable</li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12">
+                                                    <div class="pretty p-default p-thick p-pulse mb-2">
+                                                        <input type="checkbox" />
+                                                        <div class="state d-flex align-items-center p-warning-o">
+                                                            <label>I Agree with all <a href="#">Terms &amp; Conditions</a></label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12">
+                                                    <a href="#" class="nir-btn"><i class="fa fa-plus"></i> Add Listing</a>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="newsletter p-0 position-relative">
+        <div class="newsletter-main bg-theme2 p-5 pb-3">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-8 mb-2">
+                        <div class="newsletter-content">
+                            <h2 class="mb-0 white text-lg-start text-center">
+                                Do You Need Help With Anything?
+                            </h2>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 mb-2">
+                        <div class="newsletter-form w-100">
+                            <form action="#" method="get" accept-charset="utf-8" class="border-0">
+                                <input type="text" placeholder="Email Address">
+                                <button class="nir-btn-black">Subscribe</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- content-line ends -->
+{% endblock %}
+
+{% block extra_body %}
+    <script src="{% static "customer/js/jpanelmenu.min.js" %}"></script>
+    <script src="{% static "customer/js/dashboard-custom.js" %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/js/bootstrap-datepicker.min.js"></script>
+    <script>
+        $("#datepicker").datepicker({
+            format: "mm-yyyy",
+            startView: "months",
+            minViewMode: "months"
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $(".custom-dropdown").on("click", ".selected-option", function () {
+                $(this).siblings(".dropdown-list").slideToggle();
+            });
+
+            $(".custom-dropdown").on("click", ".dropdown-list li", function () {
+                var selectedOption = $(this).text();
+                $(this).parent().siblings(".selected-option").text(selectedOption);
+                $(this).parent().slideUp();
+            });
+
+            $(document).on("click", function (e) {
+                if (!$(e.target).closest('.custom-dropdown').length) {
+                    $('.dropdown-list').slideUp();
+                }
+            });
+        });
+    </script>
+{% endblock %}
+ 

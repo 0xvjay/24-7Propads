@@ -1,0 +1,79 @@
+{% extends "admin/base.html" %}
+
+{% load static %}
+
+{% block title %}Edit Subscription Plan{% endblock %}
+
+{% block extra_head %}
+    <!-- Vector Map css -->
+    <link rel="stylesheet" href="{% static "vendor/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css" %}" />
+
+    <link rel="stylesheet" href="{% static "custom/custom_style.css" %}" />
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row pt-3">
+            <div class="col">
+                <div>
+                    <span class="fs-4 m-0 text-primary"><a href="javascript:history.back()"><i class="ri-arrow-left-line"></i> Back</a></span>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-title">
+                            <span class="fs-3 m-0">Edit Subscription Plan</span>
+                            <hr>
+                        </div>
+                        <div class="card-content">
+                            <form action="{% url "subscription:edit_subscription_plan" pk=object.pk %}" method="post">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="col-md-6 mb-2">
+                                        <label for="name" class="form-label mb-0">Subscription Name</label>
+                                        <input type="text" id="name" name="name" class="form-control" placeholder="Enter Subscription Name" value="{{object.name}}">
+                                        {% if form.errors %}
+                                            <div class='text-danger'>{{form.errors.name}}</div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-6 mb-2">
+                                        <label for="price" class="form-label mb-0">Subscription Price</label>
+                                        <input type="text" id="price" name="price" class="form-control" placeholder="Enter Subscription Price" value="{{object.price}}">
+                                        {% if form.errors %}
+                                            <div class='text-danger'>{{form.errors.price}}</div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-6 mb-2">
+                                        <label for="duration_days" class="form-label mb-0">Days</label>
+                                        <input type="text" id="duration_days" name="duration_days" class="form-control" placeholder="Enter Subscription Days" value="{{object.duration_days}}">
+                                        {% if form.errors %}
+                                            <div class='text-danger'>{{form.errors.duration_days}}</div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-6 mb-2">
+                                        <label for="max_listings" class="form-label mb-0">Listing</label>
+                                        <input type="text" id="max_listings" name="max_listings" class="form-control" placeholder="Enter Listing" value="{{object.max_listings}}">
+                                        {% if form.errors %}
+                                            <div class='text-danger'>{{form.errors.max_listings}}</div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-6 mb-2">
+                                        <label for="max_ads" class="form-label mb-0">Advertisements</label>
+                                        <input type="text" id="max_ads" name="max_ads" class="form-control" placeholder="Enter Advertisements"  value="{{object.max_ads}}">
+                                        {% if form.errors %}
+                                            <div class='text-danger'>{{form.errors.max_ads}}</div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-12 mb-2">
+                                        <div class="form-group">
+                                            <button type="submit" name="submit" class="btn btn-primary float-end">Save</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

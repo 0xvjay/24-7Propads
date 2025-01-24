@@ -1,0 +1,191 @@
+{% extends "customer/base.html" %}
+{% load static %}
+
+{% block title %}Add Property{% endblock %}
+
+{% block content %}
+    <section class="breadcrumb-main pb-5 pt-20" style="background-image: url({% static "customer/images/bg/bg2.jpg" %});">
+        <div class="breadcrumb-outer">
+            <div class="container">
+                <div class="breadcrumb-content d-md-flex align-items-center pt-6">
+                    <h1 class="mb-0">Enter Basic Details</h1>
+                    <nav aria-label="breadcrumb">
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Enter Basic Details</li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <div class="dot-overlay"></div>
+    </section>
+    <!-- Dashboard -->
+    <div id="dashboard" class="pt-10 pb-10">
+        <div class="container">
+            <div class="dashboard-main">
+                <div class="row">
+                    <div>
+                        <div class="dashboard-content">
+                            <div class="add-listing dashboard-form">
+                                <div class="listing-main">
+                                    <div class="addlist-inner bg-white">
+                                        <div class="addlist-content bg-white">
+                                            <form action="/">
+                                                <div class="row">
+                                                    <div class="col-lg-12 col-md-12 col-xs-12">
+                                                        <div class="form-group">
+                                                            <label>Enter user type*</label>
+                                                            <div class=" display-4 input-box">
+                                                                <input type="radio" class="btn-check" checked name="options-outlined" id="owner-outlined" value="Owner" autocomplete="off">
+                                                                <label class="btn btn-outline-danger" for="owner-outlined">Owner</label>
+                                                            
+                                                                <input type="radio" class="btn-check" name="options-outlined" id="broker-outlined" value="Broker" autocomplete="off">
+                                                                <label class="btn btn-outline-danger" for="broker-outlined">Broker</label>
+                                                            
+                                                                <input type="radio" class="btn-check" name="options-outlined" id="user-outlined" value="User" autocomplete="off">
+                                                                <label class="btn btn-outline-danger" for="user-outlined">User</label>
+                                                            
+                                                                <input type="radio" class="btn-check" name="options-outlined" id="flatmate-outlined" value="Flatmate" autocomplete="off">
+                                                                <label class="btn btn-outline-danger" for="flatmate-outlined">Flatmate</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                
+                                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                                                        <div class="form-group">
+                                                            <label>Posting For*</label>
+                                                            <div class="input-box">
+                                                                <select class="niceSelect ">
+                                                                    <option>Sale</option>
+                                                                    <option>Rent</option>
+                                                                    <option>Lease</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                                                        <div class="form-group">
+                                                            <label>Select Property Type*</label>
+                                                            <div class="input-box">
+                                                                <select class="niceSelect ">
+                                                                    <option>Flat</option>
+                                                                    <option>Villa</option>
+                                                                    <option>Independent House</option>
+                                                                    <option>Commercial Space</option>
+                                                                    <option>Open Plot</option>
+                                                                    <option>Agriculture Land</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                                                        <div class="form-group">
+                                                            <div class="input-box">
+                                                                <label class="form-label">State*</label>
+                                                                <input type="text" class=""
+                                                                    placeholder="Enter state name">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                                                        <div class="form-group">
+                                                            <div class="input-box">
+                                                                <label>City*</label>
+                                                                <input type="text" class=""
+                                                                    placeholder="Enter city name">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                                                        <div class="form-group">
+                                                            <div class="input-box">
+                                                                <label>Locality*</label>
+                                                                <input type="text" class=""
+                                                                    placeholder="Enter your location">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                        
+                                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                                                        <div class="form-group">
+                                                            <label>Are You RERA Registered Agent*</label>
+                                                            <div class="input-box">
+                                                                <select class="niceSelect">
+                                                                    <option>Yes</option>
+                                                                    <option>Have Applied</option>
+                                                                    <option>Not Applicable</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                                                        <div class="form-group">
+                                                            <div class="input-box">
+                                                                <label>Agent RERA Registration Number</label>
+                                                                <input type="text" class=""
+                                                                    placeholder="Enter agent RERA registration number">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                
+                                                    <div class="col-lg-12">
+                                                        <div class="pretty p-default p-thick p-pulse mb-2">
+                                                            <input type="checkbox" />
+                                                            <div class="state d-flex align-items-center p-warning-o">
+                                                                <label>I Agree with all <a href="#">Terms &amp;
+                                                                        Conditions</a></label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12">
+                                                        <a href="#" class="nir-btn"><i class="fa fa-plus"></i> Add
+                                                            Listing</a>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Content / End -->
+        </div>
+    </div>
+    <!-- Dashboard / End -->
+
+    <!-- content-line start -->
+    <section class="newsletter p-0 position-relative">
+        <div class="newsletter-main bg-theme2 p-5 pb-3">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-8 mb-2">
+                        <div class="newsletter-content">
+                            <h2 class="mb-0 white text-lg-start text-center">
+                                Do You Need Help With Anything?
+                            </h2>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 mb-2">
+                        <div class="newsletter-form w-100">
+                            <form action="#" method="get" accept-charset="utf-8" class="border-0">
+                                <input type="text" placeholder="Email Address">
+                                <button class="nir-btn-black">Subscribe</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- content-line ends -->
+{% endblock %}
+
+{% block extra_body %}
+    <script src="{% static "customer/js/jpanelmenu.min.js" %}"></script>
+    <script src="{% static "customer/js/dashboard-custom.js" %}"></script>
+{% endblock %}

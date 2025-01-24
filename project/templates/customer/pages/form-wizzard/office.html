@@ -1,0 +1,422 @@
+{% extends "customer/base.html" %}
+{% load static %}
+
+{% block title %}Add Property{% endblock %}
+
+{% block extra_head %}
+    <style>
+        .custom-dropdown {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .selected-option {
+            padding: 10px;
+            border: 1px solid #ccc;
+            cursor: pointer;
+            display: block;
+        }
+
+        .dropdown-list {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            max-height: 200px;
+            /* Set your desired max height */
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            background: white;
+            z-index: 10;
+        }
+
+        .dropdown-list li {
+            padding: 10px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .dropdown-list li:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <section class="breadcrumb-main pb-5 pt-20" style="background-image: url({% static "customer/images/bg/bg2.jpg" %});">
+        <div class="breadcrumb-outer">
+            <div class="container">
+                <div class="breadcrumb-content d-md-flex align-items-center pt-6">
+                    <h1 class="mb-0">Add Office/Commercial Space Listing</h1>
+                    <nav aria-label="breadcrumb">
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="index.html">Post Property</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Office/Commercial Space</li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <div class="dot-overlay"></div>
+    </section>
+    <!-- Dashboard -->
+    <div id="dashboard" class="pt-10 pb-10">
+        <div class="container">
+            <div class="dashboard-main">
+                <div class="row">
+                    <div>
+                        <div class="dashboard-content">
+                            <div class="add-listing dashboard-form">
+                                <div class="listing-main">
+                                    <div class="addlist-inner bg-white">
+                                        <div class="addlist-content bg-white">
+                                            <form action="/">
+                                                <div class="row">
+                                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                                                        <div class="form-group">
+                                                            <div class="input-box">
+                                                                <label class="form-label">Society/Project Name
+                                                                </label>
+                                                                <input type="text" class="" placeholder="Enter Society/Project Name">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                                                        <div class="form-group">
+                                                            <label>Are You RERA Registered Agent</label>
+                                                            <div class="input-box">
+                                                                <select class="niceSelect">
+                                                                    <option>Yes</option>
+                                                                    <option>Have Applied</option>
+                                                                    <option>Not Applicable</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                                                        <div class="form-group">
+                                                            <div class="input-box">
+                                                                <label>Agent RERA Registration Number</label>
+                                                                <input type="text" class="" placeholder="Enter agent RERA registration number">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                                                        <div class="form-group">
+                                                            <label>Select Type</label>
+                                                            <div class="input-box">
+                                                                <select class="niceSelect ">
+                                                                    <option>Retail Shop</option>
+                                                                    <option>Office Space
+                                                                    </option>
+                                                                    <option>Plug and Play Office Space
+                                                                    </option>
+                                                                    <option>Commercial Space
+                                                                    </option>
+                                                                    <option>Godown
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                                                        <div class="form-group">
+                                                            <label>Transaction Type*</label>
+                                                            <div class="input-box">
+                                                                <select class="niceSelect ">
+                                                                    <option>New Property </option>
+                                                                    <option>Resale Property </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                                                        <div class="form-group">
+                                                            <label>Possession Status* </label>
+                                                            <div class="input-box">
+                                                                <select class="niceSelect ">
+                                                                    <option>Ready To Move
+                                                                    </option>
+                                                                    <option>Under Construction
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                                                        <div class="form-group">
+                                                            <label>Available From </label>
+                                                            <div class="input-box"> <input type="text" class="form-control" name="datepicker"  id="datepicker" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                                                        <div class="form-group">
+                                                            <label>Age of Property</label>
+                                                            <div class="input-box form-select">
+                                                                <div class="custom-dropdown">
+                                                                    <span class="selected-option">01 Year</span>
+                                                                    <ul class="dropdown-list">
+                                                                        <li>01 Year</li>
+                                                                        <li>02 Years</li>
+                                                                        <li>03 Years</li>
+                                                                        <li>04 Years</li>
+                                                                        <li>05 Years</li>
+                                                                        <li>06 Years</li>
+                                                                        <li>07 Years</li>
+                                                                        <li>08 Years</li>
+                                                                        <li>09 Years</li>
+                                                                        <li>10 Years</li>
+                                                                        <li>11 Years</li>
+                                                                        <li>12 Years</li>
+                                                                        <li>13 Years</li>
+                                                                        <li>14 Years</li>
+                                                                        <li>15 Years</li>
+                                                                        <li>16 Years</li>
+                                                                        <li>17 Years</li>
+                                                                        <li>18 Years</li>
+                                                                        <li>19 Years</li>
+                                                                        <li>20 Years</li>
+                                                                        <li>21 Years</li>
+                                                                        <li>22 Years</li>
+                                                                        <li>23 Years</li>
+                                                                        <li>24 Years</li>
+                                                                        <li>25 Years</li>
+                                                                        <li>26 Years</li>
+                                                                        <li>27 Years</li>
+                                                                        <li>28 Years</li>
+                                                                        <li>29 Years</li>
+                                                                        <li>30 Years</li>
+                                                                        <li>31 Years</li>
+                                                                        <li>32 Years</li>
+                                                                        <li>33 Years</li>
+                                                                        <li>34 Years</li>
+                                                                        <li>More Than 35 Years</li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                                                        <div class="form-group">
+                                                            <label>Facing</label>
+                                                            <div class="input-box">
+                                                                <select class="niceSelect ">
+                                                                    <option>East
+                                                                    </option>
+                                                                    <option>West
+                                                                    </option>
+                                                                    <option>North
+                                                                    </option>
+                                                                    <option>South
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                                                        <div class="form-group">
+                                                            <div class="input-box">
+                                                                <label class="form-label">Built-up Area (Square Feets)</label>
+                                                                <input type="text" class="" placeholder="Enter Built-up Area ">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                                                        <div class="form-group">
+                                                            <div class="input-box">
+                                                                <label>Plot Area (Square Yards)
+                                                                </label>
+                                                                <input type="text" class=""
+                                                                    placeholder="Enter Plot Area  ">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                                                        <div class="form-group">
+                                                            <div class="input-box">
+                                                                <label>Undivided Share of Land (Square Yards)</label>
+                                                                <input type="text" class="" placeholder="Enter Undivided Share of Land ">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                                                        <div class="form-group">
+                                                            <label>Furnishing Status </label>
+                                                            <div class="input-box">
+                                                                <select class="niceSelect">
+                                                                    <option>Furnished</option>
+                                                                    <option>Semi-Furnished</option>
+                                                                    <option>Unfurnished </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                                                        <div class="form-group">
+                                                            <div class="input-box">
+                                                                <label>Seating Capacity</label>
+                                                                <input type="text" class="" placeholder="Enter Seating Capacity">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                                                        <div class="form-group">
+                                                            <div class="input-box">
+                                                                <label>Total Floors*</label>
+                                                                <input type="text" class="" placeholder="Enter Floors">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                                                        <div class="form-group">
+                                                            <div class="input-box">
+                                                                <label>Floor Number*</label>
+                                                                <input type="text" class="" placeholder="Enter Floor Number">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                                                        <div class="form-group">
+                                                            <label>Reserved Car Parking* </label>
+                                                            <div class="input-box form-select">
+                                                                <div class="custom-dropdown">
+                                                                    <span class="selected-option">01</span>
+                                                                    <ul class="dropdown-list">
+                                                                        <li>01</li>
+                                                                        <li>02</li>
+                                                                        <li>03</li>
+                                                                        <li>04</li>
+                                                                        <li>05</li>
+                                                                        <li>06</li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                            
+
+                                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                                                        <div class="form-group">
+                                                            <div class="input-box">
+                                                                <label>Monthly Maintenance (INR)</label>
+                                                                <input type="text" class="" placeholder="Enter Monthly Maintenance Amount">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                                                        <div class="form-group">
+                                                            <div class="input-box">
+                                                                <label>Total Price (INR)*</label>
+                                                                <input type="text" class="" placeholder="Enter Total Price Amount">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                                                        <div class="form-group">
+                                                            <label>Commission </label>
+                                                            <div class="input-box form-select">
+                                                                <div class="custom-dropdown">
+                                                                    <span class="selected-option">0.5% of Sale Amount</span>
+                                                                    <ul class="dropdown-list">
+                                                                        <li>0.5% of Sale Amount</li>
+                                                                        <li>1.0% of Sale Amount</li>
+                                                                        <li>1.5% of Sale Amount</li>
+                                                                        <li>2.0% of Sale Amount</li>
+                                                                        <li>Contact Me For Details</li>
+                                                                        <li>Not Applicable</li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12">
+                                                    <div class="pretty p-default p-thick p-pulse mb-2">
+                                                        <input type="checkbox" />
+                                                        <div class="state d-flex align-items-center p-warning-o">
+                                                            <label>I Agree with all <a href="#">Terms &amp; Conditions</a></label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12">
+                                                    <a href="#" class="nir-btn"><i class="fa fa-plus"></i> Add Listing</a>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Content / End -->
+    </div>
+    </div>
+    <!-- Dashboard / End -->
+
+    <!-- content-line start -->
+    <section class="newsletter p-0 position-relative">
+        <div class="newsletter-main bg-theme2 p-5 pb-3">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-8 mb-2">
+                        <div class="newsletter-content">
+                            <h2 class="mb-0 white text-lg-start text-center">
+                                Do You Need Help With Anything?
+                            </h2>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 mb-2">
+                        <div class="newsletter-form w-100">
+                            <form action="#" method="get" accept-charset="utf-8" class="border-0">
+                                <input type="text" placeholder="Email Address">
+                                <button class="nir-btn-black">Subscribe</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- content-line ends -->
+{% endblock %}
+
+{% block extra_body %}
+    <script src="{% static "customer/js/jpanelmenu.min.js" %}"></script>
+    <script src="{% static "customer/js/dashboard-custom.js" %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/js/bootstrap-datepicker.min.js"></script>
+    <script>
+        $("#datepicker").datepicker({
+            format: "mm-yyyy",
+            startView: "months",
+            minViewMode: "months"
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $(".custom-dropdown").on("click", ".selected-option", function () {
+                $(this).siblings(".dropdown-list").slideToggle();
+            });
+
+            $(".custom-dropdown").on("click", ".dropdown-list li", function () {
+                var selectedOption = $(this).text();
+                $(this).parent().siblings(".selected-option").text(selectedOption);
+                $(this).parent().slideUp();
+            });
+
+            // Close the dropdown when clicking outside
+            $(document).on("click", function (e) {
+                if (!$(e.target).closest('.custom-dropdown').length) {
+                    $('.dropdown-list').slideUp();
+                }
+            });
+        });
+    </script>
+{% endblock %}

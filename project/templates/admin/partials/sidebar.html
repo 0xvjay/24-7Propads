@@ -1,0 +1,122 @@
+{% load static %}
+
+<div class="leftside-menu">
+  <!-- Brand Logo Light -->
+  <a href="{% url "core:dashboard" %}" class="logo logo-light">
+    <span class="logo-lg">
+      <img src="{% static "images/logo.png" %}" alt="logo" />
+    </span>
+    <span class="logo-sm">
+      <img src="{% static "images/logo-sm.png" %}" alt="small logo" />
+    </span>
+  </a>
+
+  <!-- Brand Logo Dark -->
+  <a href="{% url "core:dashboard" %}" class="logo logo-dark">
+    <span class="logo-lg">
+      <img src="{% static "images/logo-dark.png" %}" alt="dark logo" />
+    </span>
+    <span class="logo-sm">
+      <img src="{% static "images/logo-sm.png" %}" alt="small logo" />
+    </span>
+  </a>
+
+  <!-- Sidebar -left -->
+  <div class="h-100" id="leftside-menu-container" data-simplebar>
+    <!--- Sidemenu -->
+    <ul class="side-nav">
+      <!-- <li class="side-nav-title">Main</li> -->
+
+      <li class="side-nav-item">
+        <a href="{% url "core:dashboard" %}" class="side-nav-link">
+          <i class="ri-dashboard-3-line"></i>
+          <span class="badge bg-success float-end"></span>
+          <span> Dashboard </span>
+        </a>
+      </li>
+
+      <li class="side-nav-item">
+        <a href="{% url "property:types" %}" class="side-nav-link">
+          <i class="bi bi-diagram-3"></i>
+          <span class="badge bg-success float-end"></span>
+          <span> Type </span>
+        </a>
+      </li>
+
+      <li class="side-nav-item">
+        <a href="{% url "property:properties" %}" class="side-nav-link">
+          <i class="ri-map-pin-line"></i>
+          <span class="badge bg-success float-end"></span>
+          <span> Properties </span>
+        </a>
+      </li>
+
+      <li class="side-nav-item">
+        <a href="{% url "accounts:users" %}" class="side-nav-link">
+          <i class="bi-person"></i>
+          <span class="badge bg-success float-end"></span>
+          <span> Users </span>
+        </a>
+      </li>
+
+      <li class="side-nav-item">
+        <a href="{% url "accounts:groups" %}" class="side-nav-link">
+          <i class="bi-people"></i>
+          <span class="badge bg-success float-end"></span>
+          <span> Groups </span>
+        </a>
+      </li>
+
+      <li class="side-nav-item">
+        <a href="{% url "advertisement:advertisements" %}" class="side-nav-link">
+          <i class="bi-badge-ad"></i>
+          <span class="badge bg-success float-end"></span>
+          <span> Advertisements </span>
+        </a>
+      </li>
+
+      <li class="side-nav-item">
+        <a href="{% url "core:admin_contact_us" %}" class="side-nav-link">
+          <i class="mdi mdi-email-outline"></i>
+          <span class="badge bg-success float-end"></span>
+          <span> Contact Us </span>
+        </a>
+      </li>
+
+      <li class="side-nav-item">
+        <a href="{% url "subscription:subscription_plans" %}" class="side-nav-link">
+          <i class="bi bi-file-earmark-text"></i>
+          <span class="badge bg-success float-end"></span>
+          <span> Subscription Plan </span>
+        </a>
+      </li>
+
+      <li class="side-nav-item">
+        <a href="{% url "subscription:user_subscriptions" %}" class="side-nav-link">
+          <i class="bi bi-file-earmark-person"></i>
+          <span class="badge bg-success float-end"></span>
+          <span> User Subscription </span>
+        </a>
+      </li>
+
+      <li class="side-nav-item">
+        <a href="{% url "core:admin_faq" %}" class="side-nav-link">
+          <i class="ri-dashboard-3-line"></i>
+          <span class="badge bg-success float-end"></span>
+          <span> FAQ </span>
+        </a>
+      </li>
+
+      <li class="side-nav-item">
+        <a href="{% url "core:site_settings" %}" class="side-nav-link">
+          <i class="ri-settings-5-line"></i>
+          <span class="badge bg-success float-end"></span>
+          <span> Settings </span>
+        </a>
+      </li>
+    </ul>
+    <!--- End Sidemenu -->
+
+    <div class="clearfix"></div>
+  </div>
+</div>

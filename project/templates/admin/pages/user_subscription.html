@@ -1,0 +1,88 @@
+{% extends "admin/base.html" %}
+
+{% load static %}
+
+{% block title %}User Subscriptions{% endblock %}
+
+{% block extra_head %}
+    <!-- Datatables css -->
+    <link href="{% static "vendor/datatables.net-bs5/css/dataTables.bootstrap5.min.css" %}" rel="stylesheet" type="text/css" />
+    <link href="{% static "vendor/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css" %}" rel="stylesheet" type="text/css" />
+    <link href="{% static "vendor/datatables.net-fixedcolumns-bs5/css/fixedColumns.bootstrap5.min.css" %}" rel="stylesheet" type="text/css" />
+    <link href="{% static "vendor/datatables.net-fixedheader-bs5/css/fixedHeader.bootstrap5.min.css" %}" rel="stylesheet" type="text/css" />
+    <link href="{% static "vendor/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css" %}" rel="stylesheet" type="text/css" />
+    <link href="{% static "vendor/datatables.net-select-bs5/css/select.bootstrap5.min.css" %}" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" href="{% static "custom/custom_style.css" %}" />
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row pt-3">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="card-title">
+                                <span class="fs-3 m-0">User Subscription List</span>
+                                <hr>
+                            </div>
+                            <div class="card-content">
+                                <div class="responsive-table-plugin">
+                                    <div class="table-rep-plugin">
+                                        <div class="table-responsive" data-pattern="priority-columns">
+                                            <table id="user-subscription-list-table" class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>User Name</th>
+                                                        <th>User Email</th>
+                                                        <th>Plan Name</th>
+                                                        <th>Price</th>
+                                                        <th>Status</th>
+                                                        <th>Update Date</th>
+                                                        <th>Expiry Date</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for object in object_list %}
+                                                        <tr>
+                                                            <td>{{object.user.get_full_name}}</td>
+                                                            <td>{{object.user.email}}</td>
+                                                            <td>{{object.plan.name}}</td>
+                                                            <td>{{object.plan.price}}</td>
+                                                            <td>{{object.status}}</td>
+                                                            <td>{{object.start_date}}</td>
+                                                            <td>{{object.end_date}}</td>
+                                                        </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_body %}
+    <!-- Datatables js -->
+    <script src="{% static "vendor/datatables.net/js/jquery.dataTables.min.js" %}"></script>
+    <script src="{% static "vendor/datatables.net-bs5/js/dataTables.bootstrap5.min.js" %}"></script>
+    <script src="{% static "vendor/datatables.net-responsive/js/dataTables.responsive.min.js" %}"></script>
+    <script src="{% static "vendor/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js" %}"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#user-subscription-list-table').DataTable({
+                columnDefs: [
+                    { orderable: false, targets: -1 }
+                ],
+            });
+        });
+    </script>
+{% endblock %}

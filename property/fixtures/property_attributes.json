@@ -1,0 +1,72 @@
+[
+  {
+    "model": "property.PropertyAttributes",
+    "pk": 1,
+    "fields": {
+      "name": "test"
+    }
+  },
+  {
+    "model": "property.PropertyAttributes",
+    "pk": 2,
+    "fields": {
+      "name": "test"
+    }
+  },
+  {
+    "model": "property.PropertyAttributes",
+    "pk": 3,
+    "fields": {
+      "name": "test"
+    }
+  },
+  {
+    "model": "property.PropertyAttributes",
+    "pk": 4,
+    "fields": {
+      "name": "test"
+    }
+  },
+  {
+    "model": "property.PropertyAttributes",
+    "pk": 5,
+    "fields": {
+      "name": "test"
+    }
+  },
+  {
+    "model": "property.PropertyAttributes",
+    "pk": 6,
+    "fields": {
+      "name": "test"
+    }
+  },
+  {
+    "model": "property.PropertyAttributes",
+    "pk": 7,
+    "fields": {
+      "name": "test"
+    }
+  },
+  {
+    "model": "property.PropertyAttributes",
+    "pk": 8,
+    "fields": {
+      "name": "test"
+    }
+  },
+  {
+    "model": "property.PropertyAttributes",
+    "pk": 9,
+    "fields": {
+      "name": "test"
+    }
+  },
+  {
+    "model": "property.PropertyAttributes",
+    "pk": 10,
+    "fields": {
+      "name": "test"
+    }
+  }
+]

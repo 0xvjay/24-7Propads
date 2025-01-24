@@ -1,0 +1,243 @@
+{% extends "customer/base.html" %}
+{% load static %}
+
+{% block title %}History{% endblock %}
+
+{% block extra_head %}
+    <!--dashboard CSS-->
+    <link href="{% static "customer/css/dashboard.css" %}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block content %}
+    {% url "accounts:account" as title_url %}
+    {% include "customer/partials/breadcrumb.html" with title="Dashboard" subtitle="Listing History" title_url=title_url %}
+
+    <div id="dashboard" class="pt-10 pb-10">
+        <div class="container">
+            <div class="dashboard-main">
+                <div class="row">
+                    {% include "customer/partials/profile-card.html" %}
+
+                    <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">    
+                        <div class="dashboard-content">
+                            <div class="dashboard-list-box">
+                                <div class="table-box">
+                                    <table class="basic-table history-table">
+                                        <thead>
+                                            <tr>
+                                                <th>#ID</th>
+                                                <th>Title</th>
+                                                <th>Order Date</th>
+                                                <th>Execution Time</th>
+                                                <th>Cost</th>
+                                                <th>Status</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>359645</td>
+                                                <td>1200-East-in-Cube city properties</td>
+                                                <td>Jul 7 2024</td>
+                                                <td>Jul 7 2024 - Aug 25 2024</td>
+                                                <td>RS. 1200000</td>
+                                                <td><span class="text-success">Pending</span></td>
+                                                <td>
+                                                    <div class="dropdown">
+                                                        <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            <span class="fa fa-plus"></span>
+                                                        </button>
+                                                        <div class="dropdown-menu">
+                                                            <a class="dropdown-item" href="#">Send Email</a>
+                                                            <a class="dropdown-item" href="#">Print PDF</a>
+                                                             <a class="dropdown-item del" href="#">Delete</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>359645</td>
+                                                <td>1200-East-in-Cube city properties</td>
+                                                <td>Jul 7 2024</td>
+                                                <td>Jul 7 2024 - Aug 25 2024</td>
+                                                <td>RS. 1200000</td>
+                                                <td><span class="">Pending</span></td>
+                                                <td>
+                                                    <div class="dropdown">
+                                                        <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            <span class="fa fa-plus"></span>
+                                                        </button>
+                                                        <div class="dropdown-menu">
+                                                            <a class="dropdown-item" href="#">Send Email</a>
+                                                            <a class="dropdown-item" href="#">Print PDF</a>
+                                                             <a class="dropdown-item del" href="#">Delete</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>359645</td>
+                                                <td>1200-East-in-Cube city properties</td>
+                                                <td>Jul 7 2024</td>
+                                                <td>Jul 7 2024 - Aug 25 2024</td>
+                                                <td>RS. 1200000</td>
+                                                <td><span class="">Pending</span></td>
+                                                <td>
+                                                    <div class="dropdown">
+                                                        <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            <span class="fa fa-plus"></span>
+                                                        </button>
+                                                        <div class="dropdown-menu">
+                                                            <a class="dropdown-item" href="#">Send Email</a>
+                                                            <a class="dropdown-item" href="#">Print PDF</a>
+                                                             <a class="dropdown-item del" href="#">Delete</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>359645</td>
+                                                <td>1200-East-in-Cube city properties</td>
+                                                <td>Jul 7 2024</td>
+                                                <td>Jul 7 2024 - Aug 25 2024</td>
+                                                <td>RS. 1200000</td>
+                                                <td><span class="">Pending</span></td>
+                                                <td>
+                                                    <div class="dropdown">
+                                                        <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            <span class="fa fa-plus"></span>
+                                                        </button>
+                                                        <div class="dropdown-menu">
+                                                            <a class="dropdown-item" href="#">Send Email</a>
+                                                            <a class="dropdown-item" href="#">Print PDF</a>
+                                                             <a class="dropdown-item del" href="#">Delete</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>359645</td>
+                                                <td>1200-East-in-Cube city properties</td>
+                                                <td>Jul 7 2024</td>
+                                                <td>Jul 7 2024 - Aug 25 2024</td>
+                                                <td>RS. 1200000</td>
+                                                <td><span class="">Pending</span></td>
+                                                <td>
+                                                    <div class="dropdown">
+                                                        <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            <span class="fa fa-plus"></span>
+                                                        </button>
+                                                        <div class="dropdown-menu">
+                                                            <a class="dropdown-item" href="#">Send Email</a>
+                                                            <a class="dropdown-item" href="#">Print PDF</a>
+                                                             <a class="dropdown-item del" href="#">Delete</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>359645</td>
+                                                <td>1200-East-in-Cube city properties</td>
+                                                <td>Jul 7 2024</td>
+                                                <td>Jul 7 2024 - Aug 25 2024</td>
+                                                <td>RS. 1200000</td>
+                                                <td><span class="">Pending</span></td>
+                                                <td>
+                                                    <div class="dropdown">
+                                                        <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            <span class="fa fa-plus"></span>
+                                                        </button>
+                                                        <div class="dropdown-menu">
+                                                            <a class="dropdown-item" href="#">Send Email</a>
+                                                            <a class="dropdown-item" href="#">Print PDF</a>
+                                                             <a class="dropdown-item del" href="#">Delete</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>359645</td>
+                                                <td>1200-East-in-Cube city properties</td>
+                                                <td>Jul 7 2024</td>
+                                                <td>Jul 7 2024 - Aug 25 2024</td>
+                                                <td>RS. 1200000</td>
+                                                <td><span class="">Pending</span></td>
+                                                <td>
+                                                    <div class="dropdown">
+                                                        <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            <span class="fa fa-plus"></span>
+                                                        </button>
+                                                        <div class="dropdown-menu">
+                                                            <a class="dropdown-item" href="#">Send Email</a>
+                                                            <a class="dropdown-item" href="#">Print PDF</a>
+                                                             <a class="dropdown-item del" href="#">Delete</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>359645</td>
+                                                <td>1200-East-in-Cube city properties</td>
+                                                <td>Jul 7 2024</td>
+                                                <td>Jul 7 2024 - Aug 25 2024</td>
+                                                <td>RS. 1200000</td>
+                                                <td><span class="">Pending</span></td>
+                                                <td>
+                                                    <div class="dropdown">
+                                                        <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            <span class="fa fa-plus"></span>
+                                                        </button>
+                                                        <div class="dropdown-menu">
+                                                            <a class="dropdown-item" href="#">Send Email</a>
+                                                            <a class="dropdown-item" href="#">Print PDF</a>
+                                                             <a class="dropdown-item del" href="#">Delete</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>    
+            </div>    
+            <!-- Content / End -->
+        </div>
+    </div>
+    <!-- Dashboard / End -->
+
+    
+    <!-- content-line start -->
+    <section class="newsletter p-0 position-relative">
+        <div class="newsletter-main bg-theme2 p-5 pb-3">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-8 mb-2">
+                        <div class="newsletter-content">
+                            <h2 class="mb-0 white text-lg-start text-center">
+                                Do You Need Help With Anything?
+                            </h2>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 mb-2">
+                        <div class="newsletter-form w-100">
+                            <form action="#" method="get" accept-charset="utf-8" class="border-0">
+                                <input type="text" placeholder="Email Address">
+                                <button class="nir-btn-black">Subscribe</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- content-line ends -->
+{% endblock %}
+
+
+{% block extra_body %}
+    <script src="{% static "customer/js/dashboard-custom.js" %}"></script>
+{% endblock %}

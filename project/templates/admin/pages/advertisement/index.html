@@ -1,0 +1,235 @@
+{% extends "admin/base.html" %}
+
+{% load static %}
+
+{% block title %}Advertisements{% endblock %}
+
+{% block extra_head %}
+    <!-- Datatables css -->
+    <link href="{% static "vendor/datatables.net-bs5/css/dataTables.bootstrap5.min.css" %}" rel="stylesheet" type="text/css" />
+    <link href="{% static "vendor/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css" %}" rel="stylesheet" type="text/css" />
+    <link href="{% static "vendor/datatables.net-fixedcolumns-bs5/css/fixedColumns.bootstrap5.min.css" %}" rel="stylesheet" type="text/css" />
+    <link href="{% static "vendor/datatables.net-fixedheader-bs5/css/fixedHeader.bootstrap5.min.css" %}" rel="stylesheet" type="text/css" />
+    <link href="{% static "vendor/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css" %}" rel="stylesheet" type="text/css" />
+    <link href="{% static "vendor/datatables.net-select-bs5/css/select.bootstrap5.min.css" %}" rel="stylesheet" type="text/css" />
+
+    <!-- Quill css -->
+    <link href="{% static "vendor/quill/quill.core.css" %}" rel="stylesheet" type="text/css" />
+    <link href="{% static "vendor/quill/quill.snow.css" %}" rel="stylesheet" type="text/css" />
+    <link href="{% static "vendor/quill/quill.bubble.css" %}" rel="stylesheet" type="text/css" />
+
+    <!-- Vector Map css -->
+    <link rel="stylesheet" href="{% static "vendor/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css" %}" />
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row pt-3">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-title">
+                            <span class="fs-3 m-0">Manage Advertisements</span>
+                            <a href="{% url "advertisement:add_advertisement" %}" class="float-end btn btn-outline-primary" >Add Advertisement</a >
+                            <hr>
+                        </div>
+                        <div class="card-content">
+                            <ul class="nav nav-pills border-bottom mb-3">
+                                <li class="nav-item">
+                                    <a href="#custom-ads-list" data-bs-toggle="tab" aria-expanded="true" class="nav-link bg-nav-pills rounded-0 active"> Custom Ads</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#requested-ads-list" data-bs-toggle="tab" aria-expanded="false" class="nav-link bg-nav-pills rounded-0"> Requested Ads</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane show active" id="custom-ads-list">
+                                    <div class="responsive-table-plugin">
+                                        <div class="table-rep-plugin">
+                                            <div class="table-responsive" data-pattern="priority-columns">
+                                                <table id="contact-us-table"
+                                                    class="table table-striped w-100">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Ad Position</th>
+                                                            <th>Link</th>
+                                                            <th>Image</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {% for object in object_list %}
+                                                            <tr>
+                                                                <td>{{object.position}}</td>
+                                                                <td>{{object.link}}</td>
+                                                                <td>
+                                                                    {% if object.is_active %}
+                                                                        <span class="badge text-bg-primary rounded-pill p-1">Active</span>
+                                                                    {% else %}
+                                                                        <span class="badge text-bg-secondary rounded-pill p-1">Inactive</span>
+                                                                    {% endif %}
+                                                                </td>
+                                                                <td class="d-flex">
+                                                                    <a href="javascript:void(0)" data-id="190" class="btn btn-primary me-1 tooltips" id="image_preview" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Image Preview">
+                                                                        <i class="ri-image-line"></i>
+                                                                    </a>
+                                                                    <a href="{% url "advertisement:edit_advertisement" pk=object.pk %}" data-id="190" class="btn btn-success me-1 tooltips" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edit">
+                                                                        <i class="ri-pencil-fill"></i>
+                                                                    </a>
+                                                                    <form id="delete_advertisement" action="{% url "advertisement:delete_advertisement" pk=object.pk %}" method="post">
+                                                                        {% csrf_token %}
+                                                                        <button class="btn btn-danger me-1 tooltips" type="submit" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Delete"><i class="ri-delete-bin-line"></i></button>
+                                                                    </form>
+                                                                </td>
+                                                            </tr>
+                                                        {% endfor %}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="requested-ads-list">
+                                    <div class="responsive-table-plugin">
+                                        <div class="table-rep-plugin">
+                                            <div class="table-responsive" data-pattern="priority-columns">
+                                                <table id="contact-us-table"
+                                                    class="table table-striped w-100">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Name</th>
+                                                            <th>Email</th>
+                                                            <th>PhoneNo</th>
+                                                            <th>Ads Postion (728x90PX)</th>
+                                                            <th>Ads Postion (300x280PX)</th>
+                                                            <th>Created Date</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>Kristy Hardy</td>
+                                                            <td>kristy.hardy56@msn.com</td>
+                                                            <td>+917896543120</td>
+                                                            <td>
+                                                                Home top
+                                                                <br>
+                                                                <a href="javascript:void(0)"
+                                                                    id="ads_image1">View More</a>
+                                                            </td>
+                                                            <td>-</td>
+                                                            <td>02-12-2023</td>
+                                                            <td>
+                                                                <a href="javascript:void(0)" data-id="190" class="btn btn-danger btn_delete" data-toggle="tooltip" data-tooltip="Delete"><i class="ri-delete-bin-line"></i></a>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block modal %}
+    <div class="modal fade" id="image-view-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-modal="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myLargeModalLabel">Ads Details</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="mb-3">
+                        <img src="{% static "images/properties/rajkot.jpg" %}" style="width: 100%;height: 150px;"
+                            alt="rajkot">
+                    </div>
+                    <div class="mb-3">
+                        <div class="col-md-12">
+                            <h4>Ads Position:</h4>
+                            <ul>
+                                <span>Home Top</span>
+                            </ul>
+                            <h4>Ads image path:</h4>
+                            <ul>
+                                <span>77668.png</span>
+                            </ul>
+                            <h4>External Link:</h4>
+                            <ul>
+                                <span>http://s9propertyworld.com/live</span></li>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                            aria-label="Close">Close</button>
+                    </div>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+
+    <div class="modal fade" id="image-preview-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+        aria-modal="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myLargeModalLabel">Image Preview</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="mb-3">
+                        <img src="{% static "images/properties/rajkot.jpg" %}" style="width: 100%;height: 150px;"
+                            alt="rajkot">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                            aria-label="Close">Close</button>
+                    </div>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+{% endblock %}
+
+{% block extra_body %}
+    <!-- Datatables js -->
+    <script src="{% static "vendor/datatables.net/js/jquery.dataTables.min.js" %}"></script>
+    <script src="{% static "vendor/datatables.net-bs5/js/dataTables.bootstrap5.min.js" %}"></script>
+    <script src="{% static "vendor/datatables.net-responsive/js/dataTables.responsive.min.js" %}"></script>
+    <script src="{% static "vendor/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js" %}"></script>
+
+    <!-- Quill Editor js -->
+    <script src="{% static "vendor/quill/quill.min.js" %}"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#contact-us-table').DataTable({
+                columnDefs: [
+                    { orderable: false, targets: -1 }
+                ],
+
+            });
+            $('#ads_image1').on('click', function () {
+                $('#image-view-modal').modal('show');
+            });
+
+            $('#image_preview').on('click', function () {
+                $('#image-preview-modal').modal('show');
+            });
+        });
+    </script>
+{% endblock %}
+

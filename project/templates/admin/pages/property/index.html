@@ -1,0 +1,120 @@
+{% extends "admin/base.html" %}
+
+{% load static %}
+
+{% block title %}Properties{% endblock %}
+
+{% block extra_head %}
+    <!-- Datatables css -->
+    <link href="{% static "vendor/datatables.net-bs5/css/dataTables.bootstrap5.min.css" %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static "vendor/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css" %}" rel="stylesheet" type="text/css" />
+    <link href="{% static "vendor/datatables.net-fixedcolumns-bs5/css/fixedColumns.bootstrap5.min.css" %}" rel="stylesheet" type="text/css" />
+    <link href="{% static "vendor/datatables.net-fixedheader-bs5/css/fixedHeader.bootstrap5.min.css" %}" rel="stylesheet" type="text/css" />
+    <link href="{% static "vendor/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css" %}" rel="stylesheet" type="text/css" />
+    <link href="{% static "vendor/datatables.net-select-bs5/css/select.bootstrap5.min.css" %}" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" href="{% static "custom/custom_style.css" %}" />
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row pt-3">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="card-title">
+                                <span class="fs-3 m-0">Properties List</span>
+                                <a href="{% url "property:add_property" %}" class="float-end btn btn-outline-primary">Add Properties</a>
+                                <a href="{% url "property:properties" %}" class="float-end btn btn-outline-secondary me-1">Clear Filters</a>
+                                <hr />
+                            </div>
+                            <div class="card-content">
+                                <form action="{% url "property:properties" %}" method="get">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <select name="category" id="property_category_filter" class="form-select" onchange="this.form.submit()">
+                                                <option value="" {% if request.GET.category == '' %}selected{% endif %}>All</option>
+                                                <option value="enable" {% if request.GET.category == 'enable' %}selected{% endif %}>Enable</option>
+                                                <option value="disable" {% if request.GET.category == 'disable' %}selected{% endif %}>Disable</option>
+                                                <option value="featured" {% if request.GET.category == 'featured' %}selected{% endif %}>Featured</option>
+                                                <option value="no_featured" {% if request.GET.category == 'no_featured' %}selected{% endif %}>No Featured</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <select name="type" id="property_type_filter" class="form-select" onchange="this.form.submit()">
+                                                <option value="" {% if request.GET.type == '' %}selected{% endif %}>All Category</option>
+                                                {% for type in types %}
+                                                    <option value="{{ type.name }}" {% if request.GET.type == type.name %}selected{% endif %}>{{ type.name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <select name="post_type" id="property_post_type_filter" class="form-select" onchange="this.form.submit()">
+                                                <option value="" {% if request.GET.post_type == '' %}selected{% endif %}>All Type</option>
+                                                <option value="Rent" {% if request.GET.post_type == 'Rent' %}selected{% endif %}>Rent</option>
+                                                <option value="Sale" {% if request.GET.post_type == 'Sale' %}selected{% endif %}>Sale</option>
+                                                <option value="Lease" {% if request.GET.post_type == 'Lease' %}selected{% endif %}>Lease</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </form>
+                                <div class="row mt-3">
+                                    {% for object in object_list %}
+                                        <div class="col-md-4">
+                                            <div class="card d-block border">
+                                            <div class="card-body">
+                                                <div class="d-flex flex-row justify-content-between align-items-center" >
+                                                    <div class="d-flex flex-column">
+                                                        <h4 class="card-title">Rajkot</h4>
+                                                        <h6 class="card-subtitle text-muted">By. Ashish Gupta</h6>
+                                                    </div>
+                                                    <div>
+                                                        <span class="fs-4 badge badge-outline-warning" >Rent</span>
+                                                        &emsp;
+                                                        <span class="fs-4 form-check form-switch d-inline-block mt-1" >
+                                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked/>
+                                                        <label class="form-check-label" for="flexSwitchCheckChecked" >Active</label>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <img class="property_image_show" src="{% static "images/properties/rajkot.jpg" %}" alt="Card image cap"/>
+                                            <div class="card-body">Category:<span class="fw-bold">Office/Commercial Space</span></div>
+                                                <div class="card-body">
+                                                    <div class="mb-1">
+                                                        <a href="javascript: void(0);" class="btn btn-outline-danger" data-bs-toggle="popover" title="Not Verified" data-bs-placement="top" data-bs-trigger="hover" ><i class="ri-check-line"></i>Not Verified</a>
+                                                        <a href="javascript: void(0);" class="btn btn-outline-primary" data-bs-toggle="popover" title="Views: 200" data-bs-placement="top" data-bs-trigger="hover" ><i class="ri-eye-line"></i>Views: 200</a>
+                                                        <a href="{% url "property:edit_property" pk=object.pk %}" class="btn btn-outline-success" data-bs-toggle="popover" title="Edit" data-bs-placement="top" data-bs-trigger="hover" ><i class="ri-pencil-fill"></i>Edit</a>
+                                                        <a href="{% url "property:delete_property" pk=object.pk %}" class="btn btn-outline-danger" data-bs-toggle="popover" title="Delete" data-bs-placement="top" data-bs-trigger="hover" ><i class="ri-delete-bin-line"></i>Delete</a>
+                                                    </div>
+                                                    <div class="my-1">
+                                                        <a href="javascript: void(0);" class="btn btn-outline-danger" data-bs-toggle="popover" title="Set Featured" data-bs-placement="top" data-bs-trigger="hover" ><i class="ri-star-line"></i>Set Featured</a >
+                                                        <a href="javascript: void(0);" class="btn btn-outline-danger" data-bs-toggle="popover" title="Set Popular" data-bs-placement="top" data-bs-trigger="hover" ><i class="ri-heart-line"></i>Set Popular</a >
+                                                        <a href="javascript: void(0);" class="btn btn-outline-success" data-bs-toggle="popover" title="Latest" data-bs-placement="top" data-bs-trigger="hover" ><i class="mdi mdi-new-box"></i>Latest</a >
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% empty %}
+                                        <div>
+                                            No data available
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_body %}
+    <!-- Datatables js -->
+    <script src="{% static "vendor/datatables.net/js/jquery.dataTables.min.js" %}"></script>
+    <script src="{% static "vendor/datatables.net-bs5/js/dataTables.bootstrap5.min.js" %}"></script>
+    <script src="{% static "vendor/datatables.net-responsive/js/dataTables.responsive.min.js" %}"></script>
+    <script src="{% static "vendor/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js" %}"></script>
+{% endblock %}

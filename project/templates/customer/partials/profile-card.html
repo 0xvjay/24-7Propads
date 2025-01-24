@@ -1,0 +1,62 @@
+{% load static %}
+
+{% url "accounts:dashboard" as dashboard_url %}
+{% url "accounts:profile" as profile_url %}
+{% url "accounts:reviews" as reviews_url %}
+{% url "accounts:listing" as listing_url %}
+{% url "accounts:history" as history_url %}
+
+<div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+    <div class="dashboard-sidebar">
+        <div class="profile-sec">
+            <div class="author-news mb-3" style="background-image:url({% static "customer/images/destination/destination16.jpg" %});">
+                <div class="author-news-content text-center p-4 py-5">
+                    <div class="author-thumb mt-0">
+                        <img src="images/mystery-man.webp" alt="author">
+                    </div>
+                    <div class="author-content pt-2 p-0">
+                        <h3 class="mb-1 white"><a class="white">Kartik Adani</a></h3>
+                        <p class="detail white"><i class="fa fa-map-marker white"></i> 1605-East--Triplex Villa, Gujarat</p>
+                        <p class="detail white"><i class="fa fa-phone white"></i> +91 9873 455869</p>
+                        <div class="header-social mt-2">
+                            <ul>
+                                <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                <li><a href="#"><i class="fab fa-google-plus-g"></i></a></li>
+                                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="dot-overlay"></div>
+            </div>
+        </div>
+        <a href="#" class="dashboard-responsive-nav-trigger"><i class="fa fa-reorder"></i> Dashboard Navigation</a>  
+        <div class="dashboard-nav">
+            <div class="dashboard-nav-inner">
+                <ul>
+                    <li {% if request.path == dashboard_url %}class="active"{% endif %}><a href="{% url "accounts:dashboard" %}"><i class="fa fa-bars"></i> Dashboard</a></li>
+                    <li>
+                        <div class="form-control-sm">
+                            <div class="input-box">
+                                <select class="bg-transparent btn btn-outline-dark form-select text-start">
+                                    <option value="" disabled selected>➕ Add listing</option>
+                                    <option value="Flats.html">Flat</option>
+                                    <option value="Villa.html">Villa</option>
+                                    <option value="Independent House.html">Independent House</option>
+                                    <option value="Office-Comm-Space.html">Office/Commercial Space </option>
+                                    <option value="Open-plot.html">Open Plot</option>
+                                    <option value="Agriculture-Land.html">Agriculture Land</option>
+                                </select>
+                            </div>
+                        </div>
+                    </li>
+                    <li {% if request.path == profile_url %}class="active"{% endif %}><a href="{% url "accounts:profile" %}"><i class="fa fa-user"></i> Profile</a></li>                     
+                    <li {% if request.path == reviews_url %}class="active"{% endif %}><a href="{% url "accounts:reviews" %}"><i class="fa fa-star"></i> Reviews</a></li>
+                    <li {% if request.path == listing_url %}class="active"{% endif %}><a href="{% url "accounts:listing" %}"><i class="fa fa-list-alt"></i> Listing</a></li>
+                    <li {% if request.path == history_url %}class="active"{% endif %}><a href="{% url "accounts:history" %}"><i class="fa fa-list-ul"></i> Booking History</a></li>
+                    <li><a href="#"><i class="fa fa-sign-out-alt"></i> Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

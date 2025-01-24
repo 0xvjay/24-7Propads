@@ -1,0 +1,369 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %}Settings{% endblock %}
+
+{% block extra_head %}
+    <!-- Quill css -->
+    <link href="{% static "vendor/quill/quill.core.css" %}" rel="stylesheet" type="text/css" />
+    <link href="{% static "vendor/quill/quill.snow.css" %}" rel="stylesheet" type="text/css" />
+    <link href="{% static "vendor/quill/quill.bubble.css" %}" rel="stylesheet" type="text/css" />
+
+    <!-- Vector Map css -->
+    <link rel="stylesheet" href="{% static "vendor/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css" %}"/>
+
+    <link rel="stylesheet" href="{% static "custom/custom_style.css" %}" />
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row pt-3">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-title">
+                            <span class="fs-3 m-0">Website Settings</span>
+                            <hr>
+                        </div>
+                        <div class="card-content">
+                            <ul class="nav nav-pills border-bottom mb-3">
+                                <li class="nav-item position-relative">
+                                    <a href="#header-settings" data-bs-toggle="tab" aria-expanded="true" class="nav-link bg-nav-pills rounded-0 active">Header Settings</a>
+                                    {% if form_type_with_errors == "basic" %}
+                                        <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle"></span>
+                                    {% endif %}
+                                </li>
+                                <li class="nav-item position-relative">
+                                    <a href="#web-settings" data-bs-toggle="tab" aria-expanded="false"class="nav-link bg-nav-pills rounded-0">Web Settings</a>
+                                    {% if form_type_with_errors == "footer" %}
+                                        <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle"></span>
+                                    {% endif %}
+                                </li>
+                                <li class="nav-item position-relative">
+                                    <a href="#social-settings" data-bs-toggle="tab" aria-expanded="false" class="nav-link bg-nav-pills rounded-0">Social Link</a>
+                                    {% if form_type_with_errors == "links" %}
+                                        <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle"></span>
+                                    {% endif %}
+                                </li>
+                                <li class="nav-item position-relative">
+                                    <a href="#page-settings" data-bs-toggle="tab" aria-expanded="false" class="nav-link bg-nav-pills rounded-0">Page Settings</a>
+                                    {% if form_type_with_errors == "contact_info" or form_type_with_errors == "about_us" or form_type_with_errors == "terms_and_condition" or form_type_with_errors == "privacy_policy" %}
+                                        <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle"></span>
+                                    {% endif %}
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane show active" id="header-settings">
+                                    <form action="{% url "core:site_settings" %}" method="post" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="form_type" value="basic">
+                                        <div class="row">
+                                            <div class="col-md-6 mb-2">
+                                                <label for="title" class="form-label mb-0">Site Title</label>
+                                                <input type="text" id="title" name="title" class="form-control" placeholder="Enter Site Title" {% if site_settings.title %}value="{{site_settings.title}}"{% endif %}>
+                                                {% if form.errors %}
+                                                    <div class='text-danger'>{{form.errors.title}}</div>
+                                                {% endif %}
+                                            </div>
+                                            <div class="col-6 mb-2">
+                                                <label for="keywords" class="form-label mb-0">Site Keywords<span class="text-danger">(Use comma(,) to separate keyword.)</span></label>
+                                                <input type="text" id="keywords" name="keywords" class="form-control" placeholder="Enter Site Keywords" {% if site_settings.title %}value="{{site_settings.keywords}}"{% endif %}>
+                                                {% if form.errors %}
+                                                    <div class='text-danger'>{{form.errors.keywords}}</div>
+                                                {% endif %}
+                                            </div>
+                                            <div class="col-md-12 mb-2">
+                                                <label for="description" class="form-label mb-0">Site Description</label>
+                                                <textarea id="description" name="description" rows="4" class="form-control" placeholder="Enter Site Description">{% if site_settings.description %}{{site_settings.description}}{% endif %}</textarea>
+                                                {% if form.errors %}
+                                                    <div class='text-danger'>{{form.errors.keywords}}</div>
+                                                {% endif %}
+                                            </div>
+                                            <div class="col-12 mb-2">
+                                                <label for="logo">Site Logo</label>
+                                                <input name="logo" id="logo" class="form-control" type="file" accept="image/*"/>
+                                                {% if form.errors %}
+                                                    <div class='text-danger'>{{form.errors.logo}}</div>
+                                                {% endif %}
+                                            </div>
+                                            <div class="col-12 mb-2">
+                                                <label for="admin_logo">Admin Panel Logo <span class="text-danger">(Recommended resolution:70x70 or 80x80)</span></label>
+                                                <input name="admin_logo" id="admin_logo" class="form-control" type="file" />
+                                                {% if form.errors %}
+                                                    <div class='text-danger'>{{form.errors.admin_logo}}</div>
+                                                {% endif %}
+                                            </div>
+                                            <div class="col-12 mb-2">
+                                                <label for="favicon">Web Favicon <span class="text-danger">(Recommended resolution: 16x16 or Square Image And must be smaller image)</span></label>
+                                                <input name="favicon" id="favicon" class="form-control" type="file" />
+                                                {% if form.errors %}
+                                                    <div class='text-danger'>{{form.errors.favicon}}</div>
+                                                {% endif %}
+                                            </div>
+                                            <div class="col-12 mb-2">
+                                                <div class="form-group">
+                                                    <button type="submit" name="submit" class="btn btn-primary float-end">Save</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <div class="tab-pane" id="web-settings">
+                                    <form action="{% url "core:site_settings" %}" name="settings_home" method="post" class="form form-horizontal">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="form_type" value="footer">
+                                        <div class="section">
+                                            <div class="section-body">
+                                                <div class="form-group mb-2">
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <label class="control-label">Footer Description:</label>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <textarea name="footer_description" id="footer_description" class="form-control">{{site_settings.footer_description}}</textarea>
+                                                            {% if form.errors %}
+                                                                <div class='text-danger'>{{form.errors.footer_description}}</div>
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <div class="form-group">
+                                                    <button type="submit" name="home_submit" class="btn btn-primary float-end">Save</button>
+                                                </div>
+                                                <br>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="tab-pane" id="social-settings">
+                                    <form action="{% url "core:site_settings" %}" method="post" class="form">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="form_type" value="links">
+                                        <div class="row">
+                                            <div class="col-md-6 mb-2">
+                                                <label for="facebook" class="form-label mb-0">Facebook Link</label>
+                                                <input type="text" id="facebook" name="facebook" class="form-control" placeholder="Enter Facebook Link" {% if site_settings.facebook %}value="{{site_settings.facebook}}"{% endif %}>
+                                                {% if form.errors %}
+                                                    <div class='text-danger'>{{form.errors.facebook}}</div>
+                                                {% endif %}
+                                            </div>
+                                            <div class="col-md-6 mb-2">
+                                                <label for="twitter" class="form-label mb-0">Twitter Link</label>
+                                                <input type="text" id="twitter" name="twitter" class="form-control" placeholder="Enter Twitter Link" {% if site_settings.twitter %}value="{{site_settings.twitter}}"{% endif %}>
+                                                {% if form.errors %}
+                                                    <div class='text-danger'>{{form.errors.twitter}}</div>
+                                                {% endif %}
+                                            </div>
+                                            <div class="col-md-6 mb-2">
+                                                <label for="linkedin" class="form-label mb-0">LinkedIn Link</label>
+                                                <input type="text" id="linkedin" name="linkedin" class="form-control" placeholder="Enter LinkedIn Link" {% if site_settings.linkedin %}value="{{site_settings.linkedin}}"{% endif %}>
+                                                {% if form.errors %}
+                                                    <div class='text-danger'>{{form.errors.linkedin}}</div>
+                                                {% endif %}
+                                            </div>
+                                            <div class="col-md-6 mb-2">
+                                                <label for="instagram" class="form-label mb-0">Instagram Link</label>
+                                                <input type="text" id="instagram" name="instagram" class="form-control" placeholder="Enter Instagram Link" {% if site_settings.instagram %}value="{{site_settings.instagram}}"{% endif %}>
+                                                {% if form.errors %}
+                                                    <div class='text-danger'>{{form.errors.instagram}}</div>
+                                                {% endif %}
+                                            </div>
+                                            <div class="col-md-6 mb-2">
+                                                <label for="pinterest" class="form-label mb-0">Pinterest Link</label>
+                                                <input type="text" id="pinterest" name="pinterest" class="form-control" placeholder="Enter Pinterest Link" {% if site_settings.pinterest %}value="{{site_settings.pinterest}}"{% endif %}>
+                                                {% if form.errors %}
+                                                    <div class='text-danger'>{{form.errors.pinterest}}</div>
+                                                {% endif %}
+                                            </div>
+                                            <div class="col-12 mb-2">
+                                                <button type="submit" name="submit" class="btn btn-primary float-end">Save</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="tab-pane" id="page-settings">
+                                    <ul class="nav nav-pills border-bottom mb-3">
+                                        <li class="nav-item position-relative">
+                                            <a href="#contact-us" data-bs-toggle="tab" aria-expanded="true" class="nav-link bg-nav-pills rounded-0 active"> Contact Us</a>
+                                            {% if form_type_with_errors == "contact_info" %}
+                                                <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle"></span>
+                                            {% endif %}
+                                        </li>
+                                        <li class="nav-item position-relative">
+                                            <a href="#about-us" data-bs-toggle="tab" aria-expanded="false" class="nav-link bg-nav-pills rounded-0"> About Us</a>
+                                            {% if form_type_with_errors == "about_us" %}
+                                                <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle"></span>
+                                            {% endif %}
+                                        </li>
+                                        <li class="nav-item position-relative">
+                                            <a href="#terms-service" data-bs-toggle="tab" aria-expanded="false" class="nav-link bg-nav-pills rounded-0"> Terms Service</a>
+                                            {% if form_type_with_errors == "terms_and_condition" %}
+                                                <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle"></span>
+                                            {% endif %}
+                                        </li>
+                                        <li class="nav-item position-relative">
+                                            <a href="#privacy-policy" data-bs-toggle="tab" aria-expanded="false" class="nav-link bg-nav-pills rounded-0"> Privacy Policy</a>
+                                            {% if form_type_with_errors == "privacy_policy" %}
+                                                <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle"></span>
+                                            {% endif %}
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div class="tab-pane show active" id="contact-us">
+                                            <form action="{% url "core:site_settings" %}" class="form" method="post">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="form_type" value="contact_info">
+                                                <div class="row">
+                                                    <div class="col-md-6 mb-2">
+                                                        <label for="name" class="form-label mb-0">Company Name</label>
+                                                        <input type="text" id="name" name="name" class="form-control" placeholder="Enter Company Name" value="{{contact_info.name}}">
+                                                        {% if form.errors %}
+                                                            <div class='text-danger'>{{form.errors.name}}</div>
+                                                        {% endif %}
+                                                    </div>
+                                                    <div class="col-md-6 mb-2">
+                                                        <label for="email" class="form-label mb-0">Email</label>
+                                                        <input type="text" id="email" name="email" class="form-control" placeholder="Enter Company Email" value="{{contact_info.email}}">
+                                                        {% if form.errors %}
+                                                            <div class='text-danger'>{{form.errors.email}}</div>
+                                                        {% endif %}
+                                                    </div>
+                                                    <div class="col-md-12 mb-2">
+                                                        <label for="address" class="form-label mb-0">Address</label>
+                                                        <textarea type="text" id="address" name="address" class="form-control" placeholder="Enter Address">{% if contact_info.address %}{{contact_info.address}}{% endif %}</textarea>
+                                                        {% if form.errors %}
+                                                            <div class='text-danger'>{{form.errors.address}}</div>
+                                                        {% endif %}
+                                                    </div>
+                                                    <div class="col-md-6 mb-2">
+                                                        <label for="phone" class="form-label mb-0">Contact</label>
+                                                        <input type="text" id="phone" name="phone" class="form-control" placeholder="Enter Contact" value="{{contact_info.phone}}">
+                                                        {% if form.errors %}
+                                                            <div class='text-danger'>{{form.errors.phone}}</div>
+                                                        {% endif %}
+                                                    </div>
+                                                    <div class="col-md-12 mb-2">
+                                                        <button type="submit" name="submit" class="btn btn-primary float-end">Save</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="tab-pane" id="about-us">
+                                            <form action="{% url "core:site_settings" %}" class="form" method="post">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="form_type" value="about_us">
+                                                <div class="row">
+                                                    <div class="col-12 mb-2">
+                                                        <label for="description" class="form-label mb-0">About Us</label>
+                                                        <textarea id="about_us" name="description" class="form-control d-none" placeholder="Enter About Us">{% if about_us.description %}{{about_us.description}}{% endif %}</textarea>
+                                                        <div id="snow-editor1" style="height: 300px;">
+                                                            {{about_us.description|safe}}
+                                                        </div>
+                                                        {% if form.errors %}
+                                                            <div class='text-danger'>{{form.errors.description}}</div>
+                                                        {% endif %}
+                                                    </div>
+                                                    <div class="col-12 mb-2">
+                                                        <button type="submit" name="submit" class="btn btn-primary float-end">Save</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="tab-pane" id="terms-service">
+                                            <form action="{% url "core:site_settings" %}" class="form" method="post">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="form_type" value="terms_and_condition">
+                                                <div class="row">
+                                                    <div class="col-12 mb-2">
+                                                        <label for="description" class="form-label mb-0">Terms Service</label>
+                                                        <textarea id="terms_service" name="description" class="form-control d-none" placeholder="Enter Terms Service">{% if terms_and_condition.description %}{{terms_and_condition.description}}{% endif %}</textarea>
+                                                        <div id="snow-editor2" style="height: 300px;">
+                                                            {{terms_and_condition.description|safe}}
+                                                        </div>
+                                                        {% if form.errors %}
+                                                            <div class='text-danger'>{{form.errors.description}}</div>
+                                                        {% endif %}
+                                                    </div>
+                                                    <div class="col-12 mb-2">
+                                                        <button type="submit" name="submit" class="btn btn-primary float-end">Save</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="tab-pane" id="privacy-policy">
+                                            <form action="{% url "core:site_settings" %}" class="form" method="post">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="form_type" value="privacy_policy">
+                                                <div class="row">
+                                                    <div class="col-12 mb-2">
+                                                        <label for="description" class="form-label mb-0">Privacy Policy</label>
+                                                        <textarea id="privacy_policy" name="description" class="form-control d-none" placeholder="Enter About Us">{% if privacy_policy.description %}{{privacy_policy.description}}{% endif %}</textarea>
+                                                        <div id="snow-editor3" style="height: 300px;">
+                                                            {{privacy_policy.description|safe}}
+                                                        </div>
+                                                        {% if form.errors %}
+                                                            <div class='text-danger'>{{form.errors.description}}</div>
+                                                        {% endif %}
+                                                    </div>
+                                                    <div class="col-12 mb-2">
+                                                        <button type="submit" name="submit" class="btn btn-primary float-end">Save</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_body %}
+    <!-- Quill Editor js -->
+    <script src="{% static "vendor/quill/quill.min.js" %}"></script>
+
+    <!-- Dropzone File Upload js -->
+    <script src="{% static "vendor/dropzone/min/dropzone.min.js" %}"></script>
+    <script>
+        $(document).ready(function () {
+          var snowEditorOptions = {
+            theme: "snow",
+            modules: {
+              toolbar: [
+                [{ font: [] }, { size: [] }],
+                ["bold", "italic", "underline", "strike"],
+                [{ color: [] }, { background: [] }],
+                [{ script: "super" }, { script: "sub" }],
+                [{ header: [!1, 1, 2, 3, 4, 5, 6] }, "blockquote", "code-block"],
+                [
+                  { list: "ordered" },
+                  { list: "bullet" },
+                  { indent: "-1" },
+                  { indent: "+1" },
+                ],
+                ["direction", { align: [] }],
+              ],
+            },
+          };
+          var quill1 = new Quill("#snow-editor1", snowEditorOptions);
+          var quill2 = new Quill("#snow-editor2", snowEditorOptions);
+          var quill3 = new Quill("#snow-editor3", snowEditorOptions);
+  
+          quill1.on("text-change", function () {
+            $("#about_us").val($("#snow-editor1").html());
+          });
+          quill2.on("text-change", function () {
+            $("#terms_service").val($("#snow-editor2").html());
+          });
+          quill3.on("text-change", function () {
+            $("#privacy_policy").val($("#snow-editor2").html());
+          });
+        });
+    </script>
+{% endblock %}
