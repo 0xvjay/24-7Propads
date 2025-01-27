@@ -5,10 +5,10 @@ from .models import (
     Flat,
     House,
     Office,
+    Plot,
     Property,
     PropertyType,
     Villa,
-    Plot,
 )
 
 

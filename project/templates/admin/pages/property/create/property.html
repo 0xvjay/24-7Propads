@@ -1,11 +1,12 @@
 {% extends "admin/pages/property/create/base.html" %}
+{% load widget_tweaks %}
 
 {% block content %}
   <div class="container-fluid">
     <div class="row pt-3">
       <div class="col">
         <div>
-          <span class="fs-4 m-0 text-primary"><a href="history.back()"><i class="ri-arrow-left-line"></i> Back</a></span>
+          <span class="fs-4 m-0 text-primary"><a href="javascript:history.back()"><i class="ri-arrow-left-line"></i> Back</a></span>
         </div>
         <div class="card">
           <div class="card-body">
@@ -18,53 +19,47 @@
                 {% csrf_token %}
                 {{ wizard.management_form }}
                 <div class="row">
+                  <div class="col-12 mb-2">
+                    <label for="name" class="form-label mb-0">Property Name</label>
+                    {{wizard.form.name|attr:"class:form-control"|attr:"placeholder:Enter Property Name"}}
+                    {% if form.errors %}
+                      <div class="text-danger">{{form.errors.name}}</div>
+                    {% endif %}
+                  </div>
                   <div class="col-md-6 mb-2">
                     <label for="post_type" class="form-label mb-0">Post Type</label>
-                    <select id="post_type" name="post_type" class="form-select">
-                      <option value="">Select Post Type</option>
-                      <option value="Sale">Sale</option>
-                      <option value="Rent">Rent</option>
-                      <option value="Lease">Lease</option>
-                    </select>
+                    {{wizard.form.post_type|attr:"class:form-select"}}
                     {% if form.errors %}
-                    <div class="text-danger">{{form.errors.post_type}}</div>
+                      <div class="text-danger">{{form.errors.post_type}}</div>
                     {% endif %}
                   </div>
                   <div class="col-md-6 mb-2">
                     <label for="type" class="form-label mb-0">Property Type</label>
-                    <select id="type" name="type" class="form-select">
-                      <option value="">Select Property Type</option>
-                      {% for type in types %}
-                      <option value="{{type.id}}">{{type.name}}</option>
-                      {% endfor %}
-                    </select>
+                    {{wizard.form.type|attr:"class:form-select"}}
                     {% if form.errors %}
-                    <div class="text-danger">{{form.errors.type}}</div>
+                      <div class="text-danger">{{form.errors.type}}</div>
                     {% endif %}
                   </div>
                   <div class="col-12 mb-2">
                     <label for="description" class="form-label mb-0">Property Description</label>
-                    <textarea id="description" name="description" class="form-control d-none" placeholder="Enter FAQ Qescription">
-                    </textarea>
-                    <!-- start Snow-editor-->
+                    {{wizard.form.description|attr:"class:form-control d-none"|attr:"placeholder:Enter Description"}}
                     <div id="snow-editor" style="height: 300px"></div>
-                    <!-- end Snow-editor-->
                     {% if form.errors %}
-                    <div class="text-danger">{{form.errors.description}}</div>
+                      <div class="text-danger">{{form.errors.description}}</div>
                     {% endif %}
                   </div>
                   <div class="col-md-6 mb-2">
                     <label for="phone" class="form-label mb-0">Contact No.</label>
-                    <input type="text" id="phone" name="phone" class="form-control" placeholder="Enter Contact No."/>
+                    {{wizard.form.phone|attr:"class:form-control"|attr:"placeholder:Enter Contact No."}}
                     {% if form.errors %}
-                    <div class="text-danger">{{form.errors.phone}}</div>
+                      <div class="text-danger">{{form.errors.phone}}</div>
                     {% endif %}
                   </div>
                   <div class="col-md-6 mb-2">
                     <label for="image" class="form-label mb-0">Image</label>
-                    <input type="file" id="image" name="image" class="form-control" accept="image/*"/>
+                    {{wizard.form.image|attr:"class:form-control"|attr:"accept:image/*"}}
                     {% if form.errors %}
-                    <div class="text-danger">{{form.errors.image}}</div>
+                      <div class="text-danger">{{form.errors.image}}</div>
                     {% endif %}
                   </div>
 
@@ -74,44 +69,44 @@
                   </div>
                   <div class="col-6 mb-2">
                     <label for="lat" class="form-label mb-0">Property Latitude</label>
-                    <input type="text" id="lat" name="lat" class="form-control" placeholder="Enter Property Latitude"/>
+                    {{wizard.form.lat|attr:"class:form-control"|attr:"placeholder:Enter Property Latitude"}}
                     {% if form.errors %}
-                    <div class="text-danger">{{form.errors.lat}}</div>
+                      <div class="text-danger">{{form.errors.lat}}</div>
                     {% endif %}
                   </div>
                   <div class="col-6 mb-2">
                     <label for="long" class="form-label mb-0">Property Longitude</label>
-                    <input type="text" id="long" name="long" class="form-control" placeholder="Enter Property Longitude"/>
+                    {{wizard.form.long|attr:"class:form-control"|attr:"placeholder:Enter Property Longitude"}}
                     {% if form.errors %}
-                    <div class="text-danger">{{form.errors.long}}</div>
+                      <div class="text-danger">{{form.errors.long}}</div>
                     {% endif %}
                   </div>
                   <div class="col-12 mb-2">
                     <label for="address" class="form-label mb-0">Address</label>
-                    <textarea class="form-control" name="address" id="address" rows="4" placeholder="Enter Address"></textarea>
+                    {{wizard.form.address|attr:"class:form-control"|attr:"placeholder:Enter Address"|attr:"rows:4"}}
                     {% if form.errors %}
-                    <div class="text-danger">{{form.errors.address}}</div>
+                      <div class="text-danger">{{form.errors.address}}</div>
                     {% endif %}
                   </div>
                   <div class="col-6 mb-2">
                     <label for="city" class="form-label mb-0">Property City</label>
-                    <input type="text" id="city" name="city" class="form-control" placeholder="Enter Property City"/>
+                    {{wizard.form.city|attr:"class:form-control"|attr:"placeholder:Enter Property City"}}
                     {% if form.errors %}
-                    <div class="text-danger">{{form.errors.city}}</div>
+                      <div class="text-danger">{{form.errors.city}}</div>
                     {% endif %}
                   </div>
                   <div class="col-6 mb-2">
                     <label for="state" class="form-label mb-0">Property State</label>
-                    <input type="text" id="state" name="state" class="form-control" placeholder="Enter Property City"/>
+                    {{wizard.form.state|attr:"class:form-control"|attr:"placeholder:Enter Property City"}}
                     {% if form.errors %}
-                    <div class="text-danger">{{form.errors.state}}</div>
+                      <div class="text-danger">{{form.errors.state}}</div>
                     {% endif %}
                   </div>
                   <div class="col-6 mb-2">
                     <label for="postal_code" class="form-label mb-0" >Property Zip/Postal Code</label>
-                    <input type="text" id="postal_code" name="postal_code" class="form-control" placeholder="Enter Zip/Postal Code"/>
+                    {{wizard.form.postal_code|attr:"class:form-control"|attr:"placeholder:Enter Zip/Postal Code"}}
                     {% if form.errors %}
-                    <div class="text-danger">{{form.errors.postal_code}}</div>
+                      <div class="text-danger">{{form.errors.postal_code}}</div>
                     {% endif %}
                   </div>
 
@@ -121,25 +116,23 @@
                   </div>
                   <div class="col-6 mb-2">
                     <label for="seo_title" class="form-label mb-0">SEO Title</label>
-                    <input type="text" id="seo_title" name="seo_title" class="form-control" placeholder="Enter SEO Title"/>
+                    {{wizard.form.seo_title|attr:"class:form-control"|attr:"placeholder:Enter SEO Title"}}
                     {% if form.errors %}
-                    <div class="text-danger">{{form.errors.seo_title}}</div>
+                      <div class="text-danger">{{form.errors.seo_title}}</div>
                     {% endif %}
                   </div>
                   <div class="col-6 mb-2">
                     <label for="seo_keywords" class="form-label mb-0">Keywords<span class="text-danger">(Use comma(,) to separate keyword.)</span></label>
-                    <input type="text" id="seo_keywords" name="seo_keywords" class="form-control" placeholder="Enter SEO Keywords"/>
+                    {{wizard.form.seo_keywords|attr:"class:form-control"|attr:"placeholder:Enter SEO Keywords"}}
                     {% if form.errors %}
-                    <div class="text-danger">{{form.errors.seo_keywords}}</div>
+                      <div class="text-danger">{{form.errors.seo_keywords}}</div>
                     {% endif %}
                   </div>
                   <div class="col-12 mb-2">
                     <label for="meta_description" class="form-label mb-0">Meta Description</label>
-                    <textarea class="form-control" name="meta_description" id="meta_description" rows="4" placeholder="Enter Meta Description"></textarea>
+                    {{wizard.form.meta_description|attr:"class:form-control"|attr:"placeholder:Enter Meta Description"|attr:"rows:4"}}
                     {% if form.errors %}
-                    <div class="text-danger">
-                      {{form.errors.meta_description}}
-                    </div>
+                      <div class="text-danger">{{form.errors.meta_description}}</div>
                     {% endif %}
                   </div>
 
@@ -150,17 +143,17 @@
                   <div class="col-6 mb-2">
                     <div class="form-check form-switch">
                       <label for="is_rera_agent" class="form-label mb-0">Is RERA Agent?</label>
-                      <input class="form-check-input" name="is_active" type="checkbox" id="is_rera_agent"/>
+                      {{wizard.form.is_rera_agent|attr:"class:form-check-input"}}
                       {% if form.errors %}
-                      <div class="text-danger">{{form.errors.is_rera_agent}}</div>
+                        <div class="text-danger">{{form.errors.is_rera_agent}}</div>
                       {% endif %}
                     </div>
                   </div>
                   <div class="col-6 mb-2">
                     <label for="rera_number" class="form-label mb-0">RERA Number</label>
-                    <input type="text" id="rera_number" name="rera_number" class="form-control" placeholder="Enter SEO Title"/>
+                    {{wizard.form.rera_number|attr:"class:form-control"|attr:"placeholder:Enter RERA Number"}}
                     {% if form.errors %}
-                    <div class="text-danger">{{form.errors.rera_number}}</div>
+                      <div class="text-danger">{{form.errors.rera_number}}</div>
                     {% endif %}
                   </div>
                   <div class="col-12 mb-2">

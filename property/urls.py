@@ -3,21 +3,15 @@ from django.urls import path
 from .views import (
     PropertyCreateView,
     PropertyDeleteView,
+    PropertyDetailView,
+    PropertyListingView,
     PropertyListView,
     PropertyUpdateView,
+    PropertyView,
     TypeCreateView,
     TypeDeleteView,
     TypeListView,
     TypeUpdateView,
-    show_agriculture_form,
-    show_flat_form,
-    show_house_form,
-    show_office_form,
-    show_plot_form,
-    show_villa_form,
-    PropertyListingView,
-    PropertyView,
-    PropertyDetailView,
 )
 
 app_name = "property"
@@ -29,32 +23,10 @@ urlpatterns = [
     path(r"admin/types/delete/<int:pk>/", TypeDeleteView.as_view(), name="delete_type"),
     # properties
     path(r"admin/properties/", PropertyListView.as_view(), name="properties"),
-    path(
-        r"admin/properties/add",
-        PropertyCreateView.as_view(
-            condition_dict={
-                "1": show_agriculture_form,
-                "2": show_villa_form,
-                "3": show_house_form,
-                "4": show_flat_form,
-                "5": show_office_form,
-                "6": show_plot_form,
-            }
-        ),
-        name="add_property",
-    ),
+    path(r"admin/properties/add", PropertyCreateView.as_view(), name="add_property"),
     path(
         r"admin/properties/edit/<int:pk>/",
-        PropertyUpdateView.as_view(
-            condition_dict={
-                "1": show_agriculture_form,
-                "2": show_villa_form,
-                "3": show_house_form,
-                "4": show_flat_form,
-                "5": show_office_form,
-                "6": show_plot_form,
-            }
-        ),
+        PropertyUpdateView.as_view(),
         name="edit_property",
     ),
     path(

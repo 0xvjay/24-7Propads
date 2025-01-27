@@ -5,7 +5,7 @@
     <div class="row pt-3">
       <div class="col">
         <div>
-          <span class="fs-4 m-0 text-primary"><a href="history.back()"><i class="ri-arrow-left-line"></i> Back</a></span>
+          <span class="fs-4 m-0 text-primary"><a href="javascript:history.back()"><i class="ri-arrow-left-line"></i> Back</a></span>
         </div>
         <div class="card">
           <div class="card-body">
@@ -18,13 +18,19 @@
                 {% csrf_token %}
                 {{ wizard.management_form }}
                 <div class="row">
+                  <div class="col-12 mb-2">
+                    <label for="name" class="form-label mb-0">Property Name</label>
+                    <input type="text" id="name" name="name" class="form-control" placeholder="Enter Property Name"/>
+                    {% if form.errors %}
+                    <div class="text-danger">{{form.errors.name}}</div>
+                    {% endif %}
+                  </div>
                   <div class="col-md-6 mb-2">
                     <label for="post_type" class="form-label mb-0">Post Type</label>
                     <select id="post_type" name="post_type" class="form-select">
-                      <option value="">Select Post Type</option>
-                      <option value="Sale">Sale</option>
-                      <option value="Rent">Rent</option>
-                      <option value="Lease">Lease</option>
+                      {% for value, label in form.post_type.field.choices %}
+                        <option {% if not value %}selected{% endif %}>{% if not value %}Select Post Type{% else %}{{ value }}{% endif %}</option>
+                      {% endfor %}
                     </select>
                     {% if form.errors %}
                     <div class="text-danger">{{form.errors.post_type}}</div>
@@ -34,8 +40,8 @@
                     <label for="type" class="form-label mb-0">Property Type</label>
                     <select id="type" name="type" class="form-select">
                       <option value="">Select Property Type</option>
-                      {% for type in types %}
-                      <option value="{{type.id}}">{{type.name}}</option>
+                      {% for field in form.type.field.queryset.all %}
+                        <option value={{field.pk}}>{{field.name}}</option>
                       {% endfor %}
                     </select>
                     {% if form.errors %}

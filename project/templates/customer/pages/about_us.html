@@ -1,5 +1,4 @@
 {% extends "customer/base.html" %}
-
 {% load static %}
 
 {% block title %}About Us{% endblock %}
@@ -202,7 +201,7 @@
         </div>
     </section>
 
-    <section class="our-team pt-9" style="background-image: url(images/shape-1.png);">
+    <section class="our-team pt-9" style="background-image: url({% static "customer/images/shape-1.png" %});">
         <div class="container">
             <div class="section-title mb-6 pb-1 w-75 text-center mx-auto">
                 <h2 class="m-0">PROPERTY VISIT <span>EXCLUSIVE IN FOCUS</span></h2>

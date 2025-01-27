@@ -195,7 +195,6 @@ class SiteSettingView(AdminLoginRequired, FormView):
     def form_invalid(self, form):
         form_type = self.request.POST.get("form_type", "site_settings")
         context = self.get_context_data()
-        print(form_type)
         context["form_type_with_errors"] = form_type
         context["form"] = form
         return self.render_to_response(context)

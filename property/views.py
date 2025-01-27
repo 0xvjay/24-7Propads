@@ -1,8 +1,10 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.files.storage import DefaultStorage
 from django.db.models import Q
-from formtools.wizard.views import SessionWizardView
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import redirect
 from django.views.generic import TemplateView
+from formtools.wizard.views import SessionWizardView
+
 from core.views import (
     BaseAdminCreateView,
     BaseAdminDeleteView,
@@ -93,100 +95,105 @@ class PropertyListView(BaseAdminListView):
         return queryset
 
 
-def show_agriculture_form(wizard):
+def show_agriculture_form(wizard: SessionWizardView):
     cleaned_data = wizard.get_cleaned_data_for_step("0") or {}
-    type = cleaned_data.get("type")
-    return type == "Agriculture"
+    type_data = cleaned_data.get("type")
+    if type_data and type_data.name == "Agriculture Land":
+        return True
+    return False
 
 
-def show_villa_form(wizard):
+def show_villa_form(wizard: SessionWizardView):
     cleaned_data = wizard.get_cleaned_data_for_step("0") or {}
-    type = cleaned_data.get("type")
-    return type == "Villa"
+    type_data = cleaned_data.get("type")
+    if type_data and type_data.name == "Villa/Independent House":
+        return True
+    return False
 
 
-def show_house_form(wizard):
+def show_house_form(wizard: SessionWizardView):
     cleaned_data = wizard.get_cleaned_data_for_step("0") or {}
-    type = cleaned_data.get("type")
-    return type == "House"
+    type_data = cleaned_data.get("type")
+    if type_data and type_data.name == "House":
+        return True
+    return False
 
 
-def show_flat_form(wizard):
+def show_flat_form(wizard: SessionWizardView):
     cleaned_data = wizard.get_cleaned_data_for_step("0") or {}
-    type = cleaned_data.get("type")
-    return type == "Flat"
+    type_data = cleaned_data.get("type")
+    if type_data and type_data.name == "Flat/Apartment":
+        return True
+    return False
 
 
-def show_office_form(wizard):
+def show_office_form(wizard: SessionWizardView):
     cleaned_data = wizard.get_cleaned_data_for_step("0") or {}
-    type = cleaned_data.get("type")
-    return type == "Office"
+    type_data = cleaned_data.get("type")
+    if type_data and type_data.name == "Office/Commercial Space":
+        return True
+    return False
 
 
-def show_plot_form(wizard):
+def show_plot_form(wizard: SessionWizardView):
     cleaned_data = wizard.get_cleaned_data_for_step("0") or {}
-    type = cleaned_data.get("type")
-    return type == "Plot"
+    type_data = cleaned_data.get("type")
+    if type_data and type_data.name == "Open Plot":
+        return True
+    return False
+
+
+TEMPLATES = {
+    "0": "admin/pages/property/create/property.html",
+    "1": "admin/pages/property/create/agriculture.html",
+    "2": "admin/pages/property/create/villa.html",
+    "3": "admin/pages/property/create/house.html",
+    "4": "admin/pages/property/create/flat.html",
+    "5": "admin/pages/property/create/office.html",
+    "6": "admin/pages/property/create/plot.html",
+}
+
+FORMS = [
+    ("0", PropertyForm),
+    ("1", AgricultureLandForm),
+    ("2", VillaForm),
+    ("3", HouseForm),
+    ("4", FlatForm),
+    ("5", OfficeForm),
+    ("6", PlotForm),
+]
+CONDITION_DICT = {
+    "1": show_agriculture_form,
+    "2": show_villa_form,
+    "3": show_house_form,
+    "4": show_flat_form,
+    "5": show_office_form,
+    "6": show_plot_form,
+}
 
 
 class PropertyCreateView(SessionWizardView):
     file_storage = DefaultStorage()
-    form_list = [
-        PropertyForm,
-        AgricultureLandForm,
-        VillaForm,
-        HouseForm,
-        FlatForm,
-        OfficeForm,
-        PlotForm,
-    ]
-    templates = {
-        "0": "admin/pages/property/create/property.html",
-        "1": "admin/pages/property/create/agriculture.html",
-        "2": "admin/pages/property/create/villa.html",
-        "3": "admin/pages/property/create/house.html",
-        "4": "admin/pages/property/create/flat.html",
-        "5": "admin/pages/property/create/office.html",
-        "6": "admin/pages/property/create/plot.html",
-    }
+    form_list = FORMS
+    condition_dict = CONDITION_DICT
 
     def get_template_names(self):
-        return self.templates[self.steps.current]
+        return [TEMPLATES[self.steps.current]]
 
-    def get_context_data(self, form, **kwargs):
-        context = super().get_context_data(form, **kwargs)
-        context["types"] = PropertyType.objects.all()
-        return context
+    def done(self, form_list, **kwargs):
+        return redirect("/admin/")
 
 
 class PropertyUpdateView(SessionWizardView):
     file_storage = DefaultStorage()
-    form_list = [
-        PropertyForm,
-        AgricultureLandForm,
-        VillaForm,
-        HouseForm,
-        FlatForm,
-        OfficeForm,
-        PlotForm,
-    ]
-    templates = {
-        "0": "admin/pages/property/edit/property.html",
-        "1": "admin/pages/property/edit/agriculture.html",
-        "2": "admin/pages/property/edit/villa.html",
-        "3": "admin/pages/property/edit/house.html",
-        "4": "admin/pages/property/edit/flat.html",
-        "5": "admin/pages/property/edit/office.html",
-        "6": "admin/pages/property/edit/plot.html",
-    }
+    form_list = FORMS
+    condition_dict = CONDITION_DICT
 
     def get_template_names(self):
-        return self.templates[self.steps.current]
+        return [TEMPLATES[self.steps.current]]
 
-    def get_context_data(self, form, **kwargs):
-        context = super().get_context_data(form, **kwargs)
-        context["types"] = PropertyType.objects.all()
-        return context
+    def done(self, form_list, **kwargs):
+        return redirect("/admin/")
 
 
 class PropertyDeleteView(BaseAdminDeleteView):

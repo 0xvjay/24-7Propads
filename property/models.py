@@ -28,6 +28,9 @@ class PropertyType(models.Model):
         PropertyAttributes, related_name="attributes", blank=True
     )
 
+    def __str__(self):
+        return self.name
+
 
 class Property(models.Model):
     class PostType(models.TextChoices):
@@ -178,7 +181,7 @@ class Office(BaseProperty):
     property = models.OneToOneField(
         Property, related_name="office_details", on_delete=models.CASCADE
     )
-    type = models.CharField(Type.choices, max_length=100)
+    type = models.CharField(choices=Type.choices, max_length=100)
     transaction = models.CharField(choices=TransactionType.choices, max_length=100)
     possession = models.CharField(choices=PossessionType.choices, max_length=100)
     available_from = models.DateField()
