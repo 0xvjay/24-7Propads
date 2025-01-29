@@ -356,13 +356,13 @@
           var quill3 = new Quill("#snow-editor3", snowEditorOptions);
   
           quill1.on("text-change", function () {
-            $("#about_us").val($("#snow-editor1").html());
+            $("#about_us").val($("#snow-editor1 .ql-editor").html());
           });
           quill2.on("text-change", function () {
-            $("#terms_service").val($("#snow-editor2").html());
+            $("#terms_service").val($("#snow-editor2 .ql-editor").html());
           });
           quill3.on("text-change", function () {
-            $("#privacy_policy").val($("#snow-editor2").html());
+            $("#privacy_policy").val($("#snow-editor3 .ql-editor").html());
           });
         });
     </script>

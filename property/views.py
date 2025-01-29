@@ -1,5 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.files.storage import DefaultStorage
+from django.db import transaction
 from django.db.models import Q
 from django.shortcuts import redirect
 from django.views.generic import TemplateView
@@ -96,62 +97,64 @@ class PropertyListView(BaseAdminListView):
 
 
 def show_agriculture_form(wizard: SessionWizardView):
-    cleaned_data = wizard.get_cleaned_data_for_step("0") or {}
-    type_data = cleaned_data.get("type")
-    if type_data and type_data.name == "Agriculture Land":
-        return True
-    return False
+    cleaned_data = wizard.get_cleaned_data_for_step("0")
+    type_data = (
+        cleaned_data.get("type")
+        if cleaned_data
+        else PropertyType.objects.get(id=wizard.request.session.get("user_choice"))
+    )
+    return type_data and type_data.name == "Agriculture Land"
 
 
 def show_villa_form(wizard: SessionWizardView):
-    cleaned_data = wizard.get_cleaned_data_for_step("0") or {}
-    type_data = cleaned_data.get("type")
-    if type_data and type_data.name == "Villa/Independent House":
-        return True
-    return False
+    cleaned_data = wizard.get_cleaned_data_for_step("0")
+    type_data = (
+        cleaned_data.get("type")
+        if cleaned_data
+        else PropertyType.objects.get(id=wizard.request.session.get("user_choice"))
+    )
+    return type_data and type_data.name == "Villa/Independent House"
 
 
 def show_house_form(wizard: SessionWizardView):
-    cleaned_data = wizard.get_cleaned_data_for_step("0") or {}
-    type_data = cleaned_data.get("type")
-    if type_data and type_data.name == "House":
-        return True
-    return False
+    cleaned_data = wizard.get_cleaned_data_for_step("0")
+    type_data = (
+        cleaned_data.get("type")
+        if cleaned_data
+        else PropertyType.objects.get(id=wizard.request.session.get("user_choice"))
+    )
+    return type_data and type_data.name == "House"
 
 
 def show_flat_form(wizard: SessionWizardView):
-    cleaned_data = wizard.get_cleaned_data_for_step("0") or {}
-    type_data = cleaned_data.get("type")
-    if type_data and type_data.name == "Flat/Apartment":
-        return True
-    return False
+    cleaned_data = wizard.get_cleaned_data_for_step("0")
+    type_data = (
+        cleaned_data.get("type")
+        if cleaned_data
+        else PropertyType.objects.get(id=wizard.request.session.get("user_choice"))
+    )
+    return type_data and type_data.name == "Flat/Apartment"
 
 
 def show_office_form(wizard: SessionWizardView):
-    cleaned_data = wizard.get_cleaned_data_for_step("0") or {}
-    type_data = cleaned_data.get("type")
-    if type_data and type_data.name == "Office/Commercial Space":
-        return True
-    return False
+    cleaned_data = wizard.get_cleaned_data_for_step("0")
+    type_data = (
+        cleaned_data.get("type")
+        if cleaned_data
+        else PropertyType.objects.get(id=wizard.request.session.get("user_choice"))
+    )
+    return type_data and type_data.name == "Office/Commercial Space"
 
 
 def show_plot_form(wizard: SessionWizardView):
-    cleaned_data = wizard.get_cleaned_data_for_step("0") or {}
-    type_data = cleaned_data.get("type")
-    if type_data and type_data.name == "Open Plot":
-        return True
-    return False
+    cleaned_data = wizard.get_cleaned_data_for_step("0")
+    type_data = (
+        cleaned_data.get("type")
+        if cleaned_data
+        else PropertyType.objects.get(id=wizard.request.session.get("user_choice"))
+    )
+    return type_data and type_data.name == "Open Plot"
 
-
-TEMPLATES = {
-    "0": "admin/pages/property/create/property.html",
-    "1": "admin/pages/property/create/agriculture.html",
-    "2": "admin/pages/property/create/villa.html",
-    "3": "admin/pages/property/create/house.html",
-    "4": "admin/pages/property/create/flat.html",
-    "5": "admin/pages/property/create/office.html",
-    "6": "admin/pages/property/create/plot.html",
-}
 
 FORMS = [
     ("0", PropertyForm),
@@ -172,28 +175,117 @@ CONDITION_DICT = {
 }
 
 
-class PropertyCreateView(SessionWizardView):
+class BasePropertyCreateUpdateView(SessionWizardView):
     file_storage = DefaultStorage()
     form_list = FORMS
     condition_dict = CONDITION_DICT
+    success_url = "/admin/properties/"
+    templates = None
 
     def get_template_names(self):
-        return [TEMPLATES[self.steps.current]]
+        return [self.templates[self.steps.current]]
 
     def done(self, form_list, **kwargs):
-        return redirect("/admin/")
+        return redirect(self.success_url)
+
+    def process_step(self, form):
+        if self.steps.current == "0":
+            self.request.session["user_choice"] = form.data.get("0-type")
+
+        return super().process_step(form)
+
+    def get(self, request, *args, **kwargs):
+        self.storage.current_step = self.steps.first
+        return self.render(self.get_form())
 
 
-class PropertyUpdateView(SessionWizardView):
-    file_storage = DefaultStorage()
-    form_list = FORMS
-    condition_dict = CONDITION_DICT
-
-    def get_template_names(self):
-        return [TEMPLATES[self.steps.current]]
+class PropertyCreateView(BasePropertyCreateUpdateView):
+    templates = {
+        "0": "admin/pages/property/create/property.html",
+        "1": "admin/pages/property/create/agriculture.html",
+        "2": "admin/pages/property/create/villa.html",
+        "3": "admin/pages/property/create/house.html",
+        "4": "admin/pages/property/create/flat.html",
+        "5": "admin/pages/property/create/office.html",
+        "6": "admin/pages/property/create/plot.html",
+    }
 
     def done(self, form_list, **kwargs):
-        return redirect("/admin/")
+        property_form = form_list[0]
+        other_form = form_list[1]
+
+        with transaction.atomic():
+            property_form.instance.user = self.request.user
+            property = property_form.save()
+
+            other_form.instance.property = property
+            other_form.save()
+
+        return super().done(form_list)
+
+
+class PropertyUpdateView(BasePropertyCreateUpdateView):
+    templates = {
+        "0": "admin/pages/property/edit/property.html",
+        "1": "admin/pages/property/edit/agriculture.html",
+        "2": "admin/pages/property/edit/villa.html",
+        "3": "admin/pages/property/edit/house.html",
+        "4": "admin/pages/property/edit/flat.html",
+        "5": "admin/pages/property/edit/office.html",
+        "6": "admin/pages/property/edit/plot.html",
+    }
+
+    def dispatch(self, request, *args, **kwargs):
+        id = kwargs.get("pk")
+        property_instance = Property.objects.get(id=id)
+        self.instance_dict = {
+            "0": property_instance,
+            "1": property_instance.agriculture_details
+            if hasattr(property_instance, "agriculture_details")
+            else None,
+            "2": property_instance.villa_details
+            if hasattr(property_instance, "villa_details")
+            else None,
+            "3": property_instance.house_details
+            if hasattr(property_instance, "house_details")
+            else None,
+            "4": property_instance.flat_details
+            if hasattr(property_instance, "flat_details")
+            else None,
+            "5": property_instance.office_details
+            if hasattr(property_instance, "office_details")
+            else None,
+            "6": property_instance.plot_details
+            if hasattr(property_instance, "plot_details")
+            else None,
+        }
+        return super(PropertyUpdateView, self).dispatch(request, *args, **kwargs)
+
+    def done(self, form_list, **kwargs):
+        property_form = form_list[0]
+        other_form = form_list[1]
+
+        with transaction.atomic():
+            if hasattr(self.instance_dict["0"], "agriculture_details"):
+                self.instance_dict["0"].agriculture_details.delete()
+            elif hasattr(self.instance_dict["0"], "villa_details"):
+                self.instance_dict["0"].villa_details.delete()
+            elif hasattr(self.instance_dict["0"], "house_details"):
+                self.instance_dict["0"].house_details.delete()
+            elif hasattr(self.instance_dict["0"], "flat_details"):
+                self.instance_dict["0"].flat_details.delete()
+            elif hasattr(self.instance_dict["0"], "office_details"):
+                self.instance_dict["0"].office_details.delete()
+            elif hasattr(self.instance_dict["0"], "plot_details"):
+                self.instance_dict["0"].plot_details.delete()
+
+            property_form.instance.user = self.request.user
+            property = property_form.save()
+
+            other_form.instance.property = property
+            other_form.save()
+
+        return super().done(form_list)
 
 
 class PropertyDeleteView(BaseAdminDeleteView):

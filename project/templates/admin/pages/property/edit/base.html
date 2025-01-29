@@ -1,5 +1,4 @@
 {% extends "admin/base.html" %}
-
 {% load static %}
 
 {% block title %}Edit Property{% endblock %}
@@ -13,144 +12,6 @@
     <link rel="stylesheet" href="{% static "custom/custom_style.css" %}" />
 {% endblock %}
 
-{% block content %}
-  <div class="container-fluid">
-    <div class="row pt-3">
-      <div class="col">
-        <div>
-          <span class="fs-4 m-0 text-primary"><a href="properties.html"><i class="ri-arrow-left-line"></i> Back</a></span>
-        </div>
-        <div class="card">
-          <div class="card-body">
-            <div class="card-title">
-              <span class="fs-3 m-0">Add Property</span>
-              <hr />
-            </div>
-            <div class="card-content">
-              <form action="add_properties" method="post">
-                <div class="row">
-                  <div class="col-md-6 mb-2">
-                    <label for="property_title" class="form-label mb-0">Property Title</label>
-                    <input type="text" id="property_title" name="property_title" class="form-control" placeholder="Enter FAQ Title"/>
-                  </div>
-                  <div class="col-md-6 mb-2">
-                    <label for="property_type" class="form-label mb-0">Property Type</label>
-                    <select id="property_type" name="property_type" class="form-select">
-                      <option value="">Select Property Type</option>
-                      {% for type in types %}
-                        <option value="{{type.id}}">{{type.name}}</option>
-                      {% endfor %}
-                    </select>
-                  </div>
-                  <div class="col-12 mb-2">
-                    <label for="property_description" class="form-label mb-0" >Property Description</label>
-                    <textarea
-                      id="property_description"
-                      name="property_description"
-                      class="form-control d-none"
-                      placeholder="Enter FAQ Qescription"
-                    >
-                    </textarea>
-                    <div id="snow-editor" style="height: 300px">
-                      <h3>
-                        <span class="ql-size-large">Hello World!</span>
-                      </h3>
-                      <p><br /></p>
-                      <h3>This is an simple editable area.</h3>
-                      <p><br /></p>
-                      <ul>
-                        <li>Select a text to reveal the toolbar.</li>
-                        <li>
-                          Edit rich document on-the-fly, so elastic!
-                        </li>
-                      </ul>
-                      <p><br /></p>
-                      <p>End of simple area</p>
-                    </div>
-                    <!-- end Snow-editor-->
-                  </div>
-                  <div class="col-md-6 mb-2">
-                    <label for="contact_no" class="form-label mb-0">Contact No.</label>
-                    <input type="text" id="contact_no" name="contact_no" class="form-control" placeholder="Enter Contact No."/>
-                  </div>
-                  <div class="col-md-6 mb-2">
-                    <label for="property_price" class="form-label mb-0">Property Price / sq yrd or sq ft</label>
-                    <input type="text" id="property_price" name="property_price" class="form-control" placeholder="Enter Property Price"/>
-                  </div>
-                  <div class="col-12 mb-2">
-                    <div action="/" class="dropzone" id="myAwesomeDropzone" data-plugin="dropzone" data-previews-container="#file-previews" data-upload-preview-template="#uploadPreviewTemplate">
-                      <div class="fallback">
-                        <input name="file" type="file" multiple />
-                      </div>
-
-                      <div class="dz-message needsclick">
-                        <i class="h1 text-muted ri-upload-cloud-2-line"></i>
-                        <h3>Drop file here or click to upload.</h3>
-                        <span class="text-muted fs-13">
-                          <strong>Your selected file will show below.</strong></span>
-                      </div>
-                    </div>
-                    <!-- Preview -->
-                    <div class="dropzone-previews mt-3" id="file-previews"></div>
-                  </div>
-                  <div class="card-title mt-3 mb-1">
-                    <span class="fs-4 m-0">Property Address</span>
-                    <hr />
-                  </div>
-                  <div class="col-6 mb-2">
-                    <label for="property_latitude" class="form-label mb-0" >Property Latitude</label>
-                    <input type="text" id="property_latitude" name="property_latitude" class="form-control" placeholder="Enter Property Latitude"/>
-                  </div>
-                  <div class="col-6 mb-2">
-                    <label for="property_longitude" class="form-label mb-0" >Property Longitude</label>
-                    <input type="text" id="property_longitude" name="property_longitude" class="form-control"  placeholder="Enter Property Longitude"/>
-                  </div>
-                  <div class="col-12 mb-2">
-                    <label for="property_address" class="form-label mb-0" >Address</label>
-                    <textarea class="form-control" name="property_address" id="property_address" rows="4" placeholder="Enter Address"></textarea>
-                  </div>
-                  <div class="col-6 mb-2">
-                    <label for="property_city" class="form-label mb-0">Property City</label>
-                    <input type="text" id="property_city" name="property_city" class="form-control" placeholder="Enter Property City"/>
-                  </div>
-                  <div class="col-6 mb-2">
-                    <label for="property_zip_code"  class="form-label mb-0" >Property Zip/Postal Code</label>
-                    <input type="text" id="property_zip_code" name="property_zip_code" class="form-control" placeholder="Enter Zip/Postal Code"/>
-                  </div>
-                  <div class="card-title mt-3 mb-1">
-                    <span class="fs-4 m-0">SEO Content</span>
-                    <hr />
-                  </div>
-                  <div class="col-6 mb-2">
-                    <label for="property_seo_title" class="form-label mb-0" >SEO Title</label>
-                    <input type="text" id="property_seo_title" name="property_seo_title" class="form-control" placeholder="Enter SEO Title"/>
-                  </div>
-                  <div class="col-6 mb-2">
-                    <label for="property_seo_keywords" class="form-label mb-0">Keywords
-                      <span class="text-danger">(Use comma(,) to separate keyword.)</span></label>
-                    <input type="text" id="property_seo_keywords" name="property_seo_keywords" class="form-control" placeholder="Enter SEO Keywords"/>
-                  </div>
-                  <div class="col-12 mb-2">
-                    <label for="meta_description" class="form-label mb-0" >Meta Description</label>
-                    <textarea class="form-control" name="meta_description" id="meta_description" rows="4" placeholder="Enter Meta Description" ></textarea>
-                  </div>
-                  <div class="col-12 mb-2">
-                    <div class="form-group">
-                      <button type="submit" name="submit" class="btn btn-primary float-end">
-                        Save
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-{% endblock %}
-
 {% block modal %}
   <!-- file preview template -->
   <div class="d-none" id="uploadPreviewTemplate">
@@ -158,28 +19,15 @@
       <div class="p-2">
         <div class="row align-items-center">
           <div class="col-auto">
-            <img
-              data-dz-thumbnail
-              src="#"
-              class="avatar-sm rounded bg-light"
-              alt=""
-            />
+            <img data-dz-thumbnail src="#" class="avatar-sm rounded bg-light" alt=""/>
           </div>
           <div class="col ps-0">
-            <a
-              href="javascript:void(0);"
-              class="text-muted fw-bold"
-              data-dz-name
-            ></a>
+            <a href="javascript:void(0);" class="text-muted fw-bold" data-dz-name></a>
             <p class="mb-0" data-dz-size></p>
           </div>
           <div class="col-auto">
             <!-- Button -->
-            <a
-              href=""
-              class="btn btn-link btn-lg text-danger"
-              data-dz-remove
-            >
+            <a href="" class="btn btn-link btn-lg text-danger" data-dz-remove>
               <i class="ri-close-line"></i>
             </a>
           </div>

@@ -66,27 +66,31 @@
                                             <div class="card-body">
                                                 <div class="d-flex flex-row justify-content-between align-items-center" >
                                                     <div class="d-flex flex-column">
-                                                        <h4 class="card-title">Rajkot</h4>
-                                                        <h6 class="card-subtitle text-muted">By. Ashish Gupta</h6>
+                                                        <h4 class="card-title">{{object.state}}</h4>
+                                                        <h6 class="card-subtitle text-muted">{{object.user.username}}</h6>
                                                     </div>
                                                     <div>
-                                                        <span class="fs-4 badge badge-outline-warning" >Rent</span>
-                                                        &emsp;
-                                                        <span class="fs-4 form-check form-switch d-inline-block mt-1" >
-                                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked/>
-                                                        <label class="form-check-label" for="flexSwitchCheckChecked" >Active</label>
+                                                        <span class="fs-4 badge badge-outline-warning mb-1">{{object.post_type}}</span>
+                                                        {% if object.is_active %}
+                                                            <span class="fs-4 badge badge-outline-primary">Active</span>
+                                                        {% else %}
+                                                            <span class="fs-4 badge badge-outline-secondary">Inactive</span>
+                                                        {% endif %}
                                                         </span>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <img class="property_image_show" src="{% static "images/properties/rajkot.jpg" %}" alt="Card image cap"/>
-                                            <div class="card-body">Category:<span class="fw-bold">Office/Commercial Space</span></div>
+                                            <img class="property_image_show" src="{{object.image.url}}" alt="Card image cap"/>
+                                            <div class="card-body">Category:<span class="fw-bold">{{object.type.name}}</span></div>
                                                 <div class="card-body">
                                                     <div class="mb-1">
                                                         <a href="javascript: void(0);" class="btn btn-outline-danger" data-bs-toggle="popover" title="Not Verified" data-bs-placement="top" data-bs-trigger="hover" ><i class="ri-check-line"></i>Not Verified</a>
-                                                        <a href="javascript: void(0);" class="btn btn-outline-primary" data-bs-toggle="popover" title="Views: 200" data-bs-placement="top" data-bs-trigger="hover" ><i class="ri-eye-line"></i>Views: 200</a>
+                                                        <a href="javascript: void(0);" class="btn btn-outline-primary" data-bs-toggle="popover" title="Views: 200" data-bs-placement="top" data-bs-trigger="hover" ><i class="ri-eye-line"></i>Views: {{object.views}}</a>
                                                         <a href="{% url "property:edit_property" pk=object.pk %}" class="btn btn-outline-success" data-bs-toggle="popover" title="Edit" data-bs-placement="top" data-bs-trigger="hover" ><i class="ri-pencil-fill"></i>Edit</a>
-                                                        <a href="{% url "property:delete_property" pk=object.pk %}" class="btn btn-outline-danger" data-bs-toggle="popover" title="Delete" data-bs-placement="top" data-bs-trigger="hover" ><i class="ri-delete-bin-line"></i>Delete</a>
+                                                        <form id="delete_property" action="{% url "property:delete_property" pk=object.pk %}" class="btn" style="padding:initial;" method="post">
+                                                            {% csrf_token %}
+                                                            <button class="btn btn-outline-danger" type="submit" data-bs-toggle="popover" data-bs-placement="top" data-bs-title="Delete"><i class="ri-delete-bin-line">Delete</i></button>
+                                                        </form>
                                                     </div>
                                                     <div class="my-1">
                                                         <a href="javascript: void(0);" class="btn btn-outline-danger" data-bs-toggle="popover" title="Set Featured" data-bs-placement="top" data-bs-trigger="hover" ><i class="ri-star-line"></i>Set Featured</a >

@@ -1,4 +1,5 @@
 from django.db import models
+from accounts.models import User
 
 
 class TransactionType(models.TextChoices):
@@ -38,6 +39,7 @@ class Property(models.Model):
         LEASE = "Lease"
         RENT = "Rent"
 
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="properties")
     name = models.CharField(max_length=255)
     post_type = models.CharField(choices=PostType.choices, max_length=20)
     type = models.ForeignKey(

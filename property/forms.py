@@ -30,45 +30,40 @@ class TypeForm(forms.ModelForm):
 class PropertyForm(forms.ModelForm):
     class Meta:
         model = Property
-        exclude = ("views",)
-
-    def is_valid(self):
-        print(self.data)
-        print(self.errors)
-        return super().is_valid()
+        exclude = ("views", "user")
 
 
 class AgricultureLandForm(forms.ModelForm):
     class Meta:
         model = AgricultureLand
-        fields = "__all__"
+        exclude = ("property",)
 
 
 class FlatForm(forms.ModelForm):
     class Meta:
         model = Flat
-        fields = "__all__"
+        exclude = ("property",)
 
 
 class HouseForm(forms.ModelForm):
     class Meta:
         model = House
-        fields = "__all__"
+        exclude = ("property",)
 
 
 class OfficeForm(forms.ModelForm):
     class Meta:
         model = Office
-        fields = "__all__"
+        exclude = ("property",)
 
 
 class VillaForm(forms.ModelForm):
     class Meta:
         model = Villa
-        fields = "__all__"
+        exclude = ("property",)
 
 
 class PlotForm(forms.ModelForm):
     class Meta:
         model = Plot
-        fields = "__all__"
+        exclude = ("property",)

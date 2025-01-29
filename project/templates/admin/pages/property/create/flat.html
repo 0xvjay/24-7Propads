@@ -173,10 +173,6 @@
 {% block extra_body %}
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/js/bootstrap-datepicker.min.js"></script>
   <script>
-      $("#id_4-available_from").datepicker({
-          format: "mm-yyyy",
-          startView: "months",
-          minViewMode: "months"
-      });
+      $("#id_4-available_from").datepicker();
   </script>
 {% endblock %}
