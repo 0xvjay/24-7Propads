@@ -239,6 +239,26 @@ class FAQDeleteView(BaseAdminDeleteView):
 class HomeView(LoginRequiredMixin, TemplateView):
     template_name = "customer/pages/home.html"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        property_counts = PropertyType.objects.annotate(
+            property_count=Count("properties")
+        ).values("name", "property_count")
+
+        context.update(
+            {
+                property_type["name"]
+                .lower()
+                .replace("/", "_")
+                .replace(" ", "_"): property_type["property_count"]
+                for property_type in property_counts
+            }
+        )
+        context["about_us"] = AboutUs.load()
+        context["featured_properties"] = Property.objects.filter(is_featured=True)[:3]
+
+        return context
+
 
 class AboutUsView(LoginRequiredMixin, TemplateView):
     template_name = "customer/pages/about_us.html"

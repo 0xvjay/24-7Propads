@@ -41,3 +41,6 @@ class UserSubscription(models.Model):
             self.status == UserSubscription.StatusType.ACTIVE
             and self.start_date <= now().date() <= self.end_date
         )
+
+    def __str__(self):
+        return f"{self.user.username} - {self.plan.name} ({self.status})"

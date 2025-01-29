@@ -27,6 +27,43 @@ class TypeForm(forms.ModelForm):
         return name
 
 
+class AdminPropertyForm(forms.ModelForm):
+    class Meta:
+        model = Property
+        fields = "__all__"
+
+    def clean(self):
+        cleaned_data = super().clean()
+
+        agriculture_formset = self.data.get("agriculture_details-TOTAL_FORMS", 0)
+        flat_formset = self.data.get("flat_details-TOTAL_FORMS", 0)
+        villa_formset = self.data.get("villa_details-TOTAL_FORMS", 0)
+        house_formset = self.data.get("house_details-TOTAL_FORMS", 0)
+        office_formset = self.data.get("office_details-TOTAL_FORMS", 0)
+        plot_formset = self.data.get("plot_details-TOTAL_FORMS", 0)
+
+        count = 0
+        if int(agriculture_formset) > 0:
+            count += 1
+        if int(flat_formset) > 0:
+            count += 1
+        if int(villa_formset) > 0:
+            count += 1
+        if int(house_formset) > 0:
+            count += 1
+        if int(office_formset) > 0:
+            count += 1
+        if int(plot_formset) > 0:
+            count += 1
+
+        if count > 1:
+            self.add_error(
+                None,
+                "You can only have one type of property detail (Agriculture, Flat, Villa, etc.) associated with a Property.",
+            )
+        return cleaned_data
+
+
 class PropertyForm(forms.ModelForm):
     class Meta:
         model = Property

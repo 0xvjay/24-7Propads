@@ -16,3 +16,6 @@ class Advertisement(models.Model):
     is_active = models.BooleanField(default=False)
     image = models.ImageField(upload_to="advertisements/")
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.position} - {'Active' if self.is_active else 'Inactive'}"

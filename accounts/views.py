@@ -22,14 +22,14 @@ from .models import User
 
 class AdminLoginView(CoreLoginView):
     form_class = AuthenticationForm
-    template_name = "admin/login.html"
+    template_name = "admin/admin_login.html"
 
     def get_success_url(self):
         return "/admin/"
 
 
 class AdminLogoutView(CoreLogoutView):
-    template_name = "admin/logout.html"
+    template_name = "admin/admin_logout.html"
 
 
 class UserListView(BaseAdminListView):

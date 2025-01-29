@@ -1,4 +1,5 @@
 from django.db import models
+
 from accounts.models import User
 
 
@@ -21,6 +22,12 @@ class FurnishingType(models.TextChoices):
 class PropertyAttributes(models.Model):
     name = models.CharField(max_length=255)
 
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name_plural = "Property Attributes"
+
 
 class PropertyType(models.Model):
     name = models.CharField(max_length=100)
@@ -31,6 +38,9 @@ class PropertyType(models.Model):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name_plural = "Property Types"
 
 
 class Property(models.Model):
@@ -74,6 +84,12 @@ class Property(models.Model):
 
     created_at = models.DateTimeField(auto_now=True)
     updated_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.name} ({self.post_type} - {self.type})"
+
+    class Meta:
+        verbose_name_plural = "Properties"
 
 
 class BaseProperty(models.Model):
@@ -128,6 +144,9 @@ class Flat(BaseProperty):
     car_parking = models.PositiveSmallIntegerField()
     maintenance = models.DecimalField(max_digits=12, decimal_places=2)
 
+    def __str__(self):
+        return f"{self.property.name} - Flat"
+
 
 class Villa(BaseProperty):
     class ModelType(models.TextChoices):
@@ -153,6 +172,9 @@ class Villa(BaseProperty):
     car_parking = models.PositiveSmallIntegerField()
     maintenance = models.DecimalField(max_digits=12, decimal_places=2)
 
+    def __str__(self):
+        return f"{self.property.name} - Villa"
+
 
 class Plot(BaseProperty):
     class Type(models.TextChoices):
@@ -172,6 +194,9 @@ class Plot(BaseProperty):
     breadth = models.CharField(max_length=255)
     approach_road = models.CharField(max_length=255)
     maintenance = models.DecimalField(max_digits=12, decimal_places=2)
+
+    def __str__(self):
+        return f"{self.property.name} - Plot"
 
 
 class Office(BaseProperty):
@@ -197,6 +222,9 @@ class Office(BaseProperty):
     floor_no = models.PositiveSmallIntegerField()
     car_parking = models.PositiveSmallIntegerField()
     maintenance = models.DecimalField(max_digits=12, decimal_places=2)
+
+    def __str__(self):
+        return f"{self.property.name} - Office"
 
 
 class House(BaseProperty):
@@ -228,6 +256,9 @@ class House(BaseProperty):
     car_parking = models.PositiveSmallIntegerField()
     maintenance = models.DecimalField(max_digits=12, decimal_places=2)
 
+    def __str__(self):
+        return f"{self.property.name} - House"
+
 
 class AgricultureLand(BaseProperty):
     property = models.OneToOneField(
@@ -235,3 +266,6 @@ class AgricultureLand(BaseProperty):
     )
     acres = models.CharField(max_length=255)
     approach_road = models.CharField(max_length=255)
+
+    def __str__(self):
+        return f"{self.property.name} - Agriculture"
