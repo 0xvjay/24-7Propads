@@ -12,17 +12,20 @@
             <div class="author-news mb-3" style="background-image:url({% static "customer/images/destination/destination16.jpg" %});">
                 <div class="author-news-content text-center p-4 py-5">
                     <div class="author-thumb mt-0">
-                        <img src="images/mystery-man.webp" alt="author">
+                        {% if request.user.profile %}<img src="{{request.user.profile.url}}" alt="author">{% endif %}
                     </div>
                     <div class="author-content pt-2 p-0">
-                        <h3 class="mb-1 white"><a class="white">Kartik Adani</a></h3>
-                        <p class="detail white"><i class="fa fa-map-marker white"></i> 1605-East--Triplex Villa, Gujarat</p>
-                        <p class="detail white"><i class="fa fa-phone white"></i> +91 9873 455869</p>
+                        <h3 class="mb-1 white"><a class="white">{{request.user.get_full_name}}</a></h3>
+                        {% if request.user.address %}<p class="detail white"><i class="fa fa-map-marker white"></i> {{request.user.address}}</p>{% endif %}
+                        {% if request.user.phone %}<p class="detail white"><i class="fa fa-phone white"></i> {{request.user.phone}}</p>{% endif %}
                         <div class="header-social mt-2">
                             <ul>
-                                <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                                <li><a href="#"><i class="fab fa-google-plus-g"></i></a></li>
-                                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                {% if request.user.skype %}<li><a href="{{request.user.skype}}"><i class="fab fa-skype-f"></i></a></li>{% endif %}
+                                {% if request.user.facebook %}<li><a href="{{request.user.facebook}}"><i class="fab fa-facebook-f"></i></a></li>{% endif %}
+                                {% if request.user.twitter %}<li><a href="{{request.user.twitter}}"><i class="fab fa-twitter-f"></i></a></li>{% endif %}
+                                {% if request.user.linkedin %}<li><a href="{{request.user.linkedin}}"><i class="fab fa-linkedin-f"></i></a></li>{% endif %}
+                                {% if request.user.instagram %}<li><a href="{{request.user.instagram}}"><i class="fab fa-instagram-f"></i></a></li>{% endif %}
+                                {% if request.user.pinterest %}<li><a href="{{request.user.pinterest}}"><i class="fab fa-pinterest-f"></i></a></li>{% endif %}
                             </ul>
                         </div>
                     </div>
@@ -36,19 +39,21 @@
                 <ul>
                     <li {% if request.path == dashboard_url %}class="active"{% endif %}><a href="{% url "accounts:dashboard" %}"><i class="fa fa-bars"></i> Dashboard</a></li>
                     <li>
-                        <div class="form-control-sm">
-                            <div class="input-box">
-                                <select class="bg-transparent btn btn-outline-dark form-select text-start">
-                                    <option value="" disabled selected>➕ Add listing</option>
-                                    <option value="Flats.html">Flat</option>
-                                    <option value="Villa.html">Villa</option>
-                                    <option value="Independent House.html">Independent House</option>
-                                    <option value="Office-Comm-Space.html">Office/Commercial Space </option>
-                                    <option value="Open-plot.html">Open Plot</option>
-                                    <option value="Agriculture-Land.html">Agriculture Land</option>
-                                </select>
+                        <form action="{% url "property:property_list" %}" method="get">
+                            <div class="form-control-sm">
+                                <div class="input-box">
+                                    <select name="type" class="bg-transparent btn btn-outline-dark form-select text-start" onchange="this.form.submit()">
+                                        <option value="" disabled selected>➕ Add listing</option>
+                                        <option value="flat">Flat</option>
+                                        <option value="villa">Villa</option>
+                                        <option value="house">Independent House</option>
+                                        <option value="office">Office/Commercial Space </option>
+                                        <option value="plot">Open Plot</option>
+                                        <option value="agriculture">Agriculture Land</option>
+                                    </select>
+                                </div>
                             </div>
-                        </div>
+                        </form>
                     </li>
                     <li {% if request.path == profile_url %}class="active"{% endif %}><a href="{% url "accounts:profile" %}"><i class="fa fa-user"></i> Profile</a></li>                     
                     <li {% if request.path == reviews_url %}class="active"{% endif %}><a href="{% url "accounts:reviews" %}"><i class="fa fa-star"></i> Reviews</a></li>

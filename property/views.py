@@ -1,9 +1,11 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.files.storage import DefaultStorage
 from django.db import transaction
-from django.db.models import Q
+from django.db.models import Count, DecimalField, Q, Value
+from django.db.models.functions import Coalesce
+from django.db.models.functions import Lower as LowerCase
 from django.shortcuts import redirect
-from django.views.generic import TemplateView
+from django.views.generic import ListView, TemplateView
 from formtools.wizard.views import SessionWizardView
 
 from core.views import (
@@ -98,60 +100,78 @@ class PropertyListView(BaseAdminListView):
 
 def show_agriculture_form(wizard: SessionWizardView):
     cleaned_data = wizard.get_cleaned_data_for_step("0")
+    user_choice = wizard.request.session.get("user_choice")
     type_data = (
         cleaned_data.get("type")
         if cleaned_data
-        else PropertyType.objects.get(id=wizard.request.session.get("user_choice"))
+        else PropertyType.objects.get(id=user_choice)
+        if user_choice
+        else None
     )
     return type_data and type_data.name == "Agriculture Land"
 
 
 def show_villa_form(wizard: SessionWizardView):
     cleaned_data = wizard.get_cleaned_data_for_step("0")
+    user_choice = wizard.request.session.get("user_choice")
     type_data = (
         cleaned_data.get("type")
         if cleaned_data
-        else PropertyType.objects.get(id=wizard.request.session.get("user_choice"))
+        else PropertyType.objects.get(id=user_choice)
+        if user_choice
+        else None
     )
     return type_data and type_data.name == "Villa/Independent House"
 
 
 def show_house_form(wizard: SessionWizardView):
     cleaned_data = wizard.get_cleaned_data_for_step("0")
+    user_choice = wizard.request.session.get("user_choice")
     type_data = (
         cleaned_data.get("type")
         if cleaned_data
-        else PropertyType.objects.get(id=wizard.request.session.get("user_choice"))
+        else PropertyType.objects.get(id=user_choice)
+        if user_choice
+        else None
     )
     return type_data and type_data.name == "House"
 
 
 def show_flat_form(wizard: SessionWizardView):
     cleaned_data = wizard.get_cleaned_data_for_step("0")
+    user_choice = wizard.request.session.get("user_choice")
     type_data = (
         cleaned_data.get("type")
         if cleaned_data
-        else PropertyType.objects.get(id=wizard.request.session.get("user_choice"))
+        else PropertyType.objects.get(id=user_choice)
+        if user_choice
+        else None
     )
     return type_data and type_data.name == "Flat/Apartment"
 
 
 def show_office_form(wizard: SessionWizardView):
     cleaned_data = wizard.get_cleaned_data_for_step("0")
+    user_choice = wizard.request.session.get("user_choice")
     type_data = (
         cleaned_data.get("type")
         if cleaned_data
-        else PropertyType.objects.get(id=wizard.request.session.get("user_choice"))
+        else PropertyType.objects.get(id=user_choice)
+        if user_choice
+        else None
     )
     return type_data and type_data.name == "Office/Commercial Space"
 
 
 def show_plot_form(wizard: SessionWizardView):
     cleaned_data = wizard.get_cleaned_data_for_step("0")
+    user_choice = wizard.request.session.get("user_choice")
     type_data = (
         cleaned_data.get("type")
         if cleaned_data
-        else PropertyType.objects.get(id=wizard.request.session.get("user_choice"))
+        else PropertyType.objects.get(id=user_choice)
+        if user_choice
+        else None
     )
     return type_data and type_data.name == "Open Plot"
 
@@ -294,8 +314,177 @@ class PropertyDeleteView(BaseAdminDeleteView):
     success_url = "/admin/properties/"
 
 
-class PropertyListingView(LoginRequiredMixin, TemplateView):
+class PropertyListingView(LoginRequiredMixin, ListView):
+    model = Property
+    paginate_by = 10
     template_name = "customer/pages/listing.html"
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+
+        search_query = self.request.GET.get("q")
+        if search_query:
+            queryset = queryset.filter(
+                Q(name__icontains=search_query) | Q(description__icontains=search_query)
+            )
+
+        location_query = self.request.GET.get("location")
+        if location_query:
+            queryset = queryset.filter(
+                Q(city__icontains=location_query)
+                | Q(address__icontains=location_query)
+                | Q(state__icontains=location_query)
+                | Q(postal_code__icontains=location_query)
+                | Q(lat__icontains=location_query)
+                | Q(long__icontains=location_query)
+            )
+
+        type_query = self.request.GET.get("type")
+        if type_query:
+            queryset = queryset.filter(Q(type__name__icontains=type_query))
+
+        post_type_query = self.request.GET.get("post_type")
+        if post_type_query:
+            queryset = queryset.filter(Q(post_type__icontains=post_type_query))
+
+        min_price = self.request.GET.get("min_price")
+        max_price = self.request.GET.get("max_price")
+        if min_price and max_price:
+            queryset = queryset.annotate(
+                price_to_filter=Coalesce(
+                    "agriculture_details__price",
+                    Coalesce(
+                        "flat_details__price",
+                        "villa_details__price",
+                        "house_details__price",
+                        "office_details__price",
+                        "plot_details__price",
+                        output_field=DecimalField(),
+                    ),
+                )
+            ).filter(price_to_filter__range=(min_price, max_price))
+        if min_price and not max_price:
+            queryset = queryset.annotate(
+                price_to_filter=Coalesce(
+                    "agriculture_details__price",
+                    Coalesce(
+                        "flat_details__price",
+                        "villa_details__price",
+                        "house_details__price",
+                        "office_details__price",
+                        "plot_details__price",
+                        output_field=DecimalField(),
+                    ),
+                )
+            ).filter(price_to_filter__gte=min_price)
+        if max_price and not min_price:
+            queryset = queryset.annotate(
+                price_to_filter=Coalesce(
+                    "agriculture_details__price",
+                    Coalesce(
+                        "flat_details__price",
+                        "villa_details__price",
+                        "house_details__price",
+                        "office_details__price",
+                        "plot_details__price",
+                        output_field=DecimalField(),
+                    ),
+                )
+            ).filter(price_to_filter__lte=max_price)
+
+        # min_area = self.request.GET.get("min_area")
+        # max_area = self.request.GET.get("max_area")
+        # if min_area and max_area:
+        #     queryset = queryset.annotate(
+        #         area_to_filter=Coalesce(
+        #             "agriculture_details__area",
+        #             Coalesce(
+        #                 "flat_details__area",
+        #                 "villa_details__area",
+        #                 "house_details__area",
+        #                 "office_details__area",
+        #                 "plot_details__area",
+        #                 output_field=CharField(),
+        #             ),
+        #         )
+        #     ).filter(area_to_filter__range=(min_area, max_area))
+        # if min_area and not max_area:
+        #     queryset = queryset.annotate(
+        #         area_to_filter=Coalesce(
+        #             "agriculture_details__area",
+        #             Coalesce(
+        #                 "flat_details__area",
+        #                 "villa_details__area",
+        #                 "house_details__area",
+        #                 "office_details__area",
+        #                 "plot_details__area",
+        #                 output_field=CharField(),
+        #             ),
+        #         )
+        #     ).filter(area_to_filter__gte=min_area)
+        # if max_area and not min_area:
+        #     queryset = queryset.annotate(
+        #         area_to_filter=Coalesce(
+        #             "agriculture_details__area",
+        #             Coalesce(
+        #                 "flat_details__area",
+        #                 "villa_details__area",
+        #                 "house_details__area",
+        #                 "office_details__area",
+        #                 "plot_details__area",
+        #                 output_field=CharField(),
+        #             ),
+        #         )
+        #     ).filter(area_to_filter__lte=max_area)
+
+        sort_by = self.request.GET.get("sort")
+        if sort_by == "price":
+            queryset = queryset.annotate(
+                price_to_sort=Coalesce(
+                    "agriculture_details__price",
+                    Coalesce(
+                        "flat_details__price",
+                        "villa_details__price",
+                        "house_details__price",
+                        "office_details__price",
+                        "plot_details__price",
+                        output_field=DecimalField(),
+                    ),
+                )
+            ).order_by("price_to_sort")
+        elif sort_by == "-price":
+            queryset = queryset.annotate(
+                price_to_sort=Coalesce(
+                    "agriculture_details__price",
+                    Coalesce(
+                        "flat_details__price",
+                        "villa_details__price",
+                        "house_details__price",
+                        "office_details__price",
+                        "plot_details__price",
+                        output_field=DecimalField(),
+                    ),
+                )
+            ).order_by("-price_to_sort")
+
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["related_properties"] = Property.objects.all()[:5]
+
+        cities = ["hyderabad", "vijaywada", "bangalore", "chennai"]
+
+        context.update({f"{city.lower()}_count": 0 for city in cities})
+        for city, count in (
+            Property.objects.annotate(lower_city=LowerCase("city"))
+            .filter(lower_city__in=cities)
+            .values("city")
+            .annotate(count=Coalesce(Count("id"), Value(0)))
+            .values_list("city", "count")
+        ):
+            context[f"{city.lower()}_count"] = count
+        return context
 
 
 class PropertyDetailView(LoginRequiredMixin, TemplateView):

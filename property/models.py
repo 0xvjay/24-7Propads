@@ -85,6 +85,23 @@ class Property(models.Model):
     created_at = models.DateTimeField(auto_now=True)
     updated_at = models.DateTimeField(auto_now_add=True)
 
+    @property
+    def details(self):
+        if hasattr(self, "agriculture_details"):
+            return self.agriculture_details
+        elif hasattr(self, "flat_details"):
+            return self.flat_details
+        elif hasattr(self, "villa_details"):
+            return self.villa_details
+        elif hasattr(self, "plot_details"):
+            return self.plot_details
+        elif hasattr(self, "office_details"):
+            return self.office_details
+        elif hasattr(self, "house_details"):
+            return self.house_details
+        else:
+            None
+
     def __str__(self):
         return f"{self.name} ({self.post_type} - {self.type})"
 

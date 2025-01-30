@@ -14,696 +14,97 @@
           <div class="listing-inner">
             <div class="list-results d-flex align-items-center justify-content-between">
               <div class="list-results-sort">
-                <p class="m-0">Showing 1-5 of 80 results</p>
+                <p class="m-0">Showing {{ page_obj.object_list.count }} of {{ page_obj.paginator.count }} results</p>
               </div>
               <div class="click-menu d-flex align-items-center justify-content-between">
-                <div class="change-list f-active me-2">
-                  <a href="listing-leftfilter.html"><i class="fa fa-bars"></i></a>
-                </div>
-                <div class="change-grid me-2">
-                  <a href="grid-leftfilter.html"><i class="fa fa-th"></i></a>
-                </div>
                 <div class="sortby d-flex align-items-center justify-content-between ml-2">
-                  <select class="niceSelect">
-                    <option value="1">Sort By</option>
-                    <option value="2">Average rating</option>
-                    <option value="3">Price: low to high</option>
-                    <option value="4">Price: high to low</option>
-                  </select>
+                  <a href="{% url "property:property_list" %}" class="me-2">Clear Filters</a>
+                  <form action="{% url "property:property_list" %}" method="get">
+                    <select class="niceSelect" name="sort" onchange="this.form.submit()">
+                      <option value="">Sort By</option>
+                      <option {% if request.GET.sort == "rating" %}selected{% endif %} value="rating">Rating</option>
+                      <option {% if request.GET.sort == "price" %}selected{% endif %} value="price">Price: low to high</option>
+                      <option {% if request.GET.sort == "-price" %}selected{% endif %} value="-price">Price: high to low</option>
+                    </select>
+                  </form>
                 </div>
               </div>
             </div>
-            <div class="blog-full mb-4 border-b pb-4">
-              <div class="row">
-                <div class="col-lg-5 col-md-4">
-                  <div class="blog-image">
-                    <a href="#" style="background-image: url({% static "customer/images/looking_to_buy.png" %});"></a>
+            {% for object in object_list %}
+              <div class="blog-full mb-4 border-b pb-4">
+                <div class="row">
+                  <div class="col-lg-5 col-md-4">
+                    <div class="blog-image">
+                      <a href="#" style="background-image: url({{object.image.url}});"></a>
+                    </div>
                   </div>
-                </div>
-                <div class="col-lg-7 col-md-8">
-                  <div class="blog-content">
-                    <h5 class="theme mb-2">Villa</h5>
-                    <h4 class="mb-2">
-                      <a href="detail-rightside.html" class="">1605-East--Triplex Villa / independent House-in-SRS Villas-for-Sale-in-patancheruvu-Hyderabad</a>
-                    </h4>
-                    <div class="d-flex align-items-center justify-content-between border-b pb-1 mb-2">
-                      <div class="entry-price">Start From<span class="d-block theme fw-bold">Rs. 87,99,999</span>
+                  <div class="col-lg-7 col-md-8">
+                    <div class="blog-content">
+                      <h5 class="theme mb-2">{{object.type.name}}</h5>
+                      <h4 class="mb-2">
+                        <a href="{% url "property:property" pk=object.pk %}" class="">{{object.name}}</a>
+                      </h4>
+                      <div class="d-flex align-items-center justify-content-between border-b pb-1 mb-2">
+                        <div class="entry-price">Start From<span class="d-block theme fw-bold">Rs. {{object.details.price}}</span>
+                        </div>
+                        <div class="entry-metalist d-flex align-items-center">
+                          <ul>
+                            <li class="me-2"><i class="fa fa-eye"></i></li>
+                            <li class="me-2"><i class="fa fa-heart"></i></li>
+                          </ul>
+                        </div>
                       </div>
-                      <div class="entry-metalist d-flex align-items-center">
-                        <ul>
-                          <li class="me-2"><i class="fa fa-eye"></i></li>
-                          <li class="me-2"><i class="fa fa-heart"></i></li>
-                        </ul>
+                      <p class="mb-2">{{object.address}}</p>
+                      <div class="css-1bcji2n pb-1">By
+                        <a class="css-l2kny5"><span data-q="dev-name">Samarth Drushti Developers</span></a><span data-q="dev-name">(Builder)</span>
                       </div>
+                      <ul class="d-flex align-items-center justify-content-between bg-grey p-3 px-4">
+                        <li class="me-2"><i class="fa fa-eye"></i> 3 Beds</li>
+                        <li class="me-2">
+                          <i class="fa fa-heart"></i> 2 Baths
+                        </li>
+                        <li><i class="fa fa-comments"></i> 600 Sq Ft</li>
+                      </ul>
                     </div>
-                    <p class="mb-2">BR nagar, Hyderabad</p>
-                    <div class="css-1bcji2n pb-1">By
-                      <a class="css-l2kny5" target="_blank" href="/buy-projects-by-samarth-drushti-developers-bid-25814818-Ahcvq1t516w50k4injluy3neb"><span data-q="dev-name">Samarth Drushti Developers</span></a><span data-q="dev-name">(Builder)</span>
-                    </div>
-                    <ul class="d-flex align-items-center justify-content-between bg-grey p-3 px-4">
-                      <li class="me-2"><i class="fa fa-eye"></i> 3 Beds</li>
-                      <li class="me-2">
-                        <i class="fa fa-heart"></i> 2 Baths
-                      </li>
-                      <li><i class="fa fa-comments"></i> 600 Sq Ft</li>
-                    </ul>
                   </div>
                 </div>
               </div>
-            </div>
-
-            <div class="blog-full mb-4 border-b pb-4">
-              <div class="row">
-                <div class="col-lg-5 col-md-4">
-                  <div class="blog-image">
-                    <a href="#" style="background-image: url({% static "customer/images/Carousal/carousal-2.png" %});"></a>
-                  </div>
-                </div>
-                <div class="col-lg-7 col-md-8">
-                  <div class="blog-content">
-                    <h5 class="theme mb-2">Flat</h5>
-                    <h4>
-                      <a href="detail-rightside.html">1200-West--Simplex Flat-in-SR heights-for-Sale-in-KPHB-Hyderabad</a>
-                    </h4>
-                    <div class="d-flex align-items-center justify-content-between border-b pb-1 mb-2">
-                      <div class="entry-price">Start From<span class="d-block theme fw-bold">Rs. 45,00,000</span>
-                      </div>
-                      <div class="entry-metalist d-flex align-items-center">
-                        <ul>
-                          <li class="me-2"><i class="fa fa-eye"></i></li>
-                          <li class="me-2"><i class="fa fa-heart"></i></li>
-                        </ul>
-                      </div>
-                    </div>
-                    <p class="mb-2">pragathi nagar, KPHB, Hyderabad, Telangana
-                    </p>
-                    <div class="css-1bcji2n pb-1">By
-                      <a class="css-l2kny5" target="_blank" href="/buy-projects-by-samarth-drushti-developers-bid-25814818-Ahcvq1t516w50k4injluy3neb"><span data-q="dev-name">Samarth Drushti Developers</span></a><span data-q="dev-name">(Builder)</span>
-                    </div>
-                    <ul class="d-flex align-items-center justify-content-between bg-grey p-3 px-4">
-                      <li class="me-2"><i class="fa fa-eye"></i> 3 Beds</li>
-                      <li class="me-2">
-                        <i class="fa fa-heart"></i> 2 Baths
-                      </li>
-                      <li><i class="fa fa-comments"></i> 600 Sq Ft</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="blog-full mb-4 border-b pb-4">
-              <div class="row">
-                <div class="col-lg-5 col-md-4">
-                  <div class="blog-image">
-                    <a href="#" style="background-image: url({% static "customer/images/Carousal/carousal-3.png" %});"></a>
-                  </div>
-                </div>
-                <div class="col-lg-7 col-md-8">
-                  <div class="blog-content">
-                    <h5 class="theme mb-2">Flat</h5>
-                    <h4>
-                      <a href="detail-rightside.html">Flat/Apartment-Sale-Ramky one Harmony</a>
-                    </h4>
-                    <div class="d-flex align-items-center justify-content-between border-b pb-1 mb-2">
-                      <div class="entry-price">Start From<span class="d-block theme fw-bold">Rs. 1,00,08,000</span>
-                      </div>
-                      <div class="entry-metalist d-flex align-items-center">
-                        <ul>
-                          <li class="me-2"><i class="fa fa-eye"></i></li>
-                          <li class="me-2"><i class="fa fa-heart"></i></li>
-                        </ul>
-                      </div>
-                    </div>
-                    <p class="mb-2"> Pragathi Nagar, kukatpally, Hyderabad, Telangana</p>
-                    <div class="css-1bcji2n pb-1">
-                      By
-                      <a class="css-l2kny5" target="_blank" href="/buy-projects-by-samarth-drushti-developers-bid-25814818-Ahcvq1t516w50k4injluy3neb"><span data-q="dev-name">Samarth Drushti Developers</span></a><span data-q="dev-name">(Builder)</span>
-                    </div>
-                    <ul class="d-flex align-items-center justify-content-between bg-grey p-3 px-4">
-                      <li class="me-2"><i class="fa fa-eye"></i> 3 Beds</li>
-                      <li class="me-2">
-                        <i class="fa fa-heart"></i> 2 Baths
-                      </li>
-                      <li><i class="fa fa-comments"></i> 600 Sq Ft</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="blog-full mb-4 border-b pb-4">
-              <div class="row">
-                <div class="col-lg-5 col-md-4">
-                  <div class="blog-image">
-                    <a href="#" style="background-image: url({% static "customer/images/Carousal/carousal-4.png" %});"></a>
-                  </div>
-                </div>
-                <div class="col-lg-7 col-md-8">
-                  <div class="blog-content">
-                    <h5 class="theme mb-2">Flat</h5>
-                    <h4>
-                      <a href="detail-rightside.html">Flat/Apartment-Sale-Gated flats</a>
-                    </h4>
-                    <div class="d-flex align-items-center justify-content-between border-b pb-1 mb-2">
-                      <div class="entry-price">Start From<span class="d-block theme fw-bold">Rs. 51,66,000</span>
-                      </div>
-                      <div class="entry-metalist d-flex align-items-center">
-                        <ul>
-                          <li class="me-2"><i class="fa fa-eye"></i></li>
-                          <li class="me-2"><i class="fa fa-heart"></i></li>
-                        </ul>
-                      </div>
-                    </div>
-                    <p class="mb-2"> Tellapur, TELLAPUR, Hyderabad, Telangana
-                    </p>
-                    <div class="css-1bcji2n pb-1">
-                      By
-                      <a class="css-l2kny5" target="_blank" href="/buy-projects-by-samarth-drushti-developers-bid-25814818-Ahcvq1t516w50k4injluy3neb"><span data-q="dev-name">Samarth Drushti Developers</span></a><span data-q="dev-name">(Builder)</span>
-                    </div>
-                    <ul class="d-flex align-items-center justify-content-between bg-grey p-3 px-4">
-                      <li class="me-2"><i class="fa fa-eye"></i> 3 Beds</li>
-                      <li class="me-2">
-                        <i class="fa fa-heart"></i> 2 Baths
-                      </li>
-                      <li><i class="fa fa-comments"></i> 600 Sq Ft</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="blog-full mb-4 border-b pb-4">
-              <div class="row">
-                <div class="col-lg-5 col-md-4">
-                  <div class="blog-image">
-                    <a href="#" style=" background-image: url({% static "customer/images/Carousal/carousal-5.png" %});"></a>
-                  </div>
-                </div>
-                <div class="col-lg-7 col-md-8">
-                  <div class="blog-content">
-                    <h5 class="theme mb-2">Villa</h5>
-                    <h4>
-                      <a href="detail-rightside.html">villa/independent house-Sale-Gated community</a>
-                    </h4>
-                    <div class="d-flex align-items-center justify-content-between border-b pb-1 mb-2">
-                      <div class="entry-price"> Start From<span class="d-block theme fw-bold">Rs. 3,00,00,000</span>
-                      </div>
-                      <div class="entry-metalist d-flex align-items-center">
-                        <ul>
-                          <li class="me-2"><i class="fa fa-eye"></i></li>
-                          <li class="me-2"><i class="fa fa-heart"></i></li>
-                        </ul>
-                      </div>
-                    </div>
-                    <p class="mb-2"> Near Kims hospital, Kondapur, Hyderabad, Telangana</p>
-                    <div class="css-1bcji2n pb-1">
-                      By
-                      <a class="css-l2kny5" target="_blank" href="/buy-projects-by-samarth-drushti-developers-bid-25814818-Ahcvq1t516w50k4injluy3neb"><span data-q="dev-name">Samarth Drushti Developers</span></a><span data-q="dev-name">(Builder)</span>
-                    </div>
-                    <ul class="d-flex align-items-center justify-content-between bg-grey p-3 px-4">
-                      <li class="me-2"><i class="fa fa-eye"></i> 3 Beds</li>
-                      <li class="me-2">
-                        <i class="fa fa-heart"></i> 2 Baths
-                      </li>
-                      <li><i class="fa fa-comments"></i> 600 Sq Ft</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="blog-full mb-4 border-b pb-4">
-              <div class="row">
-                <div class="col-lg-5 col-md-4">
-                  <div class="blog-image">
-                    <a href="#" style=" background-image: url({% static "customer/images/Carousal/carousal-1.png" %});"></a>
-                  </div>
-                </div>
-                <div class="col-lg-7 col-md-8">
-                  <div class="blog-content">
-                    <h5 class="theme mb-2">Villa</h5>
-                    <h4>
-                      <a href="detail-rightside.html">1605-East--Triplex Villa / independent House-in-SRS Villas-for-Sale-in-patancheruvu-Hyderabad</a>
-                    </h4>
-                    <div class="d-flex align-items-center justify-content-between border-b pb-1 mb-2">
-                      <div class="entry-price">Start From<span class="d-block theme fw-bold">Rs. 87,99,999</span>
-                      </div>
-                      <div class="entry-metalist d-flex align-items-center">
-                        <ul>
-                          <li class="me-2"><i class="fa fa-eye"></i></li>
-                          <li class="me-2"><i class="fa fa-heart"></i></li>
-                        </ul>
-                      </div>
-                    </div>
-                    <p class="mb-2">BR nagar, patancheruvu, Hyderabad, Telangana</p>
-                    <div class="css-1bcji2n pb-1">
-                      By
-                      <a class="css-l2kny5" target="_blank" href="/buy-projects-by-samarth-drushti-developers-bid-25814818-Ahcvq1t516w50k4injluy3neb"><span data-q="dev-name">Samarth Drushti Developers</span></a><span data-q="dev-name">(Builder)</span>
-                    </div>
-                    <ul class="d-flex align-items-center justify-content-between bg-grey p-3 px-4">
-                      <li class="me-2"><i class="fa fa-eye"></i> 3 Beds</li>
-                      <li class="me-2">
-                        <i class="fa fa-heart"></i> 2 Baths
-                      </li>
-                      <li><i class="fa fa-comments"></i> 600 Sq Ft</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="blog-full mb-4 border-b pb-4">
-              <div class="row">
-                <div class="col-lg-5 col-md-4">
-                  <div class="blog-image">
-                    <a href="#" style="background-image: url({% static "customer/images/Carousal/carousal-2.png" %});"></a>
-                  </div>
-                </div>
-                <div class="col-lg-7 col-md-8">
-                  <div class="blog-content">
-                    <h5 class="theme mb-2">Open Plot</h5>
-                    <h4>
-                      <a href="detail-rightside.html">1200-East-in-Cube city properties-for-Sale-in-Medavakkam-Chennai</a>
-                    </h4>
-                    <div class="d-flex align-items-center justify-content-between border-b pb-1 mb-2">
-                      <div class="entry-price">Start From<span class="d-block theme fw-bold">Rs. 54,00,000</span></div>
-                      <div class="entry-metalist d-flex align-items-center">
-                        <ul>
-                          <li class="me-2"><i class="fa fa-eye"></i></li>
-                          <li class="me-2"><i class="fa fa-heart"></i></li>
-                        </ul>
-                      </div>
-                    </div>
-                    <p class="mb-2"> Aditya nager, Medavakkam, Chennai, Tamil Nadu</p>
-                    <div class="css-1bcji2n pb-1">
-                      By
-                      <a class="css-l2kny5" target="_blank" href="/buy-projects-by-samarth-drushti-developers-bid-25814818-Ahcvq1t516w50k4injluy3neb"><span data-q="dev-name">Samarth Drushti Developers</span></a><span data-q="dev-name">(Builder)</span>
-                    </div>
-                    <ul class="d-flex align-items-center justify-content-between bg-grey p-3 px-4">
-                      <li class="me-2"><i class="fa fa-eye"></i> 3 Beds</li>
-                      <li class="me-2">
-                        <i class="fa fa-heart"></i> 2 Baths
-                      </li>
-                      <li><i class="fa fa-comments"></i> 600 Sq Ft</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
+            {% endfor %}
 
             <div class="pagination-main text-center">
               <ul class="pagination">
-                <li>
-                  <a href="#"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
-                </li>
-                <li class="active"><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li>
-                  <a href="#"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
-                </li>
+                {% if page_obj.has_previous %}
+                  <li><a href="?page={{page_obj.previous_page_number}}"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a></li>
+                {% endif %}
+                {% for page in page_obj.paginator.page_range %}
+                  {% if page_obj.number == page %}
+                    <li class="active"><a href="?page={{ page }}">{{ page }}</a></li>
+                  {% elif page > page_obj.number|add:'-3' and page < page_obj.number|add:'3' %}
+                    <li><a href="?page={{ page }}">{{ page }}</a></li>
+                  {% endif %}
+                {% endfor %}
+                {% if page_obj.has_next %}
+                  <li><a href="?page={{page_obj.next_page_number}}"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
+                {% endif %}
               </ul>
             </div>
           </div>
         </div>
 
-        <!-- sidebar starts -->
-        <div class="col-lg-4 col-md-12">
-          <div class="sidebar-sticky">
-            <div class="list-sidebar">
-              <div class="sidebar-item mb-4 box-shadow p-4 text-centerb">
-                <h3>Find your home</h3>
-                <form class="form-find">
-                  <div class="form-group mb-2">
-                    <input type="text" placeholder="Enter Keywords" />
-                  </div>
-                  <div class="form-group mb-2">
-                    <div class="input-box">
-                      <select class="niceSelect">
-                        <!-- <select name="place_city" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true"> -->
-                        <option data-display="" value="" disabled selected>Location</option>
-                        <option value="Gandhinagar">Gandhinagar-Gujarat</option>
-                        <option value="Vadodara">Vadodara-Gujarat</option>
-                        <option value="Faridabad">Faridabad-Haryana</option>
-                        <option value="Dharamshala">Dharamshala-Himachal Pradesh</option>
-                        <option value="Shimla">Shimla-Himachal Pradesh</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="form-group mb-2">
-                    <div class="input-box">
-                      <select class="niceSelect">
-                        <option value="All">All</option>
-                        <option value="5">Agriculture Land</option>
-                        <option value="1">Flat/Apartment</option>
-                        <option value="4">Office/Commercial Space</option>
-                        <option value="3">Open Plot</option>
-                        <option value="6">Villa/Independent House</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="form-group mb-2">
-                    <div class="input-box">
-                      <select class="niceSelect">
-                        <option value="1">All Status</option>
-                        <option value="2">For Rent</option>
-                        <option value="3">For Sale</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="form-group mb-2 d-flex justify-content-between">
-                    <div class="input-box w-50 me-1">
-                      <select class="niceSelect">
-                        <option value="1">Bedrooms</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                      </select>
-                    </div>
-                    <div class="input-box w-50 ms-1">
-                      <select class="niceSelect">
-                        <option value="1">Bathrooms</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="form-group mb-2">
-                    <div class="range-slider mt-0">
-                      <p class="text-start mb-2">Price Range</p>
-                      <div data-min="0" data-max="2000" data-unit="$" data-min-name="min_price" data-max-name="max_price" class="range-slider-ui ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" aria-disabled="false">
-                        <span class="min-value">RS. 0</span>
-                        <span class="max-value">RS. 100000000</span>
-                        <div class="ui-slider-range ui-widget-header ui-corner-all full" style="left: 0%; width: 100%"></div>
-                      </div>
-                      <div class="clearfix"></div>
-                    </div>
-                  </div>
-                  <div class="form-group mb-2">
-                    <div class="range-slider mt-0">
-                      <p class="text-start mb-2">Area Size</p>
-                      <div data-min="0"  data-max="2000" data-unit="$"  data-min-name="min_price" data-max-name="max_price" class="range-slider-ui ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" aria-disabled="false">
-                        <span class="min-value">100 sqft</span>
-                        <span class="max-value">20000 sqft</span>
-                        <div
-                          class="ui-slider-range ui-widget-header ui-corner-all full"
-                          style="left: 0%; width: 100%"
-                        ></div>
-                      </div>
-                      <div class="clearfix"></div>
-                    </div>
-                  </div>
-                  <div class="form-group text-center w-100">
-                    <input type="submit" class="nir-btn w-100" id="submit3" value="Search"/>
-                  </div>
-                </form>
-              </div>
-
-              <div class="sidebar-item trending">
-                <h3 class="">Related Property</h3>
-                <div class="trend-box">
-                  <div class="about-slider">
-                    <div>
-                      <div class="trend-item box-shadow">
-                        <div class="trend-image">
-                          <img src="{% static "customer/images/trending/trending2.jpg" %}" alt="image" />
-                          <a href="#" class="flash bg-theme1 white px-3 py-2"><i class="fa fa-flash"></i></a>
-                          <div class="trend-meta d-flex align-items-center justify-content-between">
-                            <div class="entry-author">
-                              <img src="{% static "customer/images/reviewer/2.jpg" %}"  alt="" class="rounded-circle me-1"/>
-                              <span>Jenny Lofar</span>
-                            </div>
-                            <a href="grid-leftfilter.html" class="tags bg-theme2 white px-3 py-1">For Rent</a>
-                          </div>
-                        </div>
-                        <div class="trend-content p-4">
-                          <h5 class="theme">Apartment</h5>
-                          <h4>
-                            <a href="detail-rightside.html" >7012 Shine Sehu Street, Liverpool London, LC345AC</a>
-                          </h4>
-                          <div class="entry-meta d-flex align-items-center justify-content-between border-b pb-1 mb-2">
-                            <div class="entry-author">
-                              <p>Start From<span class="d-block theme fw-bold">$63,000.00</span></p>
-                            </div>
-                            <div class="entry-metalist d-flex align-items-center">
-                              <ul>
-                                <li class="me-2">
-                                  <i class="fa fa-eye"></i>
-                                </li>
-                                <li class="me-2">
-                                  <i class="fa fa-heart"></i>
-                                </li>
-                              </ul>
-                            </div>
-                          </div>
-                          <p class="mb-0">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum</p>
-                        </div>
-                        <ul class="d-flex align-items-center justify-content-between bg-grey p-3 px-4">
-                          <li class="me-2">
-                            <i class="fa fa-eye"></i> 3 Beds
-                          </li>
-                          <li class="me-2">
-                            <i class="fa fa-heart"></i> 2 Baths
-                          </li>
-                          <li><i class="fa fa-comments"></i> 600 Sq Ft</li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div>
-                      <div class="trend-item box-shadow">
-                        <div class="trend-image">
-                          <img src="{% static "customer/images/trending/trending2.jpg" %}" alt="image"/>
-                          <a href="#" class="flash bg-theme1 white px-3 py-2" ><i class="fa fa-flash"></i></a>
-                          <div class="trend-meta d-flex align-items-center justify-content-between">
-                            <div class="entry-author">
-                              <img src="{% static "customer/images/reviewer/2.jpg" %}" alt="" class="rounded-circle me-1"/>
-                              <span>Jenny Lofar</span>
-                            </div>
-                            <a href="grid-leftfilter.html" class="tags bg-theme2 white px-3 py-1">For Rent</a>
-                          </div>
-                        </div>
-                        <div class="trend-content p-4">
-                          <h5 class="theme">Villa</h5>
-                          <h4>
-                            <a href="detail-rightside.html">1244 Vansh Market, Mise Mizkel Australia, AU456HA</a>
-                          </h4>
-                          <div class="entry-meta d-flex align-items-center justify-content-between border-b pb-1 mb-2">
-                            <div class="entry-author">
-                              <p>Start From<span class="d-block theme fw-bold">$52,000.00</span></p>
-                            </div>
-                            <div class="entry-metalist d-flex align-items-center">
-                              <ul>
-                                <li class="me-2">
-                                  <i class="fa fa-eye"></i>
-                                </li>
-                                <li class="me-2">
-                                  <i class="fa fa-heart"></i>
-                                </li>
-                              </ul>
-                            </div>
-                          </div>
-                          <p class="mb-0">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum</p>
-                        </div>
-                        <ul class="d-flex align-items-center justify-content-between bg-grey p-3 px-4">
-                          <li class="me-2">
-                            <i class="fa fa-eye"></i> 3 Beds
-                          </li>
-                          <li class="me-2">
-                            <i class="fa fa-heart"></i> 2 Baths
-                          </li>
-                          <li><i class="fa fa-comments"></i> 600 Sq Ft</li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="sidebar-item top-post">
-                <h3>Popular Destination</h3>
-                <div class="row">
-                  <div class="col-lg-6 col-md-6 col-sm-6 mb-4">
-                    <div class="trend-item">
-                      <div class="trend-image">
-                        <img src="{% static "customer/images/agencies/agency-list-02.jpg" %}" alt="image"/>
-                        <div class="trend-content pt-2">
-                          <h6 class="mb-0">
-                            <a href="listing-leftfilter.html">Hyderabad</a>
-                          </h6>
-                          <span>28 Properties</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-6 col-md-6 col-sm-6 mb-4">
-                    <div class="trend-item">
-                      <div class="trend-image">
-                        <img src="{% static "customer/images/destination/destination14.jpg" %}" alt="image"/>
-                        <div class="trend-content pt-2">
-                          <h6 class="mb-0">
-                            <a href="listing-leftfilter.html">Vijayawada</a>
-                          </h6>
-                          <span>45 Properties</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-6 col-md-6 col-sm-6 mb-4">
-                    <div class="trend-item">
-                      <div class="trend-image">
-                        <img src="{% static "customer/images/destination/destination15.jpg" %}" alt="image"/>
-                        <div class="trend-content pt-2">
-                          <h6 class="mb-0">
-                            <a href="listing-leftfilter.html">Bangalore</a>
-                          </h6>
-                          <span>32 Properties</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-6 col-md-6 col-sm-6">
-                    <div class="trend-item">
-                      <div class="trend-image">
-                        <img src="{% static "customer/images/destination/destination16.jpg" %}" alt="image"/>
-                        <div class="trend-content pt-2">
-                          <h6 class="mb-0">
-                            <a href="listing-leftfilter.html">Chennai</a>
-                          </h6>
-                          <span>51 Properties</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <!-- sidebar -->
+        {% include "customer/partials/filter-card.html" %}
+        <!-- sidebar -->
       </div>
     </div>
   </section>
 
-  <section class="discount-action pt-0">
-    <div class="container">
-      <div class="call-banner" style="background-image: url({% static "images/looking_to_buy.png" %});">
-        <div class="row d-flex align-items-center">
-          <div class="col-lg-6 col-md-8 p-0">
-            <div class="call-banner-inner bg-theme1">
-              <div class="trend-content-main">
-                <div class="trend-content p-5">
-                  <h5 class="mb-1 white">Wanna to Sell Or Rent??</h5>
-                  <h2 class="mb-4 white"> Looking to Buy a New Property or Sell an Existing One?</h2>
-                  <div class="section-btns d-flex align-items-center">
-                    <a href="grid-leftfilter.html" class="nir-btn me-4">Rent Properties<i class="fa fa-arrow-right white pl-1"></i></a>
-                    <a href="grid-rightfilter.html" class="nir-btn">Buy Properties<i class="fa fa-arrow-right white pl-1"></i></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-6 col-md-4 p-0"></div>
-        </div>
-      </div>
-      <div class="partner-wrapper bg-white p-4">
-        <ul class="attract-slider">
-          <li class="px-3">
-            <a href="#"><img src="{% static "customer/images/Ad-Projects/Ad-Projects-1.png" %}" alt=""/></a>
-          </li>
-          <li class="px-3">
-            <a href="#"><img src="{% static "customer/images/Ad-Projects/Ad-Projects-2.png" %}" alt=""/></a>
-          </li>
-          <li class="px-3">
-            <a href="#"><img src="{% static "customer/images/Ad-Projects/Ad-Projects-3.png" %}" alt=""/></a>
-          </li>
-          <li class="px-3">
-            <a href="#"><img src="{% static "customer/images/Ad-Projects/Ad-Projects-4.png" %}" alt=""/></a>
-          </li>
-          <li class="px-3">
-            <a href="#"><img src="{% static "customer/images/Ad-Projects/Ad-Projects-5.png" %}" alt=""/></a>
-          </li>
-          <li class="px-3">
-            <a href="#"><img src="{% static "customer/images/Ad-Projects/Ad-Projects-1.png" %}" alt=""/></a>
-          </li>
-          <li class="px-3">
-            <a href="#"><img src="{% static "customer/images/Ad-Projects/Ad-Projects-2.png" %}" alt=""/></a>
-          </li>
-          <li class="px-3">
-            <a href="#"><img src="{% static "customer/images/Ad-Projects/Ad-Projects-3.png" %}" alt=""/></a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </section>
-  <section class="insta-main pt-0">
-    <div class="container">
-      <div class="insta-inner">
-        <div class="follow-button">
-          <a href="https://www.instagram.com/property_visit/">
-            <h5 class="m-0"><i class="fab fa-instagram"></i> Follow on Instagram</h5>
-          </a>
-        </div>
-        <div class="row attract-slider">
-          <div class="col-md-3 col-sm-6">
-            <div class="insta-image">
-              <a href="gallery.html"><img src="{% static "customer/images/Carousal/carousal-2.png" %}" alt="insta"/></a>
-            </div>
-          </div>
-          <div class="col-md-3 col-sm-6">
-            <div class="insta-image">
-              <a href="gallery.html"><img src="{% static "customer/images/Carousal/carousal-1.png" %}" alt="insta"/></a>
-            </div>
-          </div>
-          <div class="col-md-3 col-sm-6">
-            <div class="insta-image">
-              <a href="gallery.html"><img src="{% static "customer/images/Carousal/carousal-3.png" %}" alt="insta"/></a>
-            </div>
-          </div>
-          <div class="col-md-3 col-sm-6">
-            <div class="insta-image">
-              <a href="gallery.html"><img src="{% static "customer/images/Carousal/carousal-4.png" %}" alt="insta"/></a>
-            </div>
-          </div>
-          <div class="col-md-3 col-sm-6">
-            <div class="insta-image">
-              <a href="gallery.html"><img src="{% static "customer/images/Carousal/carousal-5.png" %}" alt="insta"/></a>
-            </div>
-          </div>
-          <div class="col-md-3 col-sm-6">
-            <div class="insta-image">
-              <a href="gallery.html"><img src="{% static "customer/images/Carousal/carousal-1.png" %}" alt="insta"/></a>
-            </div>
-          </div>
-          <div class="col-md-3 col-sm-6">
-            <div class="insta-image">
-              <a href="gallery.html"><img src="{% static "customer/images/Carousal/carousal-4.png" %}" alt="insta"/></a>
-            </div>
-          </div>
-          <div class="col-md-3 col-sm-6">
-            <div class="insta-image">
-              <a href="gallery.html"><img src="{% static "customer/images/Carousal/carousal-4.png" %}" alt="insta"/></a>
-            </div>
-          </div>
-          <div class="col-md-3 col-sm-6">
-            <div class="insta-image">
-              <a href="gallery.html"><img src="{% static "customer/images/Carousal/carousal-4.png" %}" alt="insta"/></a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  {% include "customer/partials/looking_to_buy.html" %}
+  {% include "customer/partials/email_subscribe.html" %}
+{% endblock %}
 
-  <div class="content-line m-0">
-    <div class="content-line-inner bg-theme2 pb-6 pt-6 p-5">
-      <div class="container">
-        <div class="row d-md-flex align-items-center justify-content-between text-lg-start text-center">
-          <div class="col-lg-9">
-            <h2 class="mb-0 white">Looking for a dream home?</h2>
-            <p class="white"> We can help you realize your dream of a new home</p>
-          </div>
-          <div class="col-lg-3">
-            <a href="listing-leftfilter.html" class="nir-btn-black float-lg-end float-none">Fine More Properties</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+
+{% block extra_body %}
+  <script>
+    
+  </script>
 {% endblock %}

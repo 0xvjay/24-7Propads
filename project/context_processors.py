@@ -1,5 +1,5 @@
 from core.models import SiteSettings
 
 
-def get_footer_details(request):
-    return {"footer": SiteSettings.load().footer_description}
+def get_site_settings(request):
+    return {"site_settings": SiteSettings.load()}

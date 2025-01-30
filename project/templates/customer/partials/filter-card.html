@@ -1,0 +1,197 @@
+{% load static %}
+
+<div class="col-lg-4 col-md-12">
+  <div class="sidebar-sticky">
+    <div class="list-sidebar">
+      <div class="sidebar-item mb-4 box-shadow p-4 text-centerb">
+        <h3>Find your home</h3>
+        <form class="form-find" method="get" action="{% url "property:property_list" %}">
+          <div class="form-group mb-2">
+            <input type="text" name="q" placeholder="Enter Keywords" {% if request.GET.q %}value={{request.GET.q}}{% endif %}/>
+          </div>
+          <div class="form-group mb-2">
+            <div class="input-box">
+              <input type="text" name="location" placeholder="Enter Location" {% if request.GET.location %}value={{request.GET.location}}{% endif %}/>
+            </div>
+          </div>
+          <div class="form-group mb-2">
+            <div class="input-box">
+              <select name="type" class="niceSelect">
+                <option value="">All</option>
+                <option {% if request.GET.type == "agriculture" %}selected{% endif %} value="agriculture">Agriculture Land</option>
+                <option {% if request.GET.type == "flat" %}selected{% endif %} value="flat">Flat/Apartment</option>
+                <option {% if request.GET.type == "office" %}selected{% endif %} value="office">Office/Commercial Space</option>
+                <option {% if request.GET.type == "plot" %}selected{% endif %} value="plot">Open Plot</option>
+                <option {% if request.GET.type == "villa" %}selected{% endif %} value="villa">Villa House</option>
+                <option {% if request.GET.type == "house" %}selected{% endif %} value="house">Independent House</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group mb-2">
+            <div class="input-box">
+              <select name="post_type" class="niceSelect">
+                <option value="">All Status</option>
+                <option {% if request.GET.post_type == "rent" %}selected{% endif %} value="rent">For Rent</option>
+                <option {% if request.GET.post_type == "sale" %}selected{% endif %} value="sale">For Sale</option>
+                <option {% if request.GET.post_type == "lease" %}selected{% endif %} value="lease">For Lease</option>
+              </select>
+            </div>
+          </div>
+          {% comment %} <div class="form-group mb-2 d-flex justify-content-between">
+            <div class="input-box w-50 me-1">
+              <select name="bedrooms" class="niceSelect">
+                <option value="1">Bedrooms</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              </select>
+            </div>
+            <div class="input-box w-50 ms-1">
+              <select class="niceSelect">
+                <option value="1">Bathrooms</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              </select>
+            </div>
+          </div> {% endcomment %}
+          <div class="form-group mb-2">
+            <div class="range-slider mt-0">
+              <p class="text-start mb-2">Price Range</p>
+              <div data-min="0" data-max="100000000" data-unit="$" id="price-slider" data-min-name="min_price" data-max-name="max_price" class="range-slider-ui ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" aria-disabled="false">
+                <span class="min-value">RS. 0</span>
+                <span class="max-value">RS. 100000000</span>
+                <input type="hidden" name="min_price" id="min_price">
+                <input type="hidden" name="max_price" id="max_price">
+                <div class="ui-slider-range ui-widget-header ui-corner-all full" style="left: 0%; width: 100%"></div>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+          </div>
+          <div class="form-group mb-2">
+            <div class="range-slider mt-0">
+              <p class="text-start mb-2">Area Size</p>
+              <div data-min="0" data-max="2000" data-unit="$"  id="area-slider" data-min-name="min_area" data-max-name="max_area" class="range-slider-ui ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" aria-disabled="false">
+                <span class="min-value">100 sqft</span>
+                <span class="max-value">20000 sqft</span>
+                <input type="hidden" name="min_area" id="min_area">
+                <input type="hidden" name="max_area" id="max_area">
+                <div class="ui-slider-range ui-widget-header ui-corner-all full" style="left: 0%; width: 100%"></div>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+          </div>
+          <div class="form-group text-center w-100">
+            <input type="submit" class="nir-btn w-100" id="submit3" value="Search"/>
+          </div>
+        </form>
+      </div>
+
+      <div class="sidebar-item trending">
+        <h3 class="">Related Property</h3>
+        <div class="trend-box">
+          <div class="about-slider">
+            {% for property in related_properties %}
+              <div class="trend-item box-shadow">
+                <div class="trend-image">
+                  <img src="{{property.image.url}}" alt="image" />
+                  <a class="flash bg-theme1 white px-3 py-2"><i class="fa fa-flash"></i></a>
+                  <div class="trend-meta d-flex align-items-center justify-content-between">
+                    <div class="entry-author">
+                      <img {% if property.user.profile %}src="{{property.user.profile.url}}"{% else %}src="{% static "customer/images/reviewer/2.jpg" %}"{% endif %} alt="" class="rounded-circle me-1"/>
+                      <span>{{property.user}}</span>
+                    </div>
+                    <a class="tags bg-theme2 white px-3 py-1">For Rent</a>
+                  </div>
+                </div>
+                <div class="trend-content p-4">
+                  <h5 class="theme">{{property.type.name}}</h5>
+                  <h4>
+                    <a href="{% url "property:property" pk=property.pk %}" >{{property.name}}</a>
+                  </h4>
+                  <div class="entry-meta d-flex align-items-center justify-content-between border-b pb-1 mb-2">
+                    <div class="entry-author">
+                      <p>Start From<span class="d-block theme fw-bold">${{property.details.price}}</span></p>
+                    </div>
+                    <div class="entry-metalist d-flex align-items-center">
+                      <ul>
+                        <li class="me-2">
+                          <i class="fa fa-eye"></i>
+                        </li>
+                        <li class="me-2">
+                          <i class="fa fa-heart"></i>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <p class="mb-0">{{property.description}}</p>
+                </div>
+                <ul class="d-flex align-items-center justify-content-between bg-grey p-3 px-4">
+                  <li class="me-2"><i class="fa fa-eye"></i> 3 Beds</li>
+                  <li class="me-2"><i class="fa fa-heart"></i> 2 Baths</li>
+                  <li><i class="fa fa-comments"></i> 600 Sq Ft</li>
+                </ul>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-item top-post">
+        <h3>Popular Destination</h3>
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-6 mb-4">
+            <div class="trend-item">
+              <div class="trend-image">
+                <img src="{% static "customer/images/agencies/agency-list-02.jpg" %}" alt="image"/>
+                <div class="trend-content pt-2">
+                  <h6 class="mb-0">
+                    <a href="?location=hyderabad">Hyderabad</a>
+                  </h6>
+                  <span>{{hyderabad_count}} Properties</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6 mb-4">
+            <div class="trend-item">
+              <div class="trend-image">
+                <img src="{% static "customer/images/agencies/agency-list-02.jpg" %}" alt="image"/>
+                <div class="trend-content pt-2">
+                  <h6 class="mb-0">
+                    <a href="?location=vijayawada">Vijayawada</a>
+                  </h6>
+                  <span>{{vijaywada_count}} Properties</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6 mb-4">
+            <div class="trend-item">
+              <div class="trend-image">
+                <img src="{% static "customer/images/agencies/agency-list-02.jpg" %}" alt="image"/>
+                <div class="trend-content pt-2">
+                  <h6 class="mb-0">
+                    <a href="?location=bangalore">Bangalore</a>
+                  </h6>
+                  <span>{{bangalore_count}} Properties</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="trend-item">
+              <div class="trend-image">
+                <img src="{% static "customer/images/agencies/agency-list-02.jpg" %}" alt="image"/>
+                <div class="trend-content pt-2">
+                  <h6 class="mb-0">
+                    <a href="?location=chennai">Chennai</a>
+                  </h6>
+                  <span>{{chennai_count}} Properties</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

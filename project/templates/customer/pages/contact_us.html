@@ -1,5 +1,4 @@
 {% extends "customer/base.html" %}
-
 {% load static %}
 
 {% block title %}Contact Us{% endblock %}
@@ -98,7 +97,7 @@
                         <p class="white">We can help you realize your dream of a new home</p>
                     </div>
                     <div class="col-lg-3">
-                        <a href="" class="nir-btn-black float-lg-end float-none">Fine More Properties</a>
+                        <a href="{% url "property:property_list" %}" class="nir-btn-black float-lg-end float-none">Fine More Properties</a>
                     </div>
                 </div>
             </div>

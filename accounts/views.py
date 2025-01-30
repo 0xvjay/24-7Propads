@@ -18,6 +18,7 @@ from core.views import (
 
 from .forms import CreateUserForm, EditUserForm, GroupForm
 from .models import User
+from property.models import Property
 
 
 class AdminLoginView(CoreLoginView):
@@ -104,6 +105,13 @@ class GroupDeleteView(BaseAdminDeleteView):
 
 class CustomerDashboardView(LoginRequiredMixin, TemplateView):
     template_name = "customer/pages/customer/dashboard.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["active_listings"] = Property.objects.filter(
+            user=self.request.user
+        ).count()
+        return context
 
 
 class CustomerProfileView(LoginRequiredMixin, TemplateView):

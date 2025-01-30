@@ -35,6 +35,16 @@
                                 <span class="d-none d-sm-inline-block">&ensp;Login/Register</span>
                             </a>
                         {% endif %}
+                        <div class="me-2">
+                            <a href="{% url "accounts:dashboard" %}" class="cart-icon d-flex align-items-center ms-1"><i class="fa fa-user fs-5 black bg-grey p-2"></i></a>
+                        </div>
+                        <div class="header_sidemenu me-3">
+                            <div class="mhead">
+                                <span class="menu-ham">
+                                    <a href="#" class="cart-icon d-flex align-items-center ms-1"><i class="fa fa-th-large fs-5 black bg-grey p-2"></i></a>
+                                </span>
+                            </div>
+                        </div>
                         <a href="{% url "property:add_customer_property" %}" class="nir-btn white d-none d-md-block">Post Property<span class="css-1l29bq6">Free</span></a>
                     </div>
                     <div id="slicknav-mobile"></div>

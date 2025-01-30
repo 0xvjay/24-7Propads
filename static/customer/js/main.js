@@ -41,29 +41,68 @@
         });
     });
 
+    $(document).ready(function(){
+        function updateSlider(min, max, sliderID, minLabel, maxLabel) {
+            $(`#${sliderID}`).slider('values', [min, max]);
+            $(`#${sliderID}`).children('.min-value').text(min+" $");
+            $(`#${sliderID}`).children('.max-value').text(max+" $");
+            $(`#${minLabel}`).val(min); 
+            $(`#${maxLabel}`).val(max); 
+        }
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const minPriceParam = urlParams.get('min_price');
+        const maxPriceParam = urlParams.get('max_price');
+        const minAreaParam = urlParams.get('min_area');
+        const maxAreaParam = urlParams.get('max_area');
+
+        let minPrice = 0;
+        let minArea = 0;
+        let maxPrice = 100000000;
+        let maxArea = 20000;
+        if (minPriceParam) {
+            minPrice = parseInt(minPriceParam);
+        }
+        if (maxPriceParam) {
+            maxPrice = parseInt(maxPriceParam);
+        }
+        if (minAreaParam) {
+            minArea = parseInt(minAreaParam);
+        }
+        if (maxAreaParam) {
+            maxArea = parseInt(maxAreaParam);
+        }
+      
+        updateSlider(minPrice, maxPrice, 'price-slider', 'min_price', 'max_price');
+        updateSlider(minArea, maxArea,'area-slider', 'min_area', 'max_area');
+    });
+
     // Range sliders activation
     $(".range-slider-ui").each(function() {
         var minRangeValue = $(this).attr('data-min');
         var maxRangeValue = $(this).attr('data-max');
-        var minName = $(this).attr('data-min-name');
-        var maxName = $(this).attr('data-max-name');
         var unit = $(this).attr('data-unit');
+        var dataMinName = $(this).attr('data-min-name');
+        var dataMaxName = $(this).attr('data-max-name');
         $(this).slider({
             range: true,
             min: minRangeValue,
             max: maxRangeValue,
             values: [minRangeValue, maxRangeValue],
             slide: function(event, ui) {
-                event = event;
                 var currentMin = parseInt(ui.values[0]);
                 var currentMax = parseInt(ui.values[1]);
-                $(this).children(".min-value").text(currentMin + " " + unit);
-                $(this).children(".max-value").text(currentMax + " " + unit);
+                $(this).children(`#${dataMinName}`).val(currentMin);
+                $(this).children(`#${dataMaxName}`).val(currentMax);
+
+                $(this).children(`.min-value`).text(currentMin + " " + unit);
+                $(this).children(`.max-value`).text(currentMax + " " + unit);
                 $(this).children(".current-min").val(currentMin);
                 $(this).children(".current-max").val(currentMax);
             }
         });
     });
+    
 
 
     /* ------------------------------------------------------------------------ */
@@ -511,11 +550,6 @@
         }
     });
     //Do not include! This prevents the form from submitting for DEMO purposes only!
-    $('form').submit(function(event) {
-        event.preventDefault();
-        return false;
-    });
-
 })(jQuery);
 
 /*Title: Cool Modal Popup Sign In/Out Form*/

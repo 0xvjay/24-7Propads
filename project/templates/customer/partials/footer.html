@@ -28,23 +28,23 @@
                         <ul class="res-list">
                             <li>
                                 <i class="fa fa-angle-right"></i>
-                                <a href="about-us.html" style="margin-left: 8px;">Hyderabad</a>
+                                <a href="{% url "property:property_list" %}?city=hyderabad" style="margin-left: 8px;">Hyderabad</a>
                             </li>
                             <li>
                                 <i class="fa fa-angle-right"></i>
-                                <a href="about-us.html" style="margin-left: 8px;">Vijayawada</a>
+                                <a href="{% url "property:property_list" %}?city=vijayawada" style="margin-left: 8px;">Vijayawada</a>
                             </li>
                             <li>
                                 <i class="fa fa-angle-right"></i>
-                                <a href="about-us.html" style="margin-left: 8px;">Bangalore</a>
+                                <a href="{% url "property:property_list" %}?city=bangalore" style="margin-left: 8px;">Bangalore</a>
                             </li>
                             <li>
                                 <i class="fa fa-angle-right"></i>
-                                <a href="about-us.html" style="margin-left: 8px;">Chennai</a>
+                                <a href="{% url "property:property_list" %}?city=chennai" style="margin-left: 8px;">Chennai</a>
                             </li>
                             <li>
                                 <i class="fa fa-angle-right"></i>
-                                <a href="about-us.html" style="margin-left: 8px;">Delhi</a>
+                                <a href="{% url "property:property_list" %}?city=delhi" style="margin-left: 8px;">Delhi</a>
                             </li>
                         </ul>
                     </div>
@@ -68,7 +68,7 @@
                             <li class="">
                                 <div class="align-items-center d-flex gap-2 vfx-contact-info">
                                     <div class="icon"> <i class="fas fa-phone-alt"></i> </div>
-                                    <div class="text">+919410279999</div>
+                                    <div class="text">+913216549870</div>
                                 </div>
                             </li>
                         </ul>
@@ -85,10 +85,17 @@
                 </div>
                 <div class="social-links">
                     <ul>
-                        <li><a href="https://www.facebook.com/propertyvisit"><i class="fab fa-facebook" aria-hidden="true"></i></a></li>
-                        <li><a href="https://twitter.com/propertyvisit"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
-                        <li><a href="https://www.instagram.com/property_visit/"><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
-                        <li><a href="https://www.linkedin.com/company/PropertyVisit"><i class="fab fa-linkedin" aria-hidden="true"></i></a></li>
+                        {% if site_settings.facebook %}
+                            <li><a href="{{site_settings.facebook}}"><i class="fab fa-facebook" aria-hidden="true"></i></a></li>
+                        {% elif site_settings.twitter %}
+                            <li><a href="{{site_settings.twitter}}"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
+                        {% elif site_settings.instagram %}
+                            <li><a href="{{site_settings.instagram}}"><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
+                        {% elif site_settings.linkedin %}
+                            <li><a href="{{site_settings.linkedin}}"><i class="fab fa-linkedin" aria-hidden="true"></i></a></li>
+                        {% elif site_settings.pinterest %}
+                            <li><a href="{{site_settings.pinterest}}"><i class="fab fa-pinterest" aria-hidden="true"></i></a></li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>

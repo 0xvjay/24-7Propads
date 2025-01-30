@@ -2,7 +2,9 @@ from datetime import datetime
 
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models import Count
+from django.db.models import Count, Value
+from django.db.models.functions import Coalesce
+from django.db.models.functions import Lower as LowerCase
 from django.shortcuts import redirect
 from django.views.generic import (
     CreateView,
@@ -240,6 +242,8 @@ class HomeView(LoginRequiredMixin, TemplateView):
     template_name = "customer/pages/home.html"
 
     def get_context_data(self, **kwargs):
+        cities = ["ahmedabad", "mumbai", "delhi", "bangalore", "kolkata"]
+
         context = super().get_context_data(**kwargs)
         property_counts = PropertyType.objects.annotate(
             property_count=Count("properties")
@@ -256,6 +260,15 @@ class HomeView(LoginRequiredMixin, TemplateView):
         )
         context["about_us"] = AboutUs.load()
         context["featured_properties"] = Property.objects.filter(is_featured=True)[:3]
+        context.update({f"{city.lower()}_count": 0 for city in cities})
+        for city, count in (
+            Property.objects.annotate(lower_city=LowerCase("city"))
+            .filter(lower_city__in=cities)
+            .values("city")
+            .annotate(count=Coalesce(Count("id"), Value(0)))
+            .values_list("city", "count")
+        ):
+            context[f"{city.lower()}_count"] = count
 
         return context
 
