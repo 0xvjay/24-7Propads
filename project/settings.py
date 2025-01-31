@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "property",
     "subscription",
     "advertisement",
+    "review",
     "debug_toolbar",
     "widget_tweaks",
     "django.contrib.admin",

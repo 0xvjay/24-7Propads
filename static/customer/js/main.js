@@ -316,7 +316,7 @@
 
     $('.shop-slider').slick({
         infinite: true,
-        slidesToShow: 4,
+        slidesToShow: 1,
         slidesToScroll: 1,
         arrows: false,
         dots: false,

@@ -21,6 +21,7 @@ from property.models import Property, PropertyType
 from .forms import (
     AboutUsForm,
     ContactInfoForm,
+    ContactUsForm,
     FAQForm,
     PrivacyPolicyForm,
     SiteBasicForm,
@@ -277,8 +278,20 @@ class AboutUsView(LoginRequiredMixin, TemplateView):
     template_name = "customer/pages/about_us.html"
 
 
-class ContactUsView(LoginRequiredMixin, TemplateView):
+class ContactUsView(LoginRequiredMixin, CreateView):
+    model = ContactUs
+    form_class = ContactUsForm
     template_name = "customer/pages/contact_us.html"
+    success_url = "/contact_us/"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["object"] = ContactInfo.load()
+        return context
+
+    def form_valid(self, form):
+        messages.success(self.request, "Message sent successfully")
+        return super().form_valid(form)
 
 
 class TermsAndConditionView(LoginRequiredMixin, TemplateView):

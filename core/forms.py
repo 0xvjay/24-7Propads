@@ -2,11 +2,12 @@ from django import forms
 
 from .models import (
     FAQ,
-    SiteSettings,
-    ContactInfo,
     AboutUs,
-    TermsAndCondition,
+    ContactInfo,
+    ContactUs,
     PrivacyPolicy,
+    SiteSettings,
+    TermsAndCondition,
 )
 
 
@@ -56,6 +57,12 @@ class SiteLinksForm(forms.ModelForm):
 class ContactInfoForm(forms.ModelForm):
     class Meta:
         model = ContactInfo
+        fields = "__all__"
+
+
+class ContactUsForm(forms.ModelForm):
+    class Meta:
+        model = ContactUs
         fields = "__all__"
 
 

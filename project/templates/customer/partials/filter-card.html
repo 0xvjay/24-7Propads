@@ -85,55 +85,57 @@
         </form>
       </div>
 
-      <div class="sidebar-item trending">
-        <h3 class="">Related Property</h3>
-        <div class="trend-box">
-          <div class="about-slider">
-            {% for property in related_properties %}
-              <div class="trend-item box-shadow">
-                <div class="trend-image">
-                  <img src="{{property.image.url}}" alt="image" />
-                  <a class="flash bg-theme1 white px-3 py-2"><i class="fa fa-flash"></i></a>
-                  <div class="trend-meta d-flex align-items-center justify-content-between">
-                    <div class="entry-author">
-                      <img {% if property.user.profile %}src="{{property.user.profile.url}}"{% else %}src="{% static "customer/images/reviewer/2.jpg" %}"{% endif %} alt="" class="rounded-circle me-1"/>
-                      <span>{{property.user}}</span>
-                    </div>
-                    <a class="tags bg-theme2 white px-3 py-1">For Rent</a>
-                  </div>
-                </div>
-                <div class="trend-content p-4">
-                  <h5 class="theme">{{property.type.name}}</h5>
-                  <h4>
-                    <a href="{% url "property:property" pk=property.pk %}" >{{property.name}}</a>
-                  </h4>
-                  <div class="entry-meta d-flex align-items-center justify-content-between border-b pb-1 mb-2">
-                    <div class="entry-author">
-                      <p>Start From<span class="d-block theme fw-bold">${{property.details.price}}</span></p>
-                    </div>
-                    <div class="entry-metalist d-flex align-items-center">
-                      <ul>
-                        <li class="me-2">
-                          <i class="fa fa-eye"></i>
-                        </li>
-                        <li class="me-2">
-                          <i class="fa fa-heart"></i>
-                        </li>
-                      </ul>
+      {% if related_properties %}
+        <div class="sidebar-item trending">
+          <h3 class="">Related Property</h3>
+          <div class="trend-box">
+            <div class="about-slider">
+              {% for property in related_properties %}
+                <div class="trend-item box-shadow">
+                  <div class="trend-image">
+                    <img src="{{property.image.url}}" alt="image" />
+                    <a class="flash bg-theme1 white px-3 py-2"><i class="fa fa-flash"></i></a>
+                    <div class="trend-meta d-flex align-items-center justify-content-between">
+                      <div class="entry-author">
+                        <img {% if property.user.profile %}src="{{property.user.profile.url}}"{% else %}src="{% static "customer/images/reviewer/2.jpg" %}"{% endif %} alt="" class="rounded-circle me-1"/>
+                        <span>{{property.user}}</span>
+                      </div>
+                      <a class="tags bg-theme2 white px-3 py-1">For Rent</a>
                     </div>
                   </div>
-                  <p class="mb-0">{{property.description}}</p>
+                  <div class="trend-content p-4">
+                    <h5 class="theme">{{property.type.name}}</h5>
+                    <h4>
+                      <a href="{% url "property:property" pk=property.pk %}" >{{property.name}}</a>
+                    </h4>
+                    <div class="entry-meta d-flex align-items-center justify-content-between border-b pb-1 mb-2">
+                      <div class="entry-author">
+                        <p>Start From<span class="d-block theme fw-bold">${{property.details.price}}</span></p>
+                      </div>
+                      <div class="entry-metalist d-flex align-items-center">
+                        <ul>
+                          <li class="me-2">
+                            <i class="fa fa-eye"></i>
+                          </li>
+                          <li class="me-2">
+                            <i class="fa fa-heart"></i>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <p class="mb-0">{{property.description}}</p>
+                  </div>
+                  <ul class="d-flex align-items-center justify-content-between bg-grey p-3 px-4">
+                    <li class="me-2"><i class="fa fa-eye"></i> 3 Beds</li>
+                    <li class="me-2"><i class="fa fa-heart"></i> 2 Baths</li>
+                    <li><i class="fa fa-comments"></i> 600 Sq Ft</li>
+                  </ul>
                 </div>
-                <ul class="d-flex align-items-center justify-content-between bg-grey p-3 px-4">
-                  <li class="me-2"><i class="fa fa-eye"></i> 3 Beds</li>
-                  <li class="me-2"><i class="fa fa-heart"></i> 2 Baths</li>
-                  <li><i class="fa fa-comments"></i> 600 Sq Ft</li>
-                </ul>
-              </div>
-            {% endfor %}
+              {% endfor %}
+            </div>
           </div>
         </div>
-      </div>
+      {% endif %}
 
       <div class="sidebar-item top-post">
         <h3>Popular Destination</h3>
@@ -144,7 +146,7 @@
                 <img src="{% static "customer/images/agencies/agency-list-02.jpg" %}" alt="image"/>
                 <div class="trend-content pt-2">
                   <h6 class="mb-0">
-                    <a href="?location=hyderabad">Hyderabad</a>
+                    <a href="{% url "property:property_list" %}?location=hyderabad">Hyderabad</a>
                   </h6>
                   <span>{{hyderabad_count}} Properties</span>
                 </div>
@@ -157,7 +159,7 @@
                 <img src="{% static "customer/images/agencies/agency-list-02.jpg" %}" alt="image"/>
                 <div class="trend-content pt-2">
                   <h6 class="mb-0">
-                    <a href="?location=vijayawada">Vijayawada</a>
+                    <a href="{% url "property:property_list" %}?location=vijayawada">Vijayawada</a>
                   </h6>
                   <span>{{vijaywada_count}} Properties</span>
                 </div>
@@ -170,7 +172,7 @@
                 <img src="{% static "customer/images/agencies/agency-list-02.jpg" %}" alt="image"/>
                 <div class="trend-content pt-2">
                   <h6 class="mb-0">
-                    <a href="?location=bangalore">Bangalore</a>
+                    <a href="{% url "property:property_list" %}?location=bangalore">Bangalore</a>
                   </h6>
                   <span>{{bangalore_count}} Properties</span>
                 </div>
@@ -183,7 +185,7 @@
                 <img src="{% static "customer/images/agencies/agency-list-02.jpg" %}" alt="image"/>
                 <div class="trend-content pt-2">
                   <h6 class="mb-0">
-                    <a href="?location=chennai">Chennai</a>
+                    <a href="{% url "property:property_list" %}?location=chennai">Chennai</a>
                   </h6>
                   <span>{{chennai_count}} Properties</span>
                 </div>

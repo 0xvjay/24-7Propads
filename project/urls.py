@@ -28,6 +28,7 @@ urlpatterns = [
     path("", include("accounts.urls")),
     path("", include("advertisement.urls")),
     path("", include("subscription.urls")),
+    path("", include("review.urls")),
 ] + debug_toolbar_urls()
 
 

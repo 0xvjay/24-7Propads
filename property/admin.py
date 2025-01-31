@@ -10,6 +10,7 @@ from .models import (
     Plot,
     Property,
     PropertyAttributes,
+    PropertyImage,
     PropertyType,
     Villa,
 )
@@ -57,6 +58,11 @@ class PlotInline(admin.StackedInline):
     extra = 0
 
 
+class PropertyImageInline(admin.StackedInline):
+    model = PropertyImage
+    extra = 0
+
+
 @admin.register(Property)
 class PropertyAdmin(admin.ModelAdmin):
     form = AdminPropertyForm
@@ -75,6 +81,7 @@ class PropertyAdmin(admin.ModelAdmin):
     )
     search_fields = ("name",)
     inlines = [
+        PropertyImageInline,
         AgricultureLandInline,
         FlatInline,
         VillaInline,
@@ -87,7 +94,10 @@ class PropertyAdmin(admin.ModelAdmin):
         return False
 
     def show_image(self, obj):
-        if obj.image:
-            return format_html('<img src="{}" width=100 />'.format(obj.image.url))
+        property_image = obj.images.first()
+        if property_image:
+            return format_html(
+                '<img src="{}" width=100 />'.format(property_image.image.url)
+            )
 
     show_image.short_description = "Profile"

@@ -1,4 +1,6 @@
 from django.db import models
+from django.db.models import Count, Sum
+from slugify import slugify
 
 from accounts.models import User
 
@@ -51,13 +53,13 @@ class Property(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="properties")
     name = models.CharField(max_length=255)
+    slug = models.SlugField(blank=True)
     post_type = models.CharField(choices=PostType.choices, max_length=20)
     type = models.ForeignKey(
         PropertyType, related_name="properties", on_delete=models.SET_NULL, null=True
     )
     description = models.TextField(null=True, blank=True)
     phone = models.CharField(max_length=30)
-    image = models.ImageField(upload_to="properties/")
 
     # address
     lat = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
@@ -77,13 +79,14 @@ class Property(models.Model):
 
     #
     views = models.PositiveIntegerField(default=0)
+    rating = models.FloatField(null=True, editable=False)
     is_active = models.BooleanField(default=True)
     is_verified = models.BooleanField(default=False)
     is_featured = models.BooleanField(default=False)
     is_popular = models.BooleanField(default=False)
 
-    created_at = models.DateTimeField(auto_now=True)
-    updated_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     @property
     def details(self):
@@ -102,11 +105,66 @@ class Property(models.Model):
         else:
             None
 
+    def get_property_type(self):
+        if hasattr(self, "agriculture_details"):
+            return "agriculture_details"
+        elif hasattr(self, "flat_details"):
+            return "flat_details"
+        elif hasattr(self, "villa_details"):
+            return "villa_details"
+        elif hasattr(self, "plot_details"):
+            return "plot_details"
+        elif hasattr(self, "office_details"):
+            return "office_details"
+        elif hasattr(self, "house_details"):
+            return "house_details"
+        else:
+            None
+
+    def update_rating(self):
+        """
+        Recalculate rating field
+        """
+        result = self.reviews.filter(status=self.reviews.model.APPROVED).aggregate(
+            sum=Sum("score"), count=Count("id")
+        )
+        reviews_sum = result["sum"] or 0
+        reviews_count = result["count"] or 0
+        rating = None
+        if reviews_count > 0:
+            rating = float(reviews_sum) / reviews_count
+        self.rating = rating
+        self.save()
+
+    def has_review_by(self, user):
+        if user.is_anonymous:
+            return False
+        return self.reviews.filter(user=user).exists()
+
+    def is_review_permitted(self, user):
+        """
+        Determines whether a user may add a review on this product.
+        """
+        if user.is_authenticated:
+            return not self.has_review_by(user)
+        return False
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        return super().save(*args, **kwargs)
+
     def __str__(self):
         return f"{self.name} ({self.post_type} - {self.type})"
 
     class Meta:
         verbose_name_plural = "Properties"
+
+
+class PropertyImage(models.Model):
+    image = models.ImageField(upload_to="properties/")
+    property = models.ForeignKey(
+        Property, on_delete=models.CASCADE, related_name="images"
+    )
 
 
 class BaseProperty(models.Model):

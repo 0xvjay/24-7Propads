@@ -1,11 +1,12 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.files.storage import DefaultStorage
+from django.core.paginator import Paginator
 from django.db import transaction
 from django.db.models import Count, DecimalField, Q, Value
 from django.db.models.functions import Coalesce
 from django.db.models.functions import Lower as LowerCase
 from django.shortcuts import redirect
-from django.views.generic import ListView, TemplateView
+from django.views.generic import DetailView, ListView, TemplateView
 from formtools.wizard.views import SessionWizardView
 
 from core.views import (
@@ -25,7 +26,7 @@ from .forms import (
     TypeForm,
     VillaForm,
 )
-from .models import Property, PropertyAttributes, PropertyType
+from .models import Property, PropertyAttributes, PropertyImage, PropertyType
 
 
 class TypeListView(BaseAdminListView):
@@ -237,6 +238,9 @@ class PropertyCreateView(BasePropertyCreateUpdateView):
         with transaction.atomic():
             property_form.instance.user = self.request.user
             property = property_form.save()
+
+            for image in property_form.cleaned_data.get("images"):
+                PropertyImage.objects.create(image=image, property=property)
 
             other_form.instance.property = property
             other_form.save()
@@ -487,8 +491,20 @@ class PropertyListingView(LoginRequiredMixin, ListView):
         return context
 
 
-class PropertyDetailView(LoginRequiredMixin, TemplateView):
+class PropertyDetailView(LoginRequiredMixin, DetailView):
+    model = Property
     template_name = "customer/pages/property_detail.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        paginator = Paginator(self.get_object().reviews.all(), 5)
+        page_number = self.request.GET.get("page")
+        reviews = paginator.get_page(page_number)
+
+        context["reviews"] = reviews
+
+        return context
 
 
 class PropertyView(LoginRequiredMixin, TemplateView):

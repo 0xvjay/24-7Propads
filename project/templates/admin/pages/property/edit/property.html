@@ -56,10 +56,10 @@
                     {% endif %}
                   </div>
                   <div class="col-md-6 mb-2">
-                    <label for="image" class="form-label mb-0">Image</label>
-                    {{wizard.form.image|attr:"class:form-control"|attr:"accept:image/*"}}
+                    <label for="images" class="form-label mb-0">Images</label>
+                    <input type="file" name="0-images" class="form-control" accept="image/*" multiple>
                     {% if form.errors %}
-                      <div class="text-danger">{{form.errors.image}}</div>
+                      <div class="text-danger">{{form.errors.images}}</div>
                     {% endif %}
                   </div>
 
