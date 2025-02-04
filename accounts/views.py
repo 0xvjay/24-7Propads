@@ -1,4 +1,4 @@
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import Group, Permission
 from django.contrib.auth.views import (
@@ -7,7 +7,11 @@ from django.contrib.auth.views import (
 from django.contrib.auth.views import (
     LogoutView as CoreLogoutView,
 )
-from django.views.generic import TemplateView
+from django.contrib.auth.views import (
+    PasswordChangeView as CorePasswordChangeView,
+)
+from django.shortcuts import redirect
+from django.views.generic import FormView, TemplateView
 
 from core.views import (
     BaseAdminCreateView,
@@ -15,14 +19,13 @@ from core.views import (
     BaseAdminListView,
     BaseAdminUpdateView,
 )
-
-from .forms import CreateUserForm, EditUserForm, GroupForm
-from .models import User
 from property.models import Property
+
+from .forms import CreateUserForm, EditUserForm, GroupForm, RegisterUserForm
+from .models import User
 
 
 class AdminLoginView(CoreLoginView):
-    form_class = AuthenticationForm
     template_name = "admin/admin_login.html"
 
     def get_success_url(self):
@@ -114,8 +117,9 @@ class CustomerDashboardView(LoginRequiredMixin, TemplateView):
         return context
 
 
-class CustomerProfileView(LoginRequiredMixin, TemplateView):
+class CustomerProfileView(LoginRequiredMixin, FormView):
     template_name = "customer/pages/customer/profile.html"
+    form_class = EditUserForm
 
 
 class CustomerHistoryView(LoginRequiredMixin, TemplateView):
@@ -128,3 +132,39 @@ class CustomerReviewView(LoginRequiredMixin, TemplateView):
 
 class CustomerListingView(LoginRequiredMixin, TemplateView):
     template_name = "customer/pages/customer/listing.html"
+
+
+class CustomerLoginView(CoreLoginView):
+    template_name = "customer/pages/home.html"
+
+    def form_valid(self, form):
+        messages.success(self.request, f"Welcome, {self.request.user.username}!")
+        return super().form_valid(form)
+
+
+class CustomerLogoutView(CoreLogoutView):
+    template_name = "customer/pages/home.html"
+
+    def post(self, request, *args, **kwargs):
+        super().post(request, *args, **kwargs)
+        return redirect("/")
+
+
+class CustomerRegisterView(FormView):
+    form_class = RegisterUserForm
+    template_name = "customer/pages/home.html"
+    success_url = "/"
+
+    def form_valid(self, form):
+        form.save()
+        messages.success(self.request, "User created successfully")
+        return super().form_valid(form)
+
+
+class ChangePasswordView(CorePasswordChangeView):
+    template_name = "customer/pages/customer/profile.html"
+    success_url = "/accounts/profile/"
+
+    def form_valid(self, form):
+        messages.success(self.request, "Password Changed successfully")
+        return super().form_valid(form)

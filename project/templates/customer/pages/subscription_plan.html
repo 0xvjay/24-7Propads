@@ -1,0 +1,61 @@
+{% extends "customer/base.html" %}
+{% load static %}
+
+{% block title %}About Us{% endblock %}
+
+{% block content %}
+    {% url "core:about_us" as title_url %}
+    {% include "customer/partials/breadcrumb.html" with title="Home" subtitle="About Us" title_url=title_url %}
+
+    <section  id="subscription_plan" class="bg-lgrey border-bottom border-t pb-6">
+        <div class="container">
+            <div class="section-title mb-6 pb-1 w-75 mx-auto text-center">
+                <h2 class="m-0">Featured <span>Pricing</span></h2>
+                <p>Subscribe to Premium today to save 50,000 on brokerage, along with other benefits.</p>
+            </div>  
+            <div class="row">
+                {% for object in object_list %}
+                    <div class="col-lg-4 col-md-12 mb-4">
+                        <div class="pkg-container text-center box-shadow p-4 border">
+                            <div class="pg-title">
+                                <i class="icon fas fa-rocket display-6 bg-theme1 mb-2 white"></i>
+                                <h4 class="theme mb-0">{{object.name}}</h4>
+                                <h2 class="theme2"><i class="fas fa-rupee-sign"></i> {{object.plan}} <span class="grey">per user, per month</span></h2>
+                                <p>Hurry. Purchase a plan before your exclusive discount expires!</p>
+                            </div>
+                            <div class="pg-main">
+                                {{object.description|safe}}
+                                <button class="btn nir-btn mt-2">Subscribe</button>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    {% include "customer/partials/looking_to_buy.html" %}
+    {% include "customer/partials/exclusive.html" %}
+    
+    <section class="newsletter p-0 position-relative">
+        <div class="newsletter-main bg-theme2 p-5 pb-3">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-8 mb-2">
+                        <div class="newsletter-content">
+                            <h2 class="mb-0 white text-lg-start text-center">Do You Need Help With Anything?</h2>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 mb-2">
+                        <div class="newsletter-form w-100">
+                            <form action="#" method="get" accept-charset="utf-8" class="border-0">
+                                <input type="text" placeholder="Email Address">
+                                <button class="nir-btn-black">Subscribe</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

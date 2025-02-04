@@ -9,6 +9,7 @@ from django.shortcuts import redirect
 from django.views.generic import (
     CreateView,
     DeleteView,
+    DetailView,
     FormView,
     ListView,
     TemplateView,
@@ -239,7 +240,7 @@ class FAQDeleteView(BaseAdminDeleteView):
     success_url = "/admin/faq/"
 
 
-class HomeView(LoginRequiredMixin, TemplateView):
+class HomeView(TemplateView):
     template_name = "customer/pages/home.html"
 
     def get_context_data(self, **kwargs):
@@ -274,11 +275,15 @@ class HomeView(LoginRequiredMixin, TemplateView):
         return context
 
 
-class AboutUsView(LoginRequiredMixin, TemplateView):
+class AboutUsView(DetailView):
+    model = AboutUs
     template_name = "customer/pages/about_us.html"
 
+    def get_object(self, *args, **kwargs):
+        return AboutUs.load()
 
-class ContactUsView(LoginRequiredMixin, CreateView):
+
+class ContactUsView(CreateView):
     model = ContactUs
     form_class = ContactUsForm
     template_name = "customer/pages/contact_us.html"
@@ -294,13 +299,21 @@ class ContactUsView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class TermsAndConditionView(LoginRequiredMixin, TemplateView):
+class TermsAndConditionView(DetailView):
+    model = TermsAndCondition
     template_name = "customer/pages/terms_and_condition.html"
 
+    def get_object(self, *args, **kwargs):
+        return TermsAndCondition.load()
 
-class PrivacyPolicyView(LoginRequiredMixin, TemplateView):
+
+class PrivacyPolicyView(DetailView):
+    model = PrivacyPolicy
     template_name = "customer/pages/privacy_policy.html"
 
+    def get_object(self, *args, **kwargs):
+        return PrivacyPolicy.load()
 
-class FAQView(LoginRequiredMixin, TemplateView):
+
+class FAQView(TemplateView):
     template_name = "customer/pages/faq.html"

@@ -3,10 +3,14 @@ from django.urls import path
 from .views import (
     AdminLoginView,
     AdminLogoutView,
+    ChangePasswordView,
     CustomerDashboardView,
     CustomerHistoryView,
     CustomerListingView,
+    CustomerLoginView,
+    CustomerLogoutView,
     CustomerProfileView,
+    CustomerRegisterView,
     CustomerReviewView,
     GroupCreateView,
     GroupDeleteView,
@@ -35,7 +39,15 @@ urlpatterns = [
         r"admin/groups/delete/<int:pk>/", GroupDeleteView.as_view(), name="delete_group"
     ),
     # customer
+    path(r"logout/", CustomerLogoutView.as_view(), name="logout"),
     path(r"accounts/", CustomerDashboardView.as_view(), name="dashboard"),
+    path(
+        r"accounts/change-password/",
+        ChangePasswordView.as_view(),
+        name="change_password",
+    ),
+    path(r"accounts/register/", CustomerRegisterView.as_view(), name="register"),
+    path(r"accounts/login/", CustomerLoginView.as_view(), name="login"),
     path(r"accounts/history/", CustomerHistoryView.as_view(), name="history"),
     path(r"accounts/reviews/", CustomerReviewView.as_view(), name="reviews"),
     path(r"accounts/listing/", CustomerListingView.as_view(), name="listing"),

@@ -1,4 +1,4 @@
-{% load static %}
+{% load static widget_tweaks %}
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -21,6 +21,11 @@
 
         <link rel="stylesheet" href="{% static "customer/fonts/line-icons.css" %}" type="text/css">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/css/datepicker.min.css" rel="stylesheet">
+        <style>
+            #logout-btn:after{
+                content: none;
+            }
+        </style>
         {% block extra_head %}{% endblock %}
     </head>
     <body>
@@ -76,36 +81,26 @@
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <div class="blog-image">
-                                                <a href="#" style="background-image: url(images/Carousal/carousal-1.png);"></a>
+                                                <a href="#" style="background-image: url({% static "customer/images/Carousal/carousal-1.png" %});"></a>
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
-                                            <h4 class="text-center border-b pb-2">Login</h4>
-                                            <div class="log-reg-button d-flex align-items-center justify-content-between">
-                                                <button type="submit" class="btn btn-fb">
-                                                    <i class="fab fa-facebook"></i> Login with Facebook
-                                                </button>
-                                                <button type="submit" class="btn btn-google">
-                                                    <i class="fab fa-google"></i> Login with Google
-                                                </button>
-                                            </div>
-                                            <hr class="log-reg-hr position-relative my-4 overflow-visible">
-                                            <form method="post" action="#" name="contactform" id="contactform">
+                                            <h4 class="text-center pb-2">Login</h4>
+                                            <form method="post" action="{% url "accounts:login" %}" name="loginform" id="loginform">
+                                                {% csrf_token %}
                                                 <div class="form-group mb-2">
-                                                    <input type="text" name="user_name" class="form-control" id="fname" placeholder="User Name or Email Address">
+                                                    <label for="username">Email Address</label>
+                                                    <input type="text" name="username" id="username" class="form-control" placeholder="Email Address">
+                                                    {% if form.errors %}<p class="text-danger">{{form.errors.username}}</p>{% endif %}
                                                 </div>
                                                 <div class="form-group mb-2">
-                                                    <input type="password" name="password_name" class="form-control" id="lpass" placeholder="Password">
-                                                </div>
-                                                <div class="form-group mb-2">
-                                                    <input type="checkbox" class="custom-control-input" id="exampleCheck">
-                                                    <label class="custom-control-label mb-0" for="exampleCheck1">Remember me</label>
-                                                    <a class="float-end" href="#">Lost your password?</a>
+                                                    <label for="password">Password</label>
+                                                    <input type="password" name="password" id="password" class="form-control" placeholder="********">
+                                                    {% if form.errors %}<p class="text-danger">{{form.errors.password}}</p>{% endif %}
                                                 </div>
                                                 <div class="comment-btn mb-2 pb-2 text-center border-b">
                                                     <input type="submit" class="nir-btn w-100" id="submit" value="Login">
                                                 </div>
-                                                <p class="text-center">Don't have an account? <a href="#" class="theme">Register</a></p>
                                             </form>
                                         </div>
                                     </div>
@@ -119,37 +114,32 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
-                                            <h4 class="text-center border-b pb-2">Register</h4>
-                                            <div class="log-reg-button d-flex align-items-center justify-content-between">
-                                                <button type="submit" class="btn btn-fb">
-                                                    <i class="fab fa-facebook"></i> Login with Facebook
-                                                </button>
-                                                <button type="submit" class="btn btn-google">
-                                                    <i class="fab fa-google"></i> Login with Google
-                                                </button>
-                                            </div>
-                                            <hr class="log-reg-hr position-relative my-4 overflow-visible">
-                                            <form method="post" action="#" name="contactform1" id="contactform1">
+                                            <h4 class="text-center pb-2">Register</h4>
+                                            <form method="post" action="{% url "accounts:register" %}" name="registerform" id="registerform">
+                                                {% csrf_token %}
                                                 <div class="form-group mb-2">
-                                                    <input type="text" name="user_name" class="form-control" id="fname1" placeholder="User Name">
+                                                    <label for="username">User Name</label>
+                                                    <input type="text" name="username" id="username" class="form-control" placeholder="User Name">
+                                                    {% if form.errors %}<p class="text-danger">{{form.errors.username}}</p>{% endif %}
                                                 </div>
                                                 <div class="form-group mb-2">
-                                                    <input type="text" name="user_name" class="form-control" id="femail" placeholder="Email Address">
+                                                    <label for="email">Email</label>
+                                                    <input type="text" name="email" id="email" class="form-control" placeholder="Email Address">
+                                                    {% if form.errors %}<p class="text-danger">{{form.errors.email}}</p>{% endif %}
                                                 </div>
                                                 <div class="form-group mb-2">
-                                                    <input type="password" name="password_name" class="form-control" id="lpass1" placeholder="Password">
+                                                    <label for="password1">Password</label>
+                                                    <input type="password" name="password1" id="password1" class="form-control" placeholder="Password">
+                                                    {% if form.errors %}<p class="text-danger">{{form.errors.password1}}</p>{% endif %}
                                                 </div>
                                                 <div class="form-group mb-2">
-                                                    <input type="password" name="password_name" class="form-control" id="lrepass" placeholder="Re-enter Password">
-                                                </div>
-                                                <div class="form-group mb-2 d-flex">
-                                                    <input type="checkbox" class="custom-control-input" id="exampleCheck1">
-                                                    <label class="custom-control-label mb-0 ms-1 lh-1" for="exampleCheck1">I have read and accept the Terms and Privacy Policy?</label>
+                                                    <label for="password2">Confirm Password</label>
+                                                    <input type="password" name="password2" id="password2" class="form-control" placeholder="Re-enter Password">
+                                                    {% if form.errors %}<p class="text-danger">{{form.errors.password2}}</p>{% endif %}
                                                 </div>
                                                 <div class="comment-btn mb-2 pb-2 text-center border-b">
                                                     <input type="submit" class="nir-btn w-100" id="submit1" value="Register">
                                                 </div>
-                                                <p class="text-center">Already have an account? <a href="#" class="theme">Login</a></p>
                                             </form>
                                         </div>
                                     </div>

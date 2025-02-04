@@ -172,3 +172,112 @@
     </div>
   </div>
 {% endblock %}
+
+{% block extra_body %}
+  <script>
+    const cities = {
+      "Andaman and Nicobar Islands": ["Port Blair"],
+      "Andhra Pradesh": [
+          "Visakhapatnam", "Vijayawada", "Guntur", "Nellore", "Kurnool",
+          "Rajamahendravaram", "Tirupati", "Kadapa", "Kakinada", "Anantapur",
+          "Vizianagaram", "Eluru", "Ongole", "Nandyal", "Machilipatnam",
+          "Adoni", "Tenali", "Proddatur", "Chittoor", "Hindupur", "Bhimavaram",
+          "Madanapalle", "Guntakal", "Srikakulam", "Dharmavaram", "Gudivada",
+          "Narasaraopet", "Tadipatri", "Tadepalligudem", "Amaravati", "Chilakaluripet"
+      ],
+      "Arunachal Pradesh": ["Itanagar"],
+      "Assam": ["Dhuburi", "Dibrugarh", "Dispur", "Guwahati", "Jorhat", "Nagaon", "Sivasagar", "Silchar", "Tezpur", "Tinsukia"],
+      "Bihar": [
+          "Patna", "Gaya", "Bhagalpur", "Muzaffarpur", "Purnia",
+          "Darbhanga", "Bihar Sharif", "Arrah", "Begusarai", "Katihar",
+          "Munger", "Chhapra", "Bettiah", "Saharsa", "Hajipur",
+          "Sasaram", "Dehri", "Siwan", "Motihari", "Nawada",
+          "Bagaha", "Buxar", "Kishanganj", "Sitamarhi", "Jamalpur",
+          "Jehanabad", "Aurangabad", "Lakhisarai"
+      ],
+      "Chandigarh": ["Chandigarh"],
+      "Chhattisgarh": ["Raipur", "Durg", "Naya Raipur", "Korba", "Bilaspur", "Rajnandgaon", "Pakhanjore", "Jagdalpur", "Ambikapur", "Chirmiri", "Dhamtari", "Raigarh", "Mahasamund"],
+      "Daman and Diu": ["Daman"],
+      "Delhi": ["Delhi"],
+      "Dadra and Nagar Haveli": ["Silvassa"],
+      "Goa": ["Panaji", "Vasco", "Mormugao", "Margao"],
+      "Gujarat": [
+          "Ahmedabad", "Surat", "Vadodara", "Rajkot", "Bhavnagar",
+          "Jamnagar", "Junagadh", "Gandhidham", "Nadiad", "Gandhinagar",
+          "Anand", "Morbi", "Khambhat", "Surendranagar", "Bharuch",
+          "Vapi", "Navsari", "Veraval", "Porbandar", "Godhra",
+          "Bhuj", "Ankleshwar", "Botad", "Patan", "Palanpur",
+          "Dahod", "Jetpur", "Valsad", "Kalol", "Gondal",
+          "Deesa", "Amreli", "Mahuva", "Mehsana"
+      ],
+      "Himachal Pradesh": ["Shimla"],
+      "Haryana": [
+          "Faridabad", "Gurgaon", "Panipat", "Ambala", "Yamunanagar",
+          "Rohtak", "Hisar", "Karnal", "Sonipat", "Panchkula",
+          "Bhiwani", "Sirsa", "Bahadurgarh", "Jind", "Thanesar",
+          "Kaithal", "Rewari", "Palwal"
+      ],
+      "Jharkhand": [
+          "Jamshedpur", "Dhanbad", "Ranchi", "Bokaro Steel City", "Deoghar",
+          "Phusro", "Hazaribagh", "Giridih", "Ramgarh", "Medininagar",
+          "Chirkunda", "Jhumri Telaiya", "Sahibganj"
+      ],
+      "Jammu and Kashmir": ["Srinagar", "Jammu", "Anantnag"],
+      "Karnataka": [
+          "Bengaluru", "Hubli", "Mysore", "Gulbarga", "Mangalore",
+          "Belgaum", "Davangere", "Bellary", "Bijapur", "Shimoga",
+          "Tumkur", "Raichur", "Bidar", "Hospet", "Hassan",
+          "Gadag", "Udupi", "Robertsonpet", "Bhadravati", "Chitradurga",
+          "Harihar", "Kolar", "Mandya", "Chikkamagallooru", "Chikmagalur",
+          "Gangawati", "Ranebennuru", "Ramanagara", "Bagalkot"
+      ],
+      "Kerala": [
+          "Thiruvananthapuram", "Kochi", "Calicut", "Kollam", "Thrissur",
+          "Kannur", "Kasaragod", "Alappuzha", "Palakkad", "Kottayam",
+          "Kothamangalam", "Malappuram", "Manjeri", "Thalassery", "Ponnani"
+      ],
+      "Lakshadweep": ["Kavaratti"],
+      "Maharashtra": [
+          "Mumbai", "Pune", "Nagpur", "Nashik", "Pimpri-Chinchwad",
+          "Aurangabad", "Solapur", "Bhiwandi", "Amravati", "Nanded",
+          "Kolhapur", "Sangli-Miraj-Kupwad", "Jalgaon", "Akola", "Latur",
+          "Malegaon", "Dhule", "Ahmednagar", "Nandurbar", "Ichalkaranji",
+          "Chandrapur", "Jalna", "Parbhani", "Bhusawal", "Satara",
+          "Beed", "Pandharpur", "Yavatmal", "Kamptee", "Gondia",
+          "Achalpur", "Osmanabad", "Hinganghat", "Wardha", "Barshi",
+          "Chalisgaon", "Amalner", "Khamgaon", "Akot", "Udgir",
+          "Bhandara", "Parli"
+      ],
+      "Meghalaya": ["Shillong"],
+      "Manipur": ["Imphal"],
+      "Madhya Pradesh": [
+          "Indore", "Bhopal", "Jabalpur", "Gwalior", "Ujjain",
+          "Sagar", "Dewas", "Satna", "Ratlam", "Rewa",
+          "Katni", "Singrauli", "Burhanpur", "Khandwa", "Morena",
+          "Bhind", "Chhindwara", "Guna", "Shivpuri", "Vidisha",
+          "Chhatarpur", "Damoh", "Mandsaur", "Khargone", "Neemuch",
+          "Pithampur", "Hoshangabad", "Itarsi", "Sehore", "Betul",
+          "Seoni", "Datia", "Nagda", "Dhanpuri", "Dhar", "Balaghat"
+      ],
+      "Mizoram": ["Aizawl"],
+      "Nagaland": ["Dimapur", "Kohima"],
+      "Odisha": [
+          "Bhubaneswar", "Cuttack", "Rourkela", "Berhampur", "Sambalpur",
+          "Puri", "Balasore"
+      ]
+  };
+  document.getElementById("id_0-state").addEventListener("change", function () {
+    let state = this.value;
+    let cityDropdown = document.getElementById("id_0-city");
+    
+    cityDropdown.innerHTML = '<option value="">Select a City</option>';
+
+    if (state in cities) {
+        cities[state].forEach(city => {
+            let option = new Option(city, city);
+            cityDropdown.appendChild(option);
+        });
+    }
+  });
+  </script>
+{% endblock %}

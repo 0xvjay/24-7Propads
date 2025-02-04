@@ -1,5 +1,5 @@
 {% extends "customer/base.html" %}
-{% load static %}
+{% load static widget_tweaks %}
 
 {% block title %}Profile{% endblock %}
 
@@ -23,228 +23,123 @@
                                 <div class="row">
 
                                     <!-- Profile -->
-                                    <div class="col-lg-6 col-md-6 col-xs-12 padding-right-30">
+                                    <div class="col-lg-12 col-md-12 col-xs-12">
                                         <div class="dashboard-list">
                                             <h4 class="gray">Profile Details</h4>
-                                            <div class="dashboard-list-static">
-                                                
-                                                <!-- Avatar -->
-                                                <div class="edit-profile-photo">
-                                                    <img src="{% static "customer/images/user-avatar.jpg" %}" alt="">
-                                                    <div class="change-photo-btn">
-                                                        <div class="photoUpload">
-                                                            <span><i class="fa fa-upload"></i> Upload Photo</span>
-                                                            <input type="file" class="upload" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                            
-                                                <!-- Details -->
-                                                <div class="my-profile">
+                                            <form action="{% url "accounts:profile" %}" method="post" enctype="multipart/form-data">
+                                                {% csrf_token %}
+                                                <div class="dashboard-list-static">
                                                     <div class="form-group mb-2">
-                                                        <label>Your Name *</label>
-                                                        <input value="Kartik Adani" type="text">
-                                                    </div>                    
-                                                    <div class="form-group mb-2">
-                                                        <label>Phone Number *</label>
-                                                        <input value="+91 9873 455869" type="text">
+                                                        <label>Profile Image *</label>
+                                                        {{form.profile|attr:"accept:image/*"}}
+                                                        {% if form.errors %}<p class="text-danger">{{form.errors.profile}}</p>{% endif %}
                                                     </div>
-
+                                                    <div class="form-group mb-2">
+                                                        <label>Username *</label>
+                                                        <input value="{{request.user.username}}" name="username" type="text">
+                                                        {% if form.errors %}<p class="text-danger">{{form.errors.username}}</p>{% endif %}
+                                                    </div>
                                                     <div class="form-group mb-2">
                                                         <label>Email Address *</label>
-                                                        <input value="tom@example.com" type="text">
+                                                        <input value="{{request.user.email}}" name="email" type="text">
+                                                        {% if form.errors %}<p class="text-danger">{{form.errors.email}}</p>{% endif %}
                                                     </div>
-
                                                     <div class="form-group mb-2">
-                                                        <label>Your Bio *</label>
-                                                        <textarea name="notes" id="notes" cols="30" rows="10">Maecenas quis consequat libero, a feugiat eros. Nunc ut lacinia tortor morbi ultricies laoreet ullamcorper phasellus semper</textarea>
+                                                        <label>Phone Number *</label>
+                                                        <input value="{{request.user.phone}}" name="phone" type="text">
+                                                        {% if form.errors %}<p class="text-danger">{{form.errors.phone}}</p>{% endif %}
                                                     </div>
 
-                                                    <div class="form-group mb-2">
-                                                        <label class="twitter-input"><i class="fab fa-twitter"></i> Twitter</label>
-                                                        <input placeholder="https://www.twitter.com/" type="text">
+                                                    <div class="row mb-2">
+                                                        <div class="col-lg-6 col-md-6 col-xs-12">
+                                                            <label>Company Name</label>
+                                                            <input type="text" name="company" value="{{request.user.company}}">
+                                                            {% if form.errors %}<p class="text-danger">{{form.errors.company}}</p>{% endif %}
+                                                        </div>
+                                                        <div class="col-lg-6 col-md-6 col-xs-12">
+                                                            <label>Address *</label>
+                                                            <input type="text" name="address" value="{{request.user.address}}">
+                                                            {% if form.errors %}<p class="text-danger">{{form.errors.address}}</p>{% endif %}
+                                                        </div>
                                                     </div>
 
-                                                    <div class="form-group mb-2">
-                                                        <label class="fb-input"><i class="fab fa-facebook"></i> Facebook</label>
-                                                        <input placeholder="https://www.facebook.com/" type="text">
+                                                    <div class="row mb-2">
+                                                        <div class="col-lg-6 col-md-6 col-xs-12">
+                                                            <label class="twitter-input"><i class="fab fa-twitter"></i> Twitter</label>
+                                                            <input value="{{request.user.twitter}}" name="twitter" type="text">
+                                                            {% if form.errors %}<p class="text-danger">{{form.errors.twitter}}</p>{% endif %}
+                                                        </div>
+                                                        <div class="col-lg-6 col-md-6 col-xs-12">
+                                                            <label class="facebook-input"><i class="fab fa-facebook"></i> Facebook</label>
+                                                            <input value="{{request.user.facebook}}" name="facebook" type="text">
+                                                            {% if form.errors %}<p class="text-danger">{{form.errors.facebook}}</p>{% endif %}
+                                                        </div>
                                                     </div>
-
+                                                    <div class="row mb-2">
+                                                        <div class="col-lg-6 col-md-6 col-xs-12">
+                                                            <label class="skype-input"><i class="fab fa-skype"></i> Skype</label>
+                                                            <input value="{{request.user.skype}}" name="skype" type="text">
+                                                            {% if form.errors %}<p class="text-danger">{{form.errors.skype}}</p>{% endif %}
+                                                        </div>
+                                                        <div class="col-lg-6 col-md-6 col-xs-12">
+                                                            <label class="linkedin-input"><i class="fab fa-linkedin"></i> LinkedIn</label>
+                                                            <input value="{{request.user.linkedin}}" name="linkedin" type="text">
+                                                            {% if form.errors %}<p class="text-danger">{{form.errors.linkedin}}</p>{% endif %}
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-2">
+                                                        <div class="col-lg-6 col-md-6 col-xs-12">
+                                                            <label class="instagram-input"><i class="fab fa-instagram"></i> Instagram</label>
+                                                            <input value="{{request.user.instagram}}" name="instagram" type="text">
+                                                            {% if form.errors %}<p class="text-danger">{{form.errors.instagram}}</p>{% endif %}
+                                                        </div>
+                                                        <div class="col-lg-6 col-md-6 col-xs-12">
+                                                            <label class="pinterest-input"><i class="fab fa-pinterest"></i> Pinterest</label>
+                                                            <input value="{{request.user.pinterest}}" name="pinterest" type="text">
+                                                            {% if form.errors %}<p class="text-danger">{{form.errors.pinterest}}</p>{% endif %}
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-btn">
+                                                        <button type="submit" class="nir-btn">SAVE CHANGE</button>
+                                                    </div>
                                                 </div>
-                            
-                                                <div class="form-btn">
-                                                    <a href="#" class="nir-btn">SAVE CHANGE</a>
-                                                </div>
-
-                                            </div>
+                                            </form>
                                         </div>
                                     </div>
-
-                                    <!-- Change Password -->
-                                    <div class="col-lg-6 col-md-6 col-xs-12 padding-left-30">
-                                        <div class="dashboard-list margin-top-0">
-                                            <h4 class="gray">Your Address</h4>
-                                            <div class="dashboard-list-static">
-
-                                                <!-- Change Password -->
-                                                <div class="my-profile">
-                                                    <div class="form-group mb-2">
-                                                        <label>Company Name</label>
-                                                        <input type="text">
-                                                    </div>
-
-                                                    <div class="form-group mb-2">
-                                                        <label>Address *</label>
-                                                        <input type="text">
-                                                    </div>
-
-                                                    <div class="form-group mb-2">
-                                                        <label>Zip Code *</label>
-                                                        <input type="text">
-                                                    </div>
-
-                                                    <div class="form-group mb-2">
-                                                        <label>Country *</label>
-                                                        <input type="text">
-                                                    </div>
-
-                                                    <div class="form-group mb-2">
-                                                        <label>City *</label>
-                                                        <input type="text">
-                                                    </div>
-                                                                
-                                                    <div class="form-group mb-2">
-                                                        <label>Region/State *</label>
-                                                        <input type="text">
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="dashboard-form mb-4">
-                                <div class="dashboard-location">
-                                    <h4>Location</h4>
-                                    <form>
-                                        <div class="row">
-                                            <div class="col-lg-6 col-md-6 col-sm-12">
-                                                <div class="form-group mb-2">
-                                                    <label>Home Airport</label>
-                                                    <input type="text">
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6 col-md-6 col-sm-12">
-                                                <div class="form-group mb-2">
-                                                    <label>Address</label>
-                                                    <input type="email">
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6 col-md-6 col-sm-12">
-                                                <div class="form-group mb-2">
-                                                    <label>City</label>
-                                                    <input type="text">
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6 col-md-6 col-sm-12">
-                                                <div class="form-group mb-2">
-                                                    <label>State/Province/Region</label>
-                                                    <input type="text">
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6 col-md-6 col-sm-12">
-                                                <div class="form-group mb-2">
-                                                    <label>ZIP Code/Postal Code</label>
-                                                    <input type="text">
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6 col-md-6 col-sm-12">
-                                                <div class="form-group mb-2">
-                                                    <label>Country</label>
-                                                    <input type="text">
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-12">
-                                                <div class="form-btn">
-                                                    <a href="#" class="nir-btn">SAVE CHANGE</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
                                 </div>
                             </div>
                             <div class="dashboard-form mb-4">
                                 <div class="dashboard-password">
                                     <h4>Change Password</h4>
-                                    <form>
+                                    <form method="post" action="{% url "accounts:change_password" %}">
+                                        {% csrf_token %}
                                         <div class="row">
                                             <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
                                                 <div class="form-group mb-2">
                                                     <label>Current Password</label>
-                                                    <input type="password" placeholder="*********">
+                                                    <input type="password" name="old_password" placeholder="*********">
                                                 </div>
+                                                {% if form.errors %}<p class="text-danger">{{form.errors.old_password}}</p>{% endif %}
                                             </div>
                                             <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
                                                 <div class="form-group mb-2">
                                                     <label>New Password</label>
-                                                    <input type="password">
+                                                    <input type="password" name="new_password1">
                                                 </div>
+                                                {% if form.errors %}<p class="text-danger">{{form.errors.new_password1}}</p>{% endif %}
                                             </div>
                                             <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
                                                 <div class="form-group mb-2">
                                                     <label>Re-enter Password</label>
-                                                    <input type="password">
+                                                    <input type="password" name="new_password2">
                                                 </div>
+                                                {% if form.errors %}<p class="text-danger">{{form.errors.new_password2}}</p>{% endif %}
                                             </div>
                                             <div class="col-lg-12">
                                                 <div class="form-btn mar-top-15">
-                                                    <a href="#" class="nir-btn">SAVE CHANGE</a>
+                                                    <button type="submit" class="nir-btn">SAVE CHANGE</button>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="dashboard-form mb-4">
-                                <div class="dashboard-password">
-                                    <h4>Currency</h4>
-                                    <form>
-                                        <div class="row">
-                                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                <div class="form-group currency-content mb-2">
-                                                    <label>Primary Curreny</label>
-                                                    <select>
-                                                        <option>INR</option>
-                                                        <option>INR</option>
-                                                        <option>INR</option>
-                                                        <option>INR</option>
-                                                    </select>
-                                                </div>    
-                                            </div>
-                                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                <div class="form-group currency-content mb-2">
-                                                    <label>Tax(%)</label>
-                                                    <input type="text" placeholder="15">
-                                                </div> 
-                                            </div>
-                                            <div class="col-lg-12">
-                                                <div class="currency-content">
-                                                    <p class="bold">Send Enrique Mail</p>
-                                                    <div class="enquit-item d-flex align-items-center justify-content-between">
-                                                        <p><input type="checkbox"> Admin & Customer </p>
-                                                        <p><input type="checkbox"> Partner & Customer </p>
-                                                        <p><input type="checkbox"> Admin, Partner & Customer</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-12">
-                                                <div class="form-btn mt-2">
-                                                    <a href="#" class="nir-btn">SAVE CHANGE</a>
-                                                </div>
-                                            </div>
-                                                
                                         </div>
                                     </form>
                                 </div>

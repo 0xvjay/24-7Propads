@@ -83,6 +83,7 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "project.context_processors.get_site_settings",
+                "project.context_processors.get_contact_info",
             ],
         },
     },
@@ -149,3 +150,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 INTERNAL_IPS = ["127.0.0.1"]
+
+
+LOGIN_URL = "/"

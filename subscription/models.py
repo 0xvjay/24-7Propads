@@ -10,6 +10,7 @@ class SubscriptionPlan(models.Model):
     duration_days = models.PositiveSmallIntegerField()
     max_listings = models.PositiveSmallIntegerField()
     max_ads = models.PositiveSmallIntegerField()
+    description = models.TextField()
 
     def __str__(self):
         return self.name

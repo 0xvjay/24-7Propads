@@ -59,7 +59,12 @@
                     <li {% if request.path == reviews_url %}class="active"{% endif %}><a href="{% url "accounts:reviews" %}"><i class="fa fa-star"></i> Reviews</a></li>
                     <li {% if request.path == listing_url %}class="active"{% endif %}><a href="{% url "accounts:listing" %}"><i class="fa fa-list-alt"></i> Listing</a></li>
                     <li {% if request.path == history_url %}class="active"{% endif %}><a href="{% url "accounts:history" %}"><i class="fa fa-list-ul"></i> Booking History</a></li>
-                    <li><a href="#"><i class="fa fa-sign-out-alt"></i> Logout</a></li>
+                    <li>
+                        <form action="{% url "accounts:logout" %}" method="post" id="logout_form">
+                            {% csrf_token %}
+                            <a href="javascript:{}" onclick="document.getElementById('logout_form').submit();" id="logout-btn"><i class="fa fa-sign-out-alt"></i> Logout</a>
+                        </form>
+                    </li>
                 </ul>
             </div>
         </div>

@@ -1,5 +1,6 @@
 from django import forms
 
+from .constant import cities
 from .models import (
     AgricultureLand,
     Flat,
@@ -84,6 +85,8 @@ class MultipleFileField(forms.FileField):
 
 class PropertyForm(forms.ModelForm):
     images = MultipleFileField()
+    state = forms.ChoiceField(choices=[(state, state) for state, _ in cities])
+    city = forms.ChoiceField(choices=[], label="City")
 
     class Meta:
         model = Property

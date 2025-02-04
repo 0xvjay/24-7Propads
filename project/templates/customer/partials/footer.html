@@ -7,7 +7,7 @@
                 <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
                     <div class="footer-about">
                         <img src="{% static "customer/images/24_7_websitelogo.png" %}" alt="">
-                        <p class="pt-2">propertyvisit.in&nbsp;is an online platform where you can buy and sell verified properties. Buying a property can change your lifestyle - So, why not invest in a reliable way for your bright</p>
+                        <p class="pt-2">propertyvisit.in&nbsp;is an online platform where you can buy and sell verified properties. Buying a property can change your lifestyle - So, why not invest in a reliable way for your bright future.</p>
                     </div>
                 </div>
                 <div class="col-lg-2 col-md-6 col-sm-12 mb-4">
@@ -55,20 +55,20 @@
                         <ul class="mt-20 vfx-footer-list">
                             <li>
                                 <div class="vfx-contact-info d-flex  gap-2 align-items-center">
-                                    <div class="icon"> <i class="fa fa-map-marker-alt"></i> </div>
-                                    <div class="text">Location Information</div>
+                                    <div class="icon"> <i class="fa fa-map-marker-alt"></i></div>
+                                    <div class="text">{{contact_info.address}}</div>
                                 </div>
                             </li>
                             <li>
                                 <div class="vfx-contact-info d-flex  gap-2 align-items-center">
-                                    <div class="icon"> <i class="fas fa-envelope"></i> </div>
-                                    <div class="text"><a href="mailto:info@propertyvisit.in" target="_blank">info@propertyvisit.in</a></div>
+                                    <div class="icon"><i class="fas fa-envelope"></i></div>
+                                    <div class="text"><a href="mailto:{{contact_info.email}}" target="_blank">{{contact_info.email}}</a></div>
                                 </div>
                             </li>
                             <li class="">
                                 <div class="align-items-center d-flex gap-2 vfx-contact-info">
-                                    <div class="icon"> <i class="fas fa-phone-alt"></i> </div>
-                                    <div class="text">+913216549870</div>
+                                    <div class="icon"><i class="fas fa-phone-alt"></i></div>
+                                    <div class="text">{{contact_info.phone}}</div>
                                 </div>
                             </li>
                         </ul>
@@ -81,20 +81,20 @@
         <div class="container">
             <div class="copyright-inner d-md-flex align-items-center justify-content-between">
                 <div class="copyright-text">
-                    <p class="m-0 white">2024 propertyvisit. All rights reserved.</p>
+                    <p class="m-0 white">2025 Property. All rights reserved.</p>
                 </div>
                 <div class="social-links">
                     <ul>
                         {% if site_settings.facebook %}
-                            <li><a href="{{site_settings.facebook}}"><i class="fab fa-facebook" aria-hidden="true"></i></a></li>
+                            <li><a href="{{site_settings.facebook}}" target="_blank"><i class="fab fa-facebook" aria-hidden="true"></i></a></li>
                         {% elif site_settings.twitter %}
-                            <li><a href="{{site_settings.twitter}}"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
+                            <li><a href="{{site_settings.twitter}}" target="_blank"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
                         {% elif site_settings.instagram %}
-                            <li><a href="{{site_settings.instagram}}"><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
+                            <li><a href="{{site_settings.instagram}}" target="_blank"><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
                         {% elif site_settings.linkedin %}
-                            <li><a href="{{site_settings.linkedin}}"><i class="fab fa-linkedin" aria-hidden="true"></i></a></li>
+                            <li><a href="{{site_settings.linkedin}}" target="_blank"><i class="fab fa-linkedin" aria-hidden="true"></i></a></li>
                         {% elif site_settings.pinterest %}
-                            <li><a href="{{site_settings.pinterest}}"><i class="fab fa-pinterest" aria-hidden="true"></i></a></li>
+                            <li><a href="{{site_settings.pinterest}}" target="_blank"><i class="fab fa-pinterest" aria-hidden="true"></i></a></li>
                         {% endif %}
                     </ul>
                 </div>

@@ -34,10 +34,11 @@
                                 <i class="fa fa-user"></i>
                                 <span class="d-none d-sm-inline-block">&ensp;Login/Register</span>
                             </a>
+                        {% else %}
+                            <div class="me-2">
+                                <a href="{% url "accounts:dashboard" %}" class="cart-icon d-flex align-items-center ms-1"><i class="fa fa-user fs-5 black bg-grey p-2"></i></a>
+                            </div>
                         {% endif %}
-                        <div class="me-2">
-                            <a href="{% url "accounts:dashboard" %}" class="cart-icon d-flex align-items-center ms-1"><i class="fa fa-user fs-5 black bg-grey p-2"></i></a>
-                        </div>
                         <div class="header_sidemenu me-3">
                             <div class="mhead">
                                 <span class="menu-ham">
