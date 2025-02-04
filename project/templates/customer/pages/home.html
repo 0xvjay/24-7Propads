@@ -223,11 +223,19 @@
                             <div class="col-lg-4 col-md-6 col-sm-6 mb-4">
                                 <div class="trend-item box-shadow rounded">
                                     <div class="trend-image">
-                                        <img src="{% static "customer/images/Featured Property/Featured Property-1.png" %}" alt="image">
+                                        {% if property.images.all %}
+                                            <img src="{{property.images.all.0.image.url}}" alt="image">
+                                        {% else %}
+                                            <img src="{% static "customer/images/Featured Property/Featured Property-1.png" %}" alt="image">
+                                        {% endif %}
                                         <a href="#" class="flash bg-theme1 white px-3 py-2"><i class="fa fa-flash"></i></a>
                                         <div class="trend-meta d-flex align-items-center justify-content-between">
                                             <div class="entry-author">
-                                                <img src="{% static "customer/images/reviewer/2.jpg" %}" alt="" class="rounded-circle me-1">
+                                                {% if property.user.profile %}
+                                                    <img src="{{property.user.profile.url}}" alt="image">
+                                                {% else %}
+                                                    <img src="{% static "customer/images/reviewer/2.jpg" %}" alt="image" class="rounded-circle me-1">
+                                                {% endif %}
                                                 <span>{{property.user}}</span>
                                             </div>
                                             <button class="tags bg-theme2 white px-3 py-1" style="cursor:auto">For Rent</button>

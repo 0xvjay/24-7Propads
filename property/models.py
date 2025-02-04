@@ -85,6 +85,10 @@ class Property(models.Model):
     is_featured = models.BooleanField(default=False)
     is_popular = models.BooleanField(default=False)
 
+    recommended_products = models.ManyToManyField(
+        "property.Property", blank=True, through="PropertyRecommendation"
+    )
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -104,6 +108,14 @@ class Property(models.Model):
             return self.house_details
         else:
             None
+
+    @property
+    def sorted_recommended_products(self):
+        """Keeping order by recommendation ranking."""
+        return [
+            r.recommendation
+            for r in self.primary_recommendations.select_related("recommendation").all()
+        ]
 
     def get_property_type(self):
         if hasattr(self, "agriculture_details"):
@@ -158,6 +170,14 @@ class Property(models.Model):
 
     class Meta:
         verbose_name_plural = "Properties"
+
+
+class PropertyRecommendation(models.Model):
+    primary = models.ForeignKey(
+        Property, related_name="primary_recommendations", on_delete=models.CASCADE
+    )
+    recommendation = models.ForeignKey(Property, on_delete=models.CASCADE)
+    ranking = models.PositiveSmallIntegerField(default=0, db_index=True)
 
 
 class PropertyImage(models.Model):

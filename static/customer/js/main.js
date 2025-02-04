@@ -314,9 +314,37 @@
         }]
     });
 
-    $('.shop-slider').slick({
+    $('.detail-slider').slick({
         infinite: true,
         slidesToShow: 1,
+        slidesToScroll: 1,
+        arrows: false,
+        dots: false,
+        autoplay: true,
+        speed: 8000,
+        rows:0,
+        loop:true,
+        responsive: [{
+            breakpoint: 1000,
+            settings: {
+                slidesToShow: 2
+            }
+        }, {
+            breakpoint: 800,
+            settings: {
+                slidesToShow: 2
+            }
+        }, {
+            breakpoint: 600,
+            settings: {
+                slidesToShow: 1
+            }
+        }]
+    });
+
+    $('.shop-slider').slick({
+        infinite: true,
+        slidesToShow: 4,
         slidesToScroll: 1,
         arrows: false,
         dots: false,
