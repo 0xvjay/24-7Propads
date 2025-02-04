@@ -80,7 +80,11 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <img class="property_image_show" src="{{object.images.0.url}}" alt="Card image cap"/>
+                                            {% if object.images.all %}
+                                                <img class="property_image_show" src="{{object.images.all.0.image.url}}" alt="Card Image"/>
+                                            {% else %}
+                                                <img class="property_image_show" alt="Card Image"/>
+                                            {% endif %}
                                             <div class="card-body">Category:<span class="fw-bold">{{object.type.name}}</span></div>
                                                 <div class="card-body">
                                                     <div class="mb-1">

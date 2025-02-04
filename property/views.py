@@ -202,6 +202,7 @@ class BasePropertyCreateUpdateView(SessionWizardView):
     condition_dict = CONDITION_DICT
     success_url = "/admin/properties/"
     templates = None
+    storage_name = "property.utils.CustomSessionStorage"
 
     def get_template_names(self):
         return [self.templates[self.steps.current]]
@@ -305,6 +306,14 @@ class PropertyUpdateView(BasePropertyCreateUpdateView):
 
             property_form.instance.user = self.request.user
             property = property_form.save()
+
+            try:
+                property.images.all().delete()
+            except Exception:
+                pass
+
+            for image in property_form.cleaned_data.get("images"):
+                PropertyImage.objects.create(image=image, property=property)
 
             other_form.instance.property = property
             other_form.save()
