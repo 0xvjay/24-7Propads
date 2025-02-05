@@ -20,7 +20,8 @@
             </div>
             <div class="card-content">
               <form method="post">
-                {% csrf_token %} {{ wizard.management_form }}
+                {% csrf_token %}
+                {{ wizard.management_form }}
                 <div class="row">
                   <div class="col-md-6 mb-2">
                     <label for="facing" class="form-label mb-0">Facing</label>
@@ -59,7 +60,7 @@
                   </div>
                   <div class="col-md-6 mb-2">
                     <label for="available_from" class="form-label mb-0">Available From</label>
-                    {{wizard.form.available_from|attr:"class:form-control"|attr:"placeholder:Select Month"}}
+                    {{wizard.form.available_from|attr:"class:form-control"|attr:"placeholder:Select Date"}}
                     {% if form.errors %}
                       <div class="text-danger">{{form.errors.available_from}}</div>
                     {% endif %}

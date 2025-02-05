@@ -6,10 +6,11 @@ from django.db.models import Count, DecimalField, Q, Value
 from django.db.models.functions import Coalesce
 from django.db.models.functions import Lower as LowerCase
 from django.shortcuts import redirect
-from django.views.generic import DetailView, ListView, TemplateView
+from django.views.generic import DetailView, ListView
 from formtools.wizard.views import SessionWizardView
 
 from core.views import (
+    AdminLoginRequired,
     BaseAdminCreateView,
     BaseAdminDeleteView,
     BaseAdminListView,
@@ -196,7 +197,7 @@ CONDITION_DICT = {
 }
 
 
-class BasePropertyCreateUpdateView(SessionWizardView):
+class BasePropertyCreateUpdateView(AdminLoginRequired, SessionWizardView):
     file_storage = DefaultStorage()
     form_list = FORMS
     condition_dict = CONDITION_DICT
@@ -516,5 +517,45 @@ class PropertyDetailView(LoginRequiredMixin, DetailView):
         return context
 
 
-class PropertyView(LoginRequiredMixin, TemplateView):
-    template_name = "customer/pages/form-wizzard/property.html"
+class CustomerPropertyCreateView(LoginRequiredMixin, SessionWizardView):
+    file_storage = DefaultStorage()
+    form_list = FORMS
+    condition_dict = CONDITION_DICT
+    storage_name = "property.utils.CustomSessionStorage"
+    templates = {
+        "0": "customer/pages/form-wizzard/property.html",
+        "1": "customer/pages/form-wizzard/agriculture.html",
+        "2": "customer/pages/form-wizzard/villa.html",
+        "3": "customer/pages/form-wizzard/house.html",
+        "4": "customer/pages/form-wizzard/flat.html",
+        "5": "customer/pages/form-wizzard/office.html",
+        "6": "customer/pages/form-wizzard/plot.html",
+    }
+
+    def get_template_names(self):
+        return [self.templates[self.steps.current]]
+
+    def done(self, form_list, **kwargs):
+        property_form = form_list[0]
+        other_form = form_list[1]
+
+        with transaction.atomic():
+            property_form.instance.user = self.request.user
+            property = property_form.save()
+
+            for image in property_form.cleaned_data.get("images"):
+                PropertyImage.objects.create(image=image, property=property)
+
+            other_form.instance.property = property
+            other_form.save()
+
+        return redirect(f"/properties/{property.id}")
+
+    def process_step(self, form):
+        if self.steps.current == "0":
+            self.request.session["user_choice"] = form.data.get("0-type")
+        return super().process_step(form)
+
+    def get(self, request, *args, **kwargs):
+        self.storage.current_step = self.steps.first
+        return self.render(self.get_form())

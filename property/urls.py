@@ -7,7 +7,7 @@ from .views import (
     PropertyListingView,
     PropertyListView,
     PropertyUpdateView,
-    PropertyView,
+    CustomerPropertyCreateView,
     TypeCreateView,
     TypeDeleteView,
     TypeListView,
@@ -36,5 +36,9 @@ urlpatterns = [
     ),
     path(r"properties/", PropertyListingView.as_view(), name="property_list"),
     path(r"properties/<int:pk>/", PropertyDetailView.as_view(), name="property"),
-    path(r"properties/add", PropertyView.as_view(), name="add_customer_property"),
+    path(
+        r"properties/add",
+        CustomerPropertyCreateView.as_view(),
+        name="add_customer_property",
+    ),
 ]

@@ -7,7 +7,7 @@ class User(AbstractUser):
     phone = models.CharField(max_length=30)
     company = models.CharField(max_length=255)
     address = models.TextField()
-    profile = models.ImageField(upload_to="profiles/")
+    profile = models.ImageField(upload_to="profiles/", default="images/no-image.png")
     is_verified = models.BooleanField(default=False)
 
     # links

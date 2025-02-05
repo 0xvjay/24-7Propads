@@ -1,5 +1,5 @@
 {% extends "customer/base.html" %}
-{% load static %}
+{% load static widget_tweaks %}
 
 {% block title %}Add Property{% endblock %}
 
@@ -41,27 +41,17 @@
         .dropdown-list li:hover {
             background-color: #f0f0f0;
         }
+        .nice-select .list {
+            max-height: 200px;
+            overflow-y: scroll !important;
+        }
     </style>
 {% endblock %}
 
 {% block content %}
-    <section class="breadcrumb-main pb-5 pt-20" style="background-image: url({% static "customer/images/bg/bg2.jpg" %});">
-        <div class="breadcrumb-outer">
-            <div class="container">
-                <div class="breadcrumb-content d-md-flex align-items-center pt-6">
-                    <h1 class="mb-0">Add Office/Commercial Space Listing</h1>
-                    <nav aria-label="breadcrumb">
-                        <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html">Post Property</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Office/Commercial Space</li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-        </div>
-        <div class="dot-overlay"></div>
-    </section>
-    <!-- Dashboard -->
+    {% url "property:add_customer_property" as title_url %}
+    {% include "customer/partials/breadcrumb.html" with title="Post Property" subtitle="Office/Commercial Space Details" title_url=title_url %}
+
     <div id="dashboard" class="pt-10 pb-10">
         <div class="container">
             <div class="dashboard-main">
@@ -72,279 +62,170 @@
                                 <div class="listing-main">
                                     <div class="addlist-inner bg-white">
                                         <div class="addlist-content bg-white">
-                                            <form action="/">
+                                            <form method="post">
+                                                {% csrf_token %}
+                                                {{ wizard.management_form }}
                                                 <div class="row">
-                                                    <div class="col-lg-6 col-md-6 col-xs-12">
-                                                        <div class="form-group">
-                                                            <div class="input-box">
-                                                                <label class="form-label">Society/Project Name
-                                                                </label>
-                                                                <input type="text" class="" placeholder="Enter Society/Project Name">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-6 col-md-6 col-xs-12">
-                                                        <div class="form-group">
-                                                            <label>Are You RERA Registered Agent</label>
-                                                            <div class="input-box">
-                                                                <select class="niceSelect">
-                                                                    <option>Yes</option>
-                                                                    <option>Have Applied</option>
-                                                                    <option>Not Applicable</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-6 col-md-6 col-xs-12">
-                                                        <div class="form-group">
-                                                            <div class="input-box">
-                                                                <label>Agent RERA Registration Number</label>
-                                                                <input type="text" class="" placeholder="Enter agent RERA registration number">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                                                    
+                                                    <div class="col-lg-6 col-md-6 col-xs-12 mb-1">
                                                         <div class="form-group">
                                                             <label>Select Type</label>
                                                             <div class="input-box">
-                                                                <select class="niceSelect ">
-                                                                    <option>Retail Shop</option>
-                                                                    <option>Office Space
-                                                                    </option>
-                                                                    <option>Plug and Play Office Space
-                                                                    </option>
-                                                                    <option>Commercial Space
-                                                                    </option>
-                                                                    <option>Godown
-                                                                    </option>
-                                                                </select>
+                                                                {{wizard.form.type|attr:"class:niceSelect"}}
+                                                                {% if form.errors %}<div class="text-danger">{{form.errors.type}}</div>{% endif %}
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                                                    <div class="col-lg-6 col-md-6 col-xs-12 mb-1">
                                                         <div class="form-group">
-                                                            <label>Transaction Type*</label>
+                                                            <label>Transaction Type</label>
                                                             <div class="input-box">
-                                                                <select class="niceSelect ">
-                                                                    <option>New Property </option>
-                                                                    <option>Resale Property </option>
-                                                                </select>
+                                                                {{wizard.form.transaction|attr:"class:niceSelect"}}
+                                                                {% if form.errors %}<div class="text-danger">{{form.errors.transaction}}</div>{% endif %}
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                                                    <div class="col-lg-6 col-md-6 col-xs-12 mb-1">
                                                         <div class="form-group">
-                                                            <label>Possession Status* </label>
+                                                            <label>Possession Status</label>
                                                             <div class="input-box">
-                                                                <select class="niceSelect ">
-                                                                    <option>Ready To Move
-                                                                    </option>
-                                                                    <option>Under Construction
-                                                                    </option>
-                                                                </select>
+                                                                {{wizard.form.possession|attr:"class:niceSelect"}}
+                                                                {% if form.errors %}<div class="text-danger">{{form.errors.possession}}</div>{% endif %}
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                                                    <div class="col-lg-6 col-md-6 col-xs-12 mb-1">
                                                         <div class="form-group">
-                                                            <label>Available From </label>
-                                                            <div class="input-box"> <input type="text" class="form-control" name="datepicker"  id="datepicker" />
+                                                            <label>Available From</label>
+                                                            <div class="input-box">
+                                                                {{wizard.form.available_from|attr:"placeholder:Select Date"}}
+                                                                {% if form.errors %}<div class="text-danger">{{form.errors.available_from}}</div>{% endif %}
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                                                    <div class="col-lg-6 col-md-6 col-xs-12 mb-1">
                                                         <div class="form-group">
                                                             <label>Age of Property</label>
-                                                            <div class="input-box form-select">
-                                                                <div class="custom-dropdown">
-                                                                    <span class="selected-option">01 Year</span>
-                                                                    <ul class="dropdown-list">
-                                                                        <li>01 Year</li>
-                                                                        <li>02 Years</li>
-                                                                        <li>03 Years</li>
-                                                                        <li>04 Years</li>
-                                                                        <li>05 Years</li>
-                                                                        <li>06 Years</li>
-                                                                        <li>07 Years</li>
-                                                                        <li>08 Years</li>
-                                                                        <li>09 Years</li>
-                                                                        <li>10 Years</li>
-                                                                        <li>11 Years</li>
-                                                                        <li>12 Years</li>
-                                                                        <li>13 Years</li>
-                                                                        <li>14 Years</li>
-                                                                        <li>15 Years</li>
-                                                                        <li>16 Years</li>
-                                                                        <li>17 Years</li>
-                                                                        <li>18 Years</li>
-                                                                        <li>19 Years</li>
-                                                                        <li>20 Years</li>
-                                                                        <li>21 Years</li>
-                                                                        <li>22 Years</li>
-                                                                        <li>23 Years</li>
-                                                                        <li>24 Years</li>
-                                                                        <li>25 Years</li>
-                                                                        <li>26 Years</li>
-                                                                        <li>27 Years</li>
-                                                                        <li>28 Years</li>
-                                                                        <li>29 Years</li>
-                                                                        <li>30 Years</li>
-                                                                        <li>31 Years</li>
-                                                                        <li>32 Years</li>
-                                                                        <li>33 Years</li>
-                                                                        <li>34 Years</li>
-                                                                        <li>More Than 35 Years</li>
-                                                                    </ul>
-                                                                </div>
+                                                            <div class="input-box">
+                                                                {{wizard.form.age|attr:"placeholder:Enter Age"}}
+                                                                {% if form.errors %}<div class="text-danger">{{form.errors.age}}</div>{% endif %}
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                                                    <div class="col-lg-6 col-md-6 col-xs-12 mb-1">
                                                         <div class="form-group">
                                                             <label>Facing</label>
                                                             <div class="input-box">
-                                                                <select class="niceSelect ">
-                                                                    <option>East
-                                                                    </option>
-                                                                    <option>West
-                                                                    </option>
-                                                                    <option>North
-                                                                    </option>
-                                                                    <option>South
-                                                                    </option>
-                                                                </select>
+                                                                {{wizard.form.facing|attr:"class:niceSelect"}}
+                                                                {% if form.errors %}<div class="text-danger">{{form.errors.facing}}</div>{% endif %}
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                                                    <div class="col-lg-6 col-md-6 col-xs-12 mb-1">
                                                         <div class="form-group">
                                                             <div class="input-box">
                                                                 <label class="form-label">Built-up Area (Square Feets)</label>
-                                                                <input type="text" class="" placeholder="Enter Built-up Area ">
+                                                                {{wizard.form.area|attr:"placeholder:Enter Built-up Area"}}
+                                                                {% if form.errors %}<div class="text-danger">{{form.errors.area}}</div>{% endif %}
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                                                    <div class="col-lg-6 col-md-6 col-xs-12 mb-1">
                                                         <div class="form-group">
                                                             <div class="input-box">
-                                                                <label>Plot Area (Square Yards)
-                                                                </label>
-                                                                <input type="text" class=""
-                                                                    placeholder="Enter Plot Area  ">
+                                                                <label>Plot Area (Square Yards)</label>
+                                                                {{wizard.form.plot_area|attr:"placeholder:Enter Plot Area"}}
+                                                                {% if form.errors %}<div class="text-danger">{{form.errors.plot_area}}</div>{% endif %}
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                                                    <div class="col-lg-6 col-md-6 col-xs-12 mb-1">
                                                         <div class="form-group">
                                                             <div class="input-box">
                                                                 <label>Undivided Share of Land (Square Yards)</label>
-                                                                <input type="text" class="" placeholder="Enter Undivided Share of Land ">
+                                                                {{wizard.form.undivided_share|attr:"placeholder:Enter Undivided Share of Land"}}
+                                                                {% if form.errors %}<div class="text-danger">{{form.errors.undivided_share}}</div>{% endif %}
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                                                    <div class="col-lg-6 col-md-6 col-xs-12 mb-1">
                                                         <div class="form-group">
-                                                            <label>Furnishing Status </label>
+                                                            <label>Furnishing Status</label>
                                                             <div class="input-box">
-                                                                <select class="niceSelect">
-                                                                    <option>Furnished</option>
-                                                                    <option>Semi-Furnished</option>
-                                                                    <option>Unfurnished </option>
-                                                                </select>
+                                                                {{wizard.form.furnish|attr:"class:niceSelect"}}
+                                                                {% if form.errors %}<div class="text-danger">{{form.errors.furnish}}</div>{% endif %}
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                                                    <div class="col-lg-6 col-md-6 col-xs-12 mb-1">
                                                         <div class="form-group">
                                                             <div class="input-box">
                                                                 <label>Seating Capacity</label>
-                                                                <input type="text" class="" placeholder="Enter Seating Capacity">
+                                                                {{wizard.form.seating_capacity|attr:"placeholder:Enter Seating Capacity"}}
+                                                                {% if form.errors %}<div class="text-danger">{{form.errors.seating_capacity}}</div>{% endif %}
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                                                    <div class="col-lg-6 col-md-6 col-xs-12 mb-1">
                                                         <div class="form-group">
                                                             <div class="input-box">
-                                                                <label>Total Floors*</label>
-                                                                <input type="text" class="" placeholder="Enter Floors">
+                                                                <label>Total Floors</label>
+                                                                {{wizard.form.total_floors|attr:"placeholder:Enter Floors"}}
+                                                                {% if form.errors %}<div class="text-danger">{{form.errors.total_floors}}</div>{% endif %}
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                                                    <div class="col-lg-6 col-md-6 col-xs-12 mb-1">
                                                         <div class="form-group">
                                                             <div class="input-box">
-                                                                <label>Floor Number*</label>
-                                                                <input type="text" class="" placeholder="Enter Floor Number">
+                                                                <label>Floor Number</label>
+                                                                {{wizard.form.floor_no|attr:"placeholder:Enter Floor Number"}}
+                                                                {% if form.errors %}<div class="text-danger">{{form.errors.floor_no}}</div>{% endif %}
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                                                    <div class="col-lg-6 col-md-6 col-xs-12 mb-1">
                                                         <div class="form-group">
-                                                            <label>Reserved Car Parking* </label>
-                                                            <div class="input-box form-select">
-                                                                <div class="custom-dropdown">
-                                                                    <span class="selected-option">01</span>
-                                                                    <ul class="dropdown-list">
-                                                                        <li>01</li>
-                                                                        <li>02</li>
-                                                                        <li>03</li>
-                                                                        <li>04</li>
-                                                                        <li>05</li>
-                                                                        <li>06</li>
-                                                                    </ul>
-                                                                </div>
+                                                            <label>Reserved Car Parking</label>
+                                                            <div class="input-box">
+                                                                {{wizard.form.car_parking|attr:"placeholder:Enter Car Parking"}}
+                                                                {% if form.errors %}<div class="text-danger">{{form.errors.car_parking}}</div>{% endif %}
                                                             </div>
                                                         </div>
                                                     </div>
-                                            
 
-                                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                                                    <div class="col-lg-6 col-md-6 col-xs-12 mb-1">
                                                         <div class="form-group">
                                                             <div class="input-box">
                                                                 <label>Monthly Maintenance (INR)</label>
-                                                                <input type="text" class="" placeholder="Enter Monthly Maintenance Amount">
+                                                                {{wizard.form.maintenance|attr:"placeholder:Enter Monthly Maintenance Amount"}}
+                                                                {% if form.errors %}<div class="text-danger">{{form.errors.maintenance}}</div>{% endif %}
                                                             </div>
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                                                    <div class="col-lg-6 col-md-6 col-xs-12 mb-1">
                                                         <div class="form-group">
                                                             <div class="input-box">
-                                                                <label>Total Price (INR)*</label>
-                                                                <input type="text" class="" placeholder="Enter Total Price Amount">
+                                                                <label>Total Price (INR)</label>
+                                                                {{wizard.form.price|attr:"placeholder:Enter Total Price Amount"}}
+                                                                {% if form.errors %}<div class="text-danger">{{form.errors.price}}</div>{% endif %}
                                                             </div>
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                                                    <div class="col-lg-6 col-md-6 col-xs-12 mb-2">
                                                         <div class="form-group">
                                                             <label>Commission </label>
-                                                            <div class="input-box form-select">
-                                                                <div class="custom-dropdown">
-                                                                    <span class="selected-option">0.5% of Sale Amount</span>
-                                                                    <ul class="dropdown-list">
-                                                                        <li>0.5% of Sale Amount</li>
-                                                                        <li>1.0% of Sale Amount</li>
-                                                                        <li>1.5% of Sale Amount</li>
-                                                                        <li>2.0% of Sale Amount</li>
-                                                                        <li>Contact Me For Details</li>
-                                                                        <li>Not Applicable</li>
-                                                                    </ul>
-                                                                </div>
+                                                            <div class="input-box">
+                                                                {{wizard.form.commission|attr:"class:niceSelect"}}
+                                                                {% if form.errors %}<div class="text-danger">{{form.errors.commission}}</div>{% endif %}
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-12">
-                                                    <div class="pretty p-default p-thick p-pulse mb-2">
-                                                        <input type="checkbox" />
-                                                        <div class="state d-flex align-items-center p-warning-o">
-                                                            <label>I Agree with all <a href="#">Terms &amp; Conditions</a></label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-12">
-                                                    <a href="#" class="nir-btn"><i class="fa fa-plus"></i> Add Listing</a>
+                                                    <button type="submit" class="nir-btn"><i class="fa fa-plus"></i> Add Listing</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -393,11 +274,7 @@
     <script src="{% static "customer/js/dashboard-custom.js" %}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/js/bootstrap-datepicker.min.js"></script>
     <script>
-        $("#datepicker").datepicker({
-            format: "mm-yyyy",
-            startView: "months",
-            minViewMode: "months"
-        });
+        $("#datepicker").datepicker();
     </script>
     <script>
         $(document).ready(function () {

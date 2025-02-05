@@ -86,11 +86,24 @@ class MultipleFileField(forms.FileField):
 class PropertyForm(forms.ModelForm):
     images = MultipleFileField()
     state = forms.ChoiceField(choices=[(state, state) for state, _ in cities])
-    city = forms.ChoiceField(choices=[], label="City")
+    city = forms.ChoiceField(choices=[])
 
     class Meta:
         model = Property
         exclude = ("views", "user")
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if "0-state" in self.data:
+            state_selected = self.data.get("0-state")
+            self.fields["city"].choices = [
+                (city, city)
+                for st, city_list in cities
+                if st == state_selected
+                for city in city_list[0]
+            ]
+        else:
+            self.fields["city"].choices = []
 
 
 class AgricultureLandForm(forms.ModelForm):

@@ -93,7 +93,11 @@
               {% for property in related_properties %}
                 <div class="trend-item box-shadow">
                   <div class="trend-image">
-                    <img src="{{property.image.url}}" alt="image" />
+                    {% if property.images.all %}
+                      <img src="{{property.images.all.0.image.url}}" alt="image" />
+                    {% else %}
+                      <img src="{{property.images.all.0.image.url}}" alt="image" />
+                    {% endif %}
                     <a class="flash bg-theme1 white px-3 py-2"><i class="fa fa-flash"></i></a>
                     <div class="trend-meta d-flex align-items-center justify-content-between">
                       <div class="entry-author">

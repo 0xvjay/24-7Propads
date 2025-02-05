@@ -1,25 +1,21 @@
 {% extends "customer/base.html" %}
-{% load static %}
+{% load static widget_tweaks %}
 
 {% block title %}Add Property{% endblock %}
 
+{% block extra_head %}
+    <style>
+        .nice-select .list {
+            max-height: 300px;
+            overflow-y: scroll !important;
+        }
+    </style>
+{% endblock %}
+
 {% block content %}
-    <section class="breadcrumb-main pb-5 pt-20" style="background-image: url({% static "customer/images/bg/bg2.jpg" %});">
-        <div class="breadcrumb-outer">
-            <div class="container">
-                <div class="breadcrumb-content d-md-flex align-items-center pt-6">
-                    <h1 class="mb-0">Enter Basic Details</h1>
-                    <nav aria-label="breadcrumb">
-                        <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Enter Basic Details</li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-        </div>
-        <div class="dot-overlay"></div>
-    </section>
+    {% url "core:home" as title_url %}
+    {% include "customer/partials/breadcrumb.html" with title="Home" subtitle="Enter Basic Details" title_url=title_url %}
+
     <!-- Dashboard -->
     <div id="dashboard" class="pt-10 pb-10">
         <div class="container">
@@ -31,98 +27,138 @@
                                 <div class="listing-main">
                                     <div class="addlist-inner bg-white">
                                         <div class="addlist-content bg-white">
-                                            <form action="/">
+                                            <form method="post" enctype="multipart/form-data">
+                                                {% csrf_token %}
+                                                {{ wizard.management_form }}
                                                 <div class="row">
-                                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                                                    <div class="col-lg-12 col-md-12 col-xs-12 mb-1">
                                                         <div class="form-group">
-                                                            <label>Posting For*</label>
                                                             <div class="input-box">
-                                                                <select class="niceSelect ">
-                                                                    <option>Sale</option>
-                                                                    <option>Rent</option>
-                                                                    <option>Lease</option>
-                                                                </select>
+                                                                <label class="form-label">Property Name</label>
+                                                                {{wizard.form.name|attr:"class:form-control"|attr:"placeholder:Enter Property Name"}}
+                                                                {% if form.errors %}<div class="text-danger">{{form.errors.name}}</div>{% endif %}
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                                                    <div class="col-lg-6 col-md-6 col-xs-12 mb-1">
                                                         <div class="form-group">
-                                                            <label>Select Property Type*</label>
+                                                            <label>Posting For</label>
                                                             <div class="input-box">
-                                                                <select class="niceSelect ">
-                                                                    <option>Flat</option>
-                                                                    <option>Villa</option>
-                                                                    <option>Independent House</option>
-                                                                    <option>Commercial Space</option>
-                                                                    <option>Open Plot</option>
-                                                                    <option>Agriculture Land</option>
-                                                                </select>
+                                                                {{wizard.form.post_type|attr:"class:niceSelect"}}
+                                                                {% if form.errors %}<div class="text-danger">{{form.errors.post_type}}</div>{% endif %}
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                                                    <div class="col-lg-6 col-md-6 col-xs-12 mb-1">
                                                         <div class="form-group">
+                                                            <label>Select Property Type</label>
                                                             <div class="input-box">
-                                                                <label class="form-label">State*</label>
-                                                                <input type="text" class=""
-                                                                    placeholder="Enter state name">
+                                                                {{wizard.form.type|attr:"class:niceSelect"}}
+                                                                {% if form.errors %}<div class="text-danger">{{form.errors.type}}</div>{% endif %}
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                                                    <div class="col-lg-12 col-md-12 col-xs-12 mb-1">
                                                         <div class="form-group">
                                                             <div class="input-box">
-                                                                <label>City*</label>
-                                                                <input type="text" class=""
-                                                                    placeholder="Enter city name">
+                                                                <label class="form-label">Description</label>
+                                                                {{wizard.form.description|attr:"placeholder:Enter Property Description"}}
+                                                                {% if form.errors %}<div class="text-danger">{{form.errors.description}}</div>{% endif %}
                                                             </div>
                                                         </div>
                                                     </div>
-
-                                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                                                    <div class="col-lg-6 col-md-6 col-xs-12 mb-1">
                                                         <div class="form-group">
                                                             <div class="input-box">
-                                                                <label>Locality*</label>
-                                                                <input type="text" class=""
-                                                                    placeholder="Enter your location">
+                                                                <label class="form-label">Contact No</label>
+                                                                {{wizard.form.phone|attr:"placeholder:Enter Phone Number"}}
+                                                                {% if form.errors %}<div class="text-danger">{{form.errors.phone}}</div>{% endif %}
                                                             </div>
                                                         </div>
                                                     </div>
-                                        
-                                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                                                    <div class="col-lg-6 col-md-6 col-xs-12 mb-1">
                                                         <div class="form-group">
-                                                            <label>Are You RERA Registered Agent*</label>
                                                             <div class="input-box">
-                                                                <select class="niceSelect">
-                                                                    <option>Yes</option>
-                                                                    <option>Have Applied</option>
-                                                                    <option>Not Applicable</option>
-                                                                </select>
+                                                                <label class="form-label">Images</label>
+                                                                {{wizard.form.images|attr:"class:form-control"|attr:"accept:image/*"|attr:"multiple"}}
+                                                                {% if form.errors %}<div class="text-danger">{{form.errors.images}}</div>{% endif %}
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                                                    <div class="col-lg-6 col-md-6 col-xs-12 mb-1">
+                                                        <div class="form-group">
+                                                            <div class="input-box">
+                                                                <label class="form-label">Property Latitude</label>
+                                                                {{wizard.form.lat|attr:"placeholder:Enter Property Latitude"}}
+                                                                {% if form.errors %}<div class="text-danger">{{form.errors.lat}}</div>{% endif %}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-xs-12 mb-1">
+                                                        <div class="form-group">
+                                                            <div class="input-box">
+                                                                <label class="form-label">Property Longitude</label>
+                                                                {{wizard.form.long|attr:"placeholder:Enter Property Longitude"}}
+                                                                {% if form.errors %}<div class="text-danger">{{form.errors.long}}</div>{% endif %}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12 col-md-12 col-xs-12 mb-1">
+                                                        <div class="form-group">
+                                                            <div class="input-box">
+                                                                <label class="form-label">Address</label>
+                                                                {{wizard.form.address|attr:"placeholder:Enter Property Address"}}
+                                                                {% if form.errors %}<div class="text-danger">{{form.errors.address}}</div>{% endif %}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-xs-12 mb-1">
+                                                        <div class="form-group">
+                                                            <div class="input-box">
+                                                                <label class="form-label">Property State</label>
+                                                                {{wizard.form.state|attr:"class:niceSelect state"}}
+                                                                {% if form.errors %}<div class="text-danger">{{form.errors.state}}</div>{% endif %}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-xs-12 mb-1">
+                                                        <div class="form-group">
+                                                            <div class="input-box">
+                                                                <label>Property City</label>
+                                                                {{wizard.form.city|attr:"class:niceSelect"}}
+                                                                {% if form.errors %}<div class="text-danger">{{form.errors.city}}</div>{% endif %}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-xs-12 mb-1">
+                                                        <div class="form-group">
+                                                            <div class="input-box">
+                                                                <label>Property Zip/Postal Code</label>
+                                                                {{wizard.form.postal_code|attr:"placeholder:Enter Property Zip/Postal Code"}}
+                                                                {% if form.errors %}<div class="text-danger">{{form.errors.postal_code}}</div>{% endif %}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-xs-12 mb-1">
+                                                        <div class="form-group">
+                                                            <label>Are You RERA Registered Agent</label>
+                                                            <div class="input-box">
+                                                                {{wizard.form.is_rera_agent|attr:"class:form-check-input"}}
+                                                                {% if form.errors %}<div class="text-danger">{{form.errors.is_rera_agent}}</div>{% endif %}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-xs-12 mb-2">
                                                         <div class="form-group">
                                                             <div class="input-box">
                                                                 <label>Agent RERA Registration Number</label>
-                                                                <input type="text" class=""
-                                                                    placeholder="Enter agent RERA registration number">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                
-                                                    <div class="col-lg-12">
-                                                        <div class="pretty p-default p-thick p-pulse mb-2">
-                                                            <input type="checkbox" />
-                                                            <div class="state d-flex align-items-center p-warning-o">
-                                                                <label>I Agree with all <a href="#">Terms &amp;
-                                                                        Conditions</a></label>
+                                                                {{wizard.form.rera_number|attr:"placeholder:Enter agent RERA registration number"}}
+                                                                {% if form.errors %}<div class="text-danger">{{form.errors.rera_number}}</div>{% endif %}
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-12">
-                                                        <a href="#" class="nir-btn"><i class="fa fa-plus"></i> Add
-                                                            Listing</a>
+                                                        <button type="submit" class="nir-btn"><i class="fa fa-plus"></i> Add Listing</button>
                                                     </div>
                                                 </div>
                                             </form>
@@ -169,4 +205,109 @@
 {% block extra_body %}
     <script src="{% static "customer/js/jpanelmenu.min.js" %}"></script>
     <script src="{% static "customer/js/dashboard-custom.js" %}"></script>
+    <script>
+        const cities = {
+          "Andaman and Nicobar Islands": ["Port Blair"],
+          "Andhra Pradesh": [
+              "Visakhapatnam", "Vijayawada", "Guntur", "Nellore", "Kurnool",
+              "Rajamahendravaram", "Tirupati", "Kadapa", "Kakinada", "Anantapur",
+              "Vizianagaram", "Eluru", "Ongole", "Nandyal", "Machilipatnam",
+              "Adoni", "Tenali", "Proddatur", "Chittoor", "Hindupur", "Bhimavaram",
+              "Madanapalle", "Guntakal", "Srikakulam", "Dharmavaram", "Gudivada",
+              "Narasaraopet", "Tadipatri", "Tadepalligudem", "Amaravati", "Chilakaluripet"
+          ],
+          "Arunachal Pradesh": ["Itanagar"],
+          "Assam": ["Dhuburi", "Dibrugarh", "Dispur", "Guwahati", "Jorhat", "Nagaon", "Sivasagar", "Silchar", "Tezpur", "Tinsukia"],
+          "Bihar": [
+              "Patna", "Gaya", "Bhagalpur", "Muzaffarpur", "Purnia",
+              "Darbhanga", "Bihar Sharif", "Arrah", "Begusarai", "Katihar",
+              "Munger", "Chhapra", "Bettiah", "Saharsa", "Hajipur",
+              "Sasaram", "Dehri", "Siwan", "Motihari", "Nawada",
+              "Bagaha", "Buxar", "Kishanganj", "Sitamarhi", "Jamalpur",
+              "Jehanabad", "Aurangabad", "Lakhisarai"
+          ],
+          "Chandigarh": ["Chandigarh"],
+          "Chhattisgarh": ["Raipur", "Durg", "Naya Raipur", "Korba", "Bilaspur", "Rajnandgaon", "Pakhanjore", "Jagdalpur", "Ambikapur", "Chirmiri", "Dhamtari", "Raigarh", "Mahasamund"],
+          "Daman and Diu": ["Daman"],
+          "Delhi": ["Delhi"],
+          "Dadra and Nagar Haveli": ["Silvassa"],
+          "Goa": ["Panaji", "Vasco", "Mormugao", "Margao"],
+          "Gujarat": [
+              "Ahmedabad", "Surat", "Vadodara", "Rajkot", "Bhavnagar",
+              "Jamnagar", "Junagadh", "Gandhidham", "Nadiad", "Gandhinagar",
+              "Anand", "Morbi", "Khambhat", "Surendranagar", "Bharuch",
+              "Vapi", "Navsari", "Veraval", "Porbandar", "Godhra",
+              "Bhuj", "Ankleshwar", "Botad", "Patan", "Palanpur",
+              "Dahod", "Jetpur", "Valsad", "Kalol", "Gondal",
+              "Deesa", "Amreli", "Mahuva", "Mehsana"
+          ],
+          "Himachal Pradesh": ["Shimla"],
+          "Haryana": [
+              "Faridabad", "Gurgaon", "Panipat", "Ambala", "Yamunanagar",
+              "Rohtak", "Hisar", "Karnal", "Sonipat", "Panchkula",
+              "Bhiwani", "Sirsa", "Bahadurgarh", "Jind", "Thanesar",
+              "Kaithal", "Rewari", "Palwal"
+          ],
+          "Jharkhand": [
+              "Jamshedpur", "Dhanbad", "Ranchi", "Bokaro Steel City", "Deoghar",
+              "Phusro", "Hazaribagh", "Giridih", "Ramgarh", "Medininagar",
+              "Chirkunda", "Jhumri Telaiya", "Sahibganj"
+          ],
+          "Jammu and Kashmir": ["Srinagar", "Jammu", "Anantnag"],
+          "Karnataka": [
+              "Bengaluru", "Hubli", "Mysore", "Gulbarga", "Mangalore",
+              "Belgaum", "Davangere", "Bellary", "Bijapur", "Shimoga",
+              "Tumkur", "Raichur", "Bidar", "Hospet", "Hassan",
+              "Gadag", "Udupi", "Robertsonpet", "Bhadravati", "Chitradurga",
+              "Harihar", "Kolar", "Mandya", "Chikkamagallooru", "Chikmagalur",
+              "Gangawati", "Ranebennuru", "Ramanagara", "Bagalkot"
+          ],
+          "Kerala": [
+              "Thiruvananthapuram", "Kochi", "Calicut", "Kollam", "Thrissur",
+              "Kannur", "Kasaragod", "Alappuzha", "Palakkad", "Kottayam",
+              "Kothamangalam", "Malappuram", "Manjeri", "Thalassery", "Ponnani"
+          ],
+          "Lakshadweep": ["Kavaratti"],
+          "Maharashtra": [
+              "Mumbai", "Pune", "Nagpur", "Nashik", "Pimpri-Chinchwad",
+              "Aurangabad", "Solapur", "Bhiwandi", "Amravati", "Nanded",
+              "Kolhapur", "Sangli-Miraj-Kupwad", "Jalgaon", "Akola", "Latur",
+              "Malegaon", "Dhule", "Ahmednagar", "Nandurbar", "Ichalkaranji",
+              "Chandrapur", "Jalna", "Parbhani", "Bhusawal", "Satara",
+              "Beed", "Pandharpur", "Yavatmal", "Kamptee", "Gondia",
+              "Achalpur", "Osmanabad", "Hinganghat", "Wardha", "Barshi",
+              "Chalisgaon", "Amalner", "Khamgaon", "Akot", "Udgir",
+              "Bhandara", "Parli"
+          ],
+          "Meghalaya": ["Shillong"],
+          "Manipur": ["Imphal"],
+          "Madhya Pradesh": [
+              "Indore", "Bhopal", "Jabalpur", "Gwalior", "Ujjain",
+              "Sagar", "Dewas", "Satna", "Ratlam", "Rewa",
+              "Katni", "Singrauli", "Burhanpur", "Khandwa", "Morena",
+              "Bhind", "Chhindwara", "Guna", "Shivpuri", "Vidisha",
+              "Chhatarpur", "Damoh", "Mandsaur", "Khargone", "Neemuch",
+              "Pithampur", "Hoshangabad", "Itarsi", "Sehore", "Betul",
+              "Seoni", "Datia", "Nagda", "Dhanpuri", "Dhar", "Balaghat"
+          ],
+          "Mizoram": ["Aizawl"],
+          "Nagaland": ["Dimapur", "Kohima"],
+          "Odisha": [
+              "Bhubaneswar", "Cuttack", "Rourkela", "Berhampur", "Sambalpur",
+              "Puri", "Balasore"
+          ]
+        };
+        $(document).on('click', '.nice-select.state .option:not(.disabled)', function(event){
+            let state = $(this).data('value');
+            let cityDropdown = document.getElementById("id_0-city");
+            cityDropdown.innerHTML = '<option value="">Select a City</option>';
+            if (state in cities) {
+                cities[state].forEach(city => {
+                    let option = new Option(city, city);
+                    cityDropdown.appendChild(option);
+                });
+            }
+            $('#id_0-city').niceSelect('update')
+        });
+    </script>
 {% endblock %}

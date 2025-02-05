@@ -1,5 +1,5 @@
 {% extends "customer/base.html" %}
-{% load static %}
+{% load static widget_tweaks %}
 
 {% block title %}Add Property{% endblock %}
 
@@ -41,28 +41,17 @@
         .dropdown-list li:hover {
             background-color: #f0f0f0;
         }
+        .nice-select .list {
+            max-height: 200px;
+            overflow-y: scroll !important;
+        }
     </style>
 {% endblock %}
 
 {% block content %}
-    <!-- header ends -->
-    <section class="breadcrumb-main pb-5 pt-20" style="background-image: url({% static "customer/images/bg/bg2.jpg" %});">
-        <div class="breadcrumb-outer">
-            <div class="container">
-                <div class="breadcrumb-content d-md-flex align-items-center pt-6">
-                    <h1 class="mb-0">Add Open Plot Listing</h1>
-                    <nav aria-label="breadcrumb">
-                        <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html">Post Property</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Open Plot</li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-        </div>
-        <div class="dot-overlay"></div>
-    </section>
-    <!-- Dashboard -->
+    {% url "property:add_customer_property" as title_url %}
+    {% include "customer/partials/breadcrumb.html" with title="Post Property" subtitle="Open Plot Details" title_url=title_url %}
+
     <div id="dashboard" class="pt-10 pb-10">
         <div class="container">
             <div class="dashboard-main">
@@ -73,159 +62,104 @@
                                 <div class="listing-main">
                                     <div class="addlist-inner bg-white">
                                         <div class="addlist-content bg-white">
-                                            <form action="/">
+                                            <form method="post">
+                                                {% csrf_token %}
+                                                {{ wizard.management_form }}
                                                 <div class="row">
-                                                    <div class="col-lg-6 col-md-6 col-xs-12">
-                                                        <div class="form-group">
-                                                            <div class="input-box">
-                                                                <label class="form-label">Project/ Society / Colony Name
-                                                                </label>
-                                                                <input type="text" class="" placeholder="Enter Community / Project / Colony Name">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-6 col-md-6 col-xs-12">
-                                                        <div class="form-group">
-                                                            <label>Are You RERA Registered Agent</label>
-                                                            <div class="input-box">
-                                                                <select class="niceSelect">
-                                                                    <option>Yes</option>
-                                                                    <option>Have Applied</option>
-                                                                    <option>Not Applicable</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-6 col-md-6 col-xs-12">
-                                                        <div class="form-group">
-                                                            <div class="input-box">
-                                                                <label>Agent RERA Registration Number</label>
-                                                                <input type="text" class="" placeholder="Enter agent RERA registration number">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                                                    <div class="col-lg-6 col-md-6 col-xs-12 mb-1">
                                                         <div class="form-group">
                                                             <label>Plot Type </label>
                                                             <div class="input-box">
-                                                                <select class="niceSelect ">
-                                                                    <option>Residential Plot in Colony/Society
-                                                                    </option>
-                                                                    <option>Residential Plot in Gated Community 
-                                                                    </option>
-                                                                    <option>Farm Land Plot
-                                                                    </option>
-                                                                    <option>Commercial Plot in Colony/Society
-                                                                    </option>
-                                                                    <option>Commercial Plot in Gated Community 
-                                                                    </option>
-                                                                </select>
+                                                                {{wizard.form.type|attr:"class:niceSelect"}}
+                                                                {% if form.errors %}<div class="text-danger">{{form.errors.type}}</div>{% endif %}
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-6 col-md-6 col-xs-12">
-                                                        <div class="form-group">
-                                                            <div class="input-box">
-                                                                <label class="form-label">Layout Approving Authority</label>
-                                                                <input type="text" class="" placeholder="Enter Authority ">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-6 col-md-6 col-xs-12">
-                                                        <div class="form-group">
-                                                            <div class="input-box">
-                                                                <label class="form-label">Plot Area (Square Yards)</label>
-                                                                <input type="text" class="" placeholder="Enter Plot Area (Square Yards) ">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-6 col-md-6 col-xs-12">
-                                                        <div class="form-group">
-                                                            <div class="input-box">
-                                                                <label class="form-label">Plot Length (Square Feet)</label>
-                                                                <input type="text" class="" placeholder="Enter Plot Length (Square Feet) ">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-6 col-md-6 col-xs-12">
-                                                        <div class="form-group">
-                                                            <div class="input-box">
-                                                                <label class="form-label">Plot Breadth (Square Feet)</label>
-                                                                <input type="text" class="" placeholder="Enter Plot Breadth (Square Feet) ">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-6 col-md-6 col-xs-12">
-                                                        <div class="form-group">
-                                                            <div class="input-box">
-                                                                <label>Approach Road (Square Feet)
-                                                                </label>
-                                                                <input type="text" class="" placeholder="Enter Approach Road  ">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                                                    <div class="col-lg-6 col-md-6 col-xs-12 mb-1">
                                                         <div class="form-group">
                                                             <label>Facing </label>
                                                             <div class="input-box">
-                                                                <select class="niceSelect ">
-                                                                    <option>East</option>
-                                                                    <option>West</option>
-                                                                    <option>North</option>
-                                                                    <option>South</option>
-                                                                    <option>North West</option>
-                                                                    <option>South East</option>
-                                                                    <option>South West</option>
-                                                                </select>
+                                                                {{wizard.form.facing|attr:"class:niceSelect"}}
+                                                                {% if form.errors %}<div class="text-danger">{{form.errors.facing}}</div>{% endif %}
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                                                    <div class="col-lg-6 col-md-6 col-xs-12 mb-1">
+                                                        <div class="form-group">
+                                                            <div class="input-box">
+                                                                <label class="form-label">Layout Approving Authority</label>
+                                                                {{wizard.form.authority|attr:"placeholder:Enter Authority"}}
+                                                                {% if form.errors %}<div class="text-danger">{{form.errors.authority}}</div>{% endif %}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-xs-12 mb-1">
+                                                        <div class="form-group">
+                                                            <div class="input-box">
+                                                                <label class="form-label">Plot Area (Square Yards)</label>
+                                                                {{wizard.form.area|attr:"placeholder:Enter Plot Area (Square Yards)"}}
+                                                                {% if form.errors %}<div class="text-danger">{{form.errors.area}}</div>{% endif %}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-xs-12 mb-1">
+                                                        <div class="form-group">
+                                                            <div class="input-box">
+                                                                <label class="form-label">Plot Length (Square Feet)</label>
+                                                                {{wizard.form.length|attr:"placeholder:Enter Plot Length (Square Feet)"}}
+                                                                {% if form.errors %}<div class="text-danger">{{form.errors.length}}</div>{% endif %}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-xs-12 mb-1">
+                                                        <div class="form-group">
+                                                            <div class="input-box">
+                                                                <label class="form-label">Plot Breadth (Square Feet)</label>
+                                                                {{wizard.form.breadth|attr:"placeholder:Enter Plot Breadth (Square Feet)"}}
+                                                                {% if form.errors %}<div class="text-danger">{{form.errors.breadth}}</div>{% endif %}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-xs-12 mb-1">
+                                                        <div class="form-group">
+                                                            <div class="input-box">
+                                                                <label>Approach Road (Square Feet)</label>
+                                                                {{wizard.form.approach_road|attr:"placeholder:Enter Approach Road"}}
+                                                                {% if form.errors %}<div class="text-danger">{{form.errors.approach_road}}</div>{% endif %}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="col-lg-6 col-md-6 col-xs-12 mb-1">
                                                         <div class="form-group">
                                                             <div class="input-box">
                                                                 <label>Monthly Maintenance (INR)</label>
-                                                                <input type="text" class=""
-                                                                    placeholder="Enter Monthly Maintenance Amount">
+                                                                {{wizard.form.maintenance|attr:"placeholder:Enter Monthly Maintenance Amount"}}
+                                                                {% if form.errors %}<div class="text-danger">{{form.errors.maintenance}}</div>{% endif %}
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                                                    <div class="col-lg-6 col-md-6 col-xs-12 mb-1">
                                                         <div class="form-group">
                                                             <div class="input-box">
-                                                                <label>Total Price (INR)*</label>
-                                                                <input type="text" class="" placeholder="Enter Total Price Amount">
+                                                                <label>Total Price (INR)</label>
+                                                                {{wizard.form.price|attr:"placeholder:Enter Total Price Amount"}}
+                                                                {% if form.errors %}<div class="text-danger">{{form.errors.price}}</div>{% endif %}
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                                                    <div class="col-lg-6 col-md-6 col-xs-12 mb-2">
                                                         <div class="form-group">
-                                                            <label>Commission </label>
-                                                            <div class="input-box form-select">
-                                                                <div class="custom-dropdown">
-                                                                    <span class="selected-option">0.5% of Sale Amount</span>
-                                                                    <ul class="dropdown-list">
-                                                                        <li>0.5% of Sale Amount</li>
-                                                                        <li>1.0% of Sale Amount</li>
-                                                                        <li>1.5% of Sale Amount</li>
-                                                                        <li>2.0% of Sale Amount</li>
-                                                                        <li>Contact Me For Details</li>
-                                                                        <li>Not Applicable</li>
-                                                                    </ul>
-                                                                </div>
+                                                            <label>Commission</label>
+                                                            <div class="input-box">
+                                                                {{wizard.form.commission|attr:"class:niceSelect"}}
+                                                                {% if form.errors %}<div class="text-danger">{{form.errors.commission}}</div>{% endif %}
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-12">
-                                                    <div class="pretty p-default p-thick p-pulse mb-2">
-                                                        <input type="checkbox" />
-                                                        <div class="state d-flex align-items-center p-warning-o">
-                                                            <label>I Agree with all <a href="#">Terms &amp; Conditions</a></label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-12">
-                                                    <a href="#" class="nir-btn"><i class="fa fa-plus"></i> Add Listing</a>
+                                                    <button type="submit" class="nir-btn"><i class="fa fa-plus"></i> Add Listing</button>
                                                 </div>
                                             </div>
                                         </form>
