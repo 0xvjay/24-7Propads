@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.files.storage import DefaultStorage
 from django.core.paginator import Paginator
@@ -6,9 +7,10 @@ from django.db.models import Count, DecimalField, Q, Value
 from django.db.models.functions import Coalesce
 from django.db.models.functions import Lower as LowerCase
 from django.shortcuts import redirect
-from django.views.generic import DetailView, ListView
+from django.views.generic import DetailView, ListView, TemplateView
 from formtools.wizard.views import SessionWizardView
 
+from analytic.views import PropertyRecommender, UserActivity
 from core.views import (
     AdminLoginRequired,
     BaseAdminCreateView,
@@ -498,6 +500,9 @@ class PropertyListingView(LoginRequiredMixin, ListView):
             .values_list("city", "count")
         ):
             context[f"{city.lower()}_count"] = count
+
+        recommender = PropertyRecommender(self.request.user)
+        context["recommended_properties"] = recommender.get_recommendations(top_n=5)
         return context
 
 
@@ -505,15 +510,22 @@ class PropertyDetailView(LoginRequiredMixin, DetailView):
     model = Property
     template_name = "customer/pages/property_detail.html"
 
+    def get(self, request, *args, **kwargs):
+        user_activity = UserActivity(request.user)
+        property = self.get_object()
+        user_activity.record_property_view(property)
+
+        return super().get(request, *args, **kwargs)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
         paginator = Paginator(self.get_object().reviews.all(), 5)
         page_number = self.request.GET.get("page")
-        reviews = paginator.get_page(page_number)
+        context["reviews"] = paginator.get_page(page_number)
 
-        context["reviews"] = reviews
-
+        recommender = PropertyRecommender(self.request.user)
+        context["recommended_properties"] = recommender.get_recommendations(top_n=5)
         return context
 
 
@@ -559,3 +571,24 @@ class CustomerPropertyCreateView(LoginRequiredMixin, SessionWizardView):
     def get(self, request, *args, **kwargs):
         self.storage.current_step = self.steps.first
         return self.render(self.get_form())
+
+
+class LikeView(LoginRequiredMixin, TemplateView):
+    template_name = "customer/pages/listing.html"
+    success_url = "/properties/"
+
+    def get(self, request, *args, **kwargs):
+        property_pk = kwargs.pop("pk")
+        if not property_pk:
+            messages.error(request, "Bad Request")
+            return redirect(self.success_url)
+
+        property = Property.objects.filter(id=property_pk).first()
+        if not property:
+            messages.error(request, "Bad Request")
+            return redirect(self.success_url)
+
+        user_activity = UserActivity(request.user)
+        user_activity.like_property(property)
+
+        return redirect(self.success_url)

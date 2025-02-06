@@ -75,17 +75,17 @@
                                 <p class="mt-3">{{object.description}}</p>
                             </div>
 
-                            {% if object.get_property_type == 'agriculture_details' %}
+                            {% if object.agriculture_details %}
                                 {% include "customer/partials/details/agriculture.html" %}
-                            {% elif object.get_property_type == 'flat_details' %}
+                            {% elif object.flat_details %}
                                 {% include "customer/partials/details/flat.html" %}
-                            {% elif object.get_property_type == 'villa_details' %}
+                            {% elif object.villa_details %}
                                 {% include "customer/partials/details/villa.html" %}
-                            {% elif object.get_property_type == 'plot_details' %}
+                            {% elif object.plot_details %}
                                 {% include "customer/partials/details/plot.html" %}
-                            {% elif object.get_property_type == 'office_details' %}
+                            {% elif object.office_details %}
                                 {% include "customer/partials/details/office.html" %}
-                            {% elif object.get_property_type == 'house_details' %}
+                            {% elif object.house_details %}
                                 {% include "customer/partials/details/house.html" %}
                             {% endif %}
 
@@ -161,41 +161,44 @@
                             </div>
                         {% endif %}
 
-                        <div class="single-add-review">
-                            <div class="pb-1"><h3 class="" style="margin-bottom: auto;">Add Review</h3></div>
-                            <form action="{% url "review:add_review" property_pk=object.pk %}" method="post">
-                                {% csrf_token %}
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <div class="form-group mb-2">
-                                            <input type="text" name="title" placeholder="Title">
+                        {% has_review_by request.user object as has_reviewed %}
+                        {% if not has_reviewed %}
+                            <div class="single-add-review">
+                                <div class="pb-1"><h3 class="" style="margin-bottom: auto;">Add Review</h3></div>
+                                <form action="{% url "review:add_review" property_pk=object.pk %}" method="post">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="form-group mb-2">
+                                                <input type="text" name="title" placeholder="Title">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-group mb-2">
+                                                <select name="score" class="niceSelect">
+                                                    <option value="" disable>Select Score</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 mb-1">
+                                            <div class="form-group">
+                                                <textarea name="body" placeholder="Review"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-btn">
+                                                <button type="submit" class="nir-btn">Submit Review</button>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-12">
-                                        <div class="form-group mb-2">
-                                            <select name="score" class="niceSelect">
-                                                <option value="" disable>Select Score</option>
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                                <option value="5">5</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12 mb-1">
-                                        <div class="form-group">
-                                            <textarea name="body" placeholder="Review"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="form-btn">
-                                            <button type="submit" class="nir-btn">Submit Review</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
+                                </form>
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
 

@@ -85,53 +85,22 @@ class Property(models.Model):
     is_featured = models.BooleanField(default=False)
     is_popular = models.BooleanField(default=False)
 
-    recommended_products = models.ManyToManyField(
-        "property.Property", blank=True, through="PropertyRecommendation"
-    )
-
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     @property
     def details(self):
-        if hasattr(self, "agriculture_details"):
-            return self.agriculture_details
-        elif hasattr(self, "flat_details"):
-            return self.flat_details
-        elif hasattr(self, "villa_details"):
-            return self.villa_details
-        elif hasattr(self, "plot_details"):
-            return self.plot_details
-        elif hasattr(self, "office_details"):
-            return self.office_details
-        elif hasattr(self, "house_details"):
-            return self.house_details
-        else:
-            None
-
-    @property
-    def sorted_recommended_products(self):
-        """Keeping order by recommendation ranking."""
-        return [
-            r.recommendation
-            for r in self.primary_recommendations.select_related("recommendation").all()
-        ]
-
-    def get_property_type(self):
-        if hasattr(self, "agriculture_details"):
-            return "agriculture_details"
-        elif hasattr(self, "flat_details"):
-            return "flat_details"
-        elif hasattr(self, "villa_details"):
-            return "villa_details"
-        elif hasattr(self, "plot_details"):
-            return "plot_details"
-        elif hasattr(self, "office_details"):
-            return "office_details"
-        elif hasattr(self, "house_details"):
-            return "house_details"
-        else:
-            None
+        for attr in [
+            "agriculture_details",
+            "flat_details",
+            "villa_details",
+            "plot_details",
+            "office_details",
+            "house_details",
+        ]:
+            if hasattr(self, attr):
+                return getattr(self, attr)
+        return None
 
     def update_rating(self):
         """
@@ -148,19 +117,6 @@ class Property(models.Model):
         self.rating = rating
         self.save()
 
-    def has_review_by(self, user):
-        if user.is_anonymous:
-            return False
-        return self.reviews.filter(user=user).exists()
-
-    def is_review_permitted(self, user):
-        """
-        Determines whether a user may add a review on this product.
-        """
-        if user.is_authenticated:
-            return not self.has_review_by(user)
-        return False
-
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         return super().save(*args, **kwargs)
@@ -170,14 +126,6 @@ class Property(models.Model):
 
     class Meta:
         verbose_name_plural = "Properties"
-
-
-class PropertyRecommendation(models.Model):
-    primary = models.ForeignKey(
-        Property, related_name="primary_recommendations", on_delete=models.CASCADE
-    )
-    recommendation = models.ForeignKey(Property, on_delete=models.CASCADE)
-    ranking = models.PositiveSmallIntegerField(default=0, db_index=True)
 
 
 class PropertyImage(models.Model):

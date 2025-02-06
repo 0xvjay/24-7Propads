@@ -1,4 +1,4 @@
-{% load static %}
+{% load static property_extras %}
 
 <div class="col-lg-4 col-md-12">
   <div class="sidebar-sticky">
@@ -85,12 +85,12 @@
         </form>
       </div>
 
-      {% if related_properties %}
+      {% if recommended_properties %}
         <div class="sidebar-item trending">
           <h3 class="">Related Property</h3>
           <div class="trend-box">
             <div class="about-slider">
-              {% for property in related_properties %}
+              {% for property in recommended_properties %}
                 <div class="trend-item box-shadow">
                   <div class="trend-image">
                     {% if property.images.all %}
@@ -104,7 +104,7 @@
                         <img {% if property.user.profile %}src="{{property.user.profile.url}}"{% else %}src="{% static "customer/images/reviewer/2.jpg" %}"{% endif %} alt="" class="rounded-circle me-1"/>
                         <span>{{property.user}}</span>
                       </div>
-                      <a class="tags bg-theme2 white px-3 py-1">For Rent</a>
+                      <p class="tags bg-theme2 white px-3 py-1">For Rent</p>
                     </div>
                   </div>
                   <div class="trend-content p-4">
@@ -122,7 +122,16 @@
                             <i class="fa fa-eye"></i>
                           </li>
                           <li class="me-2">
-                            <i class="fa fa-heart"></i>
+                            {% has_liked_by request.user property as has_liked %}
+                            <form action="{% url "property:add_like" pk=property.pk %}" method="get">
+                              <button style="background-color:transparent;" type="submit">
+                                {% if has_liked %}
+                                  <i class="fa fa-heart"></i>
+                                {% else %}
+                                  <i class="fa fa-heart" style="font-weight:100"></i>
+                                {% endif %}
+                              </button>
+                            </form>
                           </li>
                         </ul>
                       </div>

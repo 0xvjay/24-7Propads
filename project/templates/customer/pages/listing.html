@@ -1,5 +1,5 @@
 {% extends "customer/base.html" %}
-{% load static %}
+{% load static property_extras %}
 
 {% block title %}Properties{% endblock %}
 
@@ -50,7 +50,18 @@
                         <div class="entry-metalist d-flex align-items-center">
                           <ul>
                             <li class="me-2"><i class="fa fa-eye"></i></li>
-                            <li class="me-2"><i class="fa fa-heart"></i></li>
+                            <li class="me-2">
+                              {% has_liked_by request.user object as has_liked %}
+                              <form action="{% url "property:add_like" pk=object.pk %}" method="get">
+                                <button style="background-color:transparent;" type="submit">
+                                  {% if has_liked %}
+                                    <i class="fa fa-heart"></i>
+                                  {% else %}
+                                    <i class="fa fa-heart" style="font-weight:100"></i>
+                                  {% endif %}
+                                </button>
+                              </form>
+                            </li>
                           </ul>
                         </div>
                       </div>

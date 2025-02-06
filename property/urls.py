@@ -1,13 +1,14 @@
 from django.urls import path
 
 from .views import (
+    CustomerPropertyCreateView,
+    LikeView,
     PropertyCreateView,
     PropertyDeleteView,
     PropertyDetailView,
     PropertyListingView,
     PropertyListView,
     PropertyUpdateView,
-    CustomerPropertyCreateView,
     TypeCreateView,
     TypeDeleteView,
     TypeListView,
@@ -41,4 +42,5 @@ urlpatterns = [
         CustomerPropertyCreateView.as_view(),
         name="add_customer_property",
     ),
+    path(r"properties/<int:pk>/like", LikeView.as_view(), name="add_like"),
 ]

@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     "subscription",
     "advertisement",
     "review",
+    "analytic",
     "debug_toolbar",
     "widget_tweaks",
     "django.contrib.admin",
