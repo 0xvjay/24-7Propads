@@ -152,5 +152,29 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 INTERNAL_IPS = ["127.0.0.1"]
 
-
 LOGIN_URL = "/"
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "default": {
+            "format": "{asctime} | {levelname} | {module} | {message}",
+            "style": "{",
+        },
+    },
+    "handlers": {
+        "file": {
+            "level": "DEBUG",
+            "class": "logging.FileHandler",
+            "filename": BASE_DIR / "error.log",
+        },
+    },
+    "loggers": {
+        "django": {
+            "level": "DEBUG",
+            "handlers": ["file"],
+            "propagate": True,
+        },
+    },
+}

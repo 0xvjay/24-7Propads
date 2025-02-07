@@ -5,6 +5,11 @@ from property.models import Property
 
 
 class Review(models.Model):
+    class StatusChoices(models.TextChoices):
+        FOR_MODERATION = "Requires moderation"
+        APPROVED = "Approved"
+        REJECTED = "Rejected"
+
     property = models.ForeignKey(
         Property, related_name="reviews", on_delete=models.CASCADE
     )
@@ -16,13 +21,11 @@ class Review(models.Model):
 
     user = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE)
 
-    FOR_MODERATION, APPROVED, REJECTED = 0, 1, 2
-    STATUS_CHOICES = (
-        (FOR_MODERATION, "Requires moderation"),
-        (APPROVED, "Approved"),
-        (REJECTED, "Rejected"),
+    status = models.CharField(
+        max_length=50,
+        choices=StatusChoices.choices,
+        default=StatusChoices.FOR_MODERATION,
     )
-    status = models.SmallIntegerField(choices=STATUS_CHOICES, default=FOR_MODERATION)
 
     created_at = models.DateTimeField(auto_now_add=True)
 

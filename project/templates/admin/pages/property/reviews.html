@@ -1,0 +1,105 @@
+{% extends "admin/admin_base.html" %}
+
+{% load static %}
+
+{% block title %}Reviews{% endblock %}
+
+{% block extra_head %}
+    <!-- Datatables css -->
+    <link href="{% static "vendor/datatables.net-bs5/css/dataTables.bootstrap5.min.css" %}" rel="stylesheet" type="text/css" />
+    <link href="{% static "vendor/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css" %}" rel="stylesheet" type="text/css" />
+    <link href="{% static "vendor/datatables.net-fixedcolumns-bs5/css/fixedColumns.bootstrap5.min.css" %}" rel="stylesheet" type="text/css" />
+    <link href="{% static "vendor/datatables.net-fixedheader-bs5/css/fixedHeader.bootstrap5.min.css" %}" rel="stylesheet" type="text/css" />
+    <link href="{% static "vendor/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css" %}" rel="stylesheet" type="text/css" />
+    <link href="{% static "vendor/datatables.net-select-bs5/css/select.bootstrap5.min.css" %}" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" href="{% static "vendor/apexcharts/apexcharts.css" %}" />
+    <link rel="stylesheet" href="{% static "custom/custom_style.css" %}" />
+{% endblock  %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row pt-3">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="card-title">
+                                <span class="fs-3 m-0">Manage Reviews</span>
+                                <hr />
+                            </div>
+                            <div class="card-content">
+                                <div class="responsive-table-plugin">
+                                    <div class="table-rep-plugin">
+                                        <div class="table-responsive" data-pattern="priority-columns" >
+                                            <table id="faq-table" class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Title</th>
+                                                        <th>Score</th>
+                                                        <th>User</th>
+                                                        <th>Status</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for object in object_list %}
+                                                        <tr>
+                                                            <td>{{object.title}}</td>
+                                                            <td>{{object.score}}</td>
+                                                            <td>{{object.user}}</td>
+                                                            <td>{{object.status}}</td>
+                                                            <td>
+                                                                {% if object.status == 'Requires moderation' %}
+                                                                    <form action="{% url "review:edit_review" property_pk=view.kwargs.property_pk pk=object.pk %}" method="post">
+                                                                        {% csrf_token %}
+                                                                        <button name="status" value="Approved" type="submit" class="btn btn-outline-success me-1" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Approve"><i class="bi bi-check"></i></button>
+                                                                        <button name="status" value="Rejected" type="submit" class="btn btn-outline-danger" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Reject"><i class="bi bi-x-lg"></i></button>
+                                                                    </form>
+                                                                {% elif object.status == 'Rejected' %}
+                                                                    <form action="{% url "review:edit_review" property_pk=view.kwargs.property_pk pk=object.pk %}" method="post">
+                                                                        {% csrf_token %}
+                                                                        <button name="status" value="Requires moderation" type="submit" class="btn btn-outline-primary me-1" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Require Moderation"><i class="bi bi-bank"></i></button>
+                                                                        <button name="status" value="Approved" type="submit" class="btn btn-outline-success" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Approve"><i class="bi bi-check"></i></button>
+                                                                    </form>
+                                                                {% else %}
+                                                                    <form action="{% url "review:edit_review" property_pk=view.kwargs.property_pk pk=object.pk %}" method="post">
+                                                                        {% csrf_token %}
+                                                                        <button name="status" value="Requires moderation" type="submit" class="btn btn-outline-primary me-1" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Require Moderation"><i class="bi bi-bank"></i></button>
+                                                                        <button name="status" value="Rejected" type="submit" class="btn btn-outline-danger" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Reject"><i class="bi bi-x-lg"></i></button>
+                                                                    </form>
+                                                                {% endif %}
+                                                            </td>
+                                                        </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <!-- end .table-responsive -->
+                                    </div>
+                                <!-- end .table-rep-plugin-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock  %}
+
+{% block extra_body %}
+    <!-- Datatables js -->
+    <script src="{% static "vendor/datatables.net/js/jquery.dataTables.min.js" %}"></script>
+    <script src="{% static "vendor/datatables.net-bs5/js/dataTables.bootstrap5.min.js" %}"></script>
+    <script src="{% static "vendor/datatables.net-responsive/js/dataTables.responsive.min.js" %}"></script>
+    <script src="{% static "vendor/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js" %}"></script>
+    
+    <script>
+        $(document).ready(function () {
+          $("#faq-table").DataTable({
+            columnDefs: [{ orderable: false, targets: -1 }],
+          });
+        });
+    </script>
+{% endblock  %}

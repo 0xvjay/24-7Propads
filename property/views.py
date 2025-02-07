@@ -518,7 +518,7 @@ class PropertyDetailView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        paginator = Paginator(self.get_object().reviews.all(), 5)
+        paginator = Paginator(self.get_object().reviews.filter(status="Approved"), 5)
         page_number = self.request.GET.get("page")
         context["reviews"] = paginator.get_page(page_number)
 

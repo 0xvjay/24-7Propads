@@ -107,16 +107,16 @@ class Property(models.Model):
         """
         Recalculate rating field
         """
-        result = self.reviews.filter(status=self.reviews.model.APPROVED).aggregate(
-            sum=Sum("score"), count=Count("id")
-        )
-        reviews_sum = result["sum"] or 0
-        reviews_count = result["count"] or 0
-        rating = None
-        if reviews_count > 0:
-            rating = float(reviews_sum) / reviews_count
-        self.rating = rating
-        self.save()
+        # result = self.reviews.filter(status=self.reviews.model.APPROVED).aggregate(
+        #     sum=Sum("score"), count=Count("id")
+        # )
+        # reviews_sum = result["sum"] or 0
+        # reviews_count = result["count"] or 0
+        # rating = None
+        # if reviews_count > 0:
+        #     rating = float(reviews_sum) / reviews_count
+        # self.rating = rating
+        # self.save()
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
