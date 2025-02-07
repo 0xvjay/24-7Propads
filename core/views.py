@@ -76,8 +76,8 @@ class DashboardView(AdminLoginRequired, TemplateView):
         context["property_count"] = Property.objects.count()
         context["type_count"] = PropertyType.objects.count()
         latest_properties = Property.objects.order_by("-created_at")[:5]
-        viewed_properties = Property.objects.order_by("-views")[:5]
-        popular_properties = Property.objects.filter(is_popular=True)[:5]
+        viewed_properties = Property.objects.all()[:5]
+        popular_properties = Property.objects.all()[:5]
 
         context.update(
             {
@@ -261,7 +261,7 @@ class HomeView(TemplateView):
             }
         )
         context["about_us"] = AboutUs.load()
-        context["featured_properties"] = Property.objects.filter(is_featured=True)[:3]
+        context["featured_properties"] = Property.objects.all()[:3]
         context.update({f"{city.lower()}_count": 0 for city in cities})
         for city, count in (
             Property.objects.annotate(lower_city=LowerCase("city"))

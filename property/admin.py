@@ -74,8 +74,6 @@ class PropertyAdmin(admin.ModelAdmin):
         "type",
         "is_active",
         "is_verified",
-        "is_featured",
-        "is_popular",
         "created_at",
         "updated_at",
     )

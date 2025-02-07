@@ -78,12 +78,9 @@ class Property(models.Model):
     rera_number = models.CharField(max_length=255, null=True, blank=True)
 
     #
-    views = models.PositiveIntegerField(default=0)
     rating = models.FloatField(null=True, editable=False)
     is_active = models.BooleanField(default=True)
     is_verified = models.BooleanField(default=False)
-    is_featured = models.BooleanField(default=False)
-    is_popular = models.BooleanField(default=False)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -101,6 +98,10 @@ class Property(models.Model):
             if hasattr(self, attr):
                 return getattr(self, attr)
         return None
+
+    @property
+    def views(self):
+        return self.browsing_stats.count()
 
     def update_rating(self):
         """

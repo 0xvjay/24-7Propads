@@ -37,7 +37,6 @@
                         <div class="row align-items-center justify-content-between">
                             <div class="col-lg-8">
                                 <ul class="detail-inline d-flex align-items-center mb-2">
-                                    {% if object.is_featured %}<li class="detail-inline-item bg-theme1 px-4 py-1 white me-3">Featured</li>{% endif %}
                                     <li class="detail-inline-item bg-theme px-4 py-1 white me-3">For {{object.post_type}}</li>
                                     <li class="detail-inline-item"><i class="fa fa-clock me-1"></i>{{ object.created_at|timesince }} ago</li>
                                 </ul>

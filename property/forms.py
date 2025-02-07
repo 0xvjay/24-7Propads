@@ -90,7 +90,7 @@ class PropertyForm(forms.ModelForm):
 
     class Meta:
         model = Property
-        exclude = ("views", "user")
+        exclude = ("user",)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

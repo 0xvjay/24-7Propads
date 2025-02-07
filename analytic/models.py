@@ -6,7 +6,9 @@ from property.models import Property
 
 class BrowsingHistory(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    property = models.ForeignKey(Property, on_delete=models.CASCADE)
+    property = models.ForeignKey(
+        Property, on_delete=models.CASCADE, related_name="browsing_stats"
+    )
     timestamp = models.DateTimeField(auto_now_add=True)
 
     class Meta:

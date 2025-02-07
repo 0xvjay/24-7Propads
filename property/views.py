@@ -86,8 +86,6 @@ class PropertyListView(BaseAdminListView):
             filter_conditions &= {
                 "enable": Q(is_active=True),
                 "disable": Q(is_active=False),
-                "featured": Q(is_featured=True),
-                "no_featured": Q(is_featured=False),
             }.get(category, Q())
 
         post_type = self.request.GET.get("post_type")
