@@ -1,4 +1,7 @@
 from django import forms
+from django.utils import timezone
+
+from accounts.utils import is_valid_phone
 
 from .constant import cities
 from .models import (
@@ -20,8 +23,6 @@ class TypeForm(forms.ModelForm):
 
     def clean_name(self):
         name = self.cleaned_data.get("name")
-        if not name:
-            raise forms.ValidationError("Name is required")
         if PropertyType.objects.filter(name=name).exclude(id=self.instance.id).exists():
             raise forms.ValidationError("Name already exists")
 
@@ -105,6 +106,12 @@ class PropertyForm(forms.ModelForm):
         else:
             self.fields["city"].choices = []
 
+    def clean_phone(self):
+        phone = self.cleaned_data.get("phone")
+        if not is_valid_phone(phone):
+            raise forms.ValidationError("Invalid phone number")
+        return phone
+
 
 class AgricultureLandForm(forms.ModelForm):
     class Meta:
@@ -117,11 +124,23 @@ class FlatForm(forms.ModelForm):
         model = Flat
         exclude = ("property",)
 
+    def available_from(self):
+        available_from = self.cleaned_data.get("available_from")
+        if available_from <= timezone.now().date():
+            raise forms.ValidationError("The date must be in the future.")
+        return available_from
+
 
 class HouseForm(forms.ModelForm):
     class Meta:
         model = House
         exclude = ("property",)
+
+    def available_from(self):
+        available_from = self.cleaned_data.get("available_from")
+        if available_from <= timezone.now().date():
+            raise forms.ValidationError("The date must be in the future.")
+        return available_from
 
 
 class OfficeForm(forms.ModelForm):
@@ -129,11 +148,23 @@ class OfficeForm(forms.ModelForm):
         model = Office
         exclude = ("property",)
 
+    def available_from(self):
+        available_from = self.cleaned_data.get("available_from")
+        if available_from <= timezone.now().date():
+            raise forms.ValidationError("The date must be in the future.")
+        return available_from
+
 
 class VillaForm(forms.ModelForm):
     class Meta:
         model = Villa
         exclude = ("property",)
+
+    def available_from(self):
+        available_from = self.cleaned_data.get("available_from")
+        if available_from <= timezone.now().date():
+            raise forms.ValidationError("The date must be in the future.")
+        return available_from
 
 
 class PlotForm(forms.ModelForm):

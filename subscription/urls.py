@@ -6,6 +6,9 @@ from .views import (
     SubscriptionPlanListView,
     SubscriptionPlanUpdateView,
     UserSubscriptionListView,
+    CustomerSubscriptonListView,
+    CheckoutSessionCreateView,
+    stripe_config,
 )
 
 app_name = "subscription"
@@ -35,4 +38,13 @@ urlpatterns = [
         UserSubscriptionListView.as_view(),
         name="user_subscriptions",
     ),
+    path(
+        r"subscriptions/",
+        CustomerSubscriptonListView.as_view(),
+        name="customer_subscription_plans",
+    ),
+    path(
+        r"subscriptions/checkout/", CheckoutSessionCreateView.as_view(), name="checkout"
+    ),
+    path(r"config/", stripe_config, name="stripe_config"),
 ]

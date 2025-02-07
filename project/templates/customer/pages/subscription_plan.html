@@ -1,11 +1,15 @@
 {% extends "customer/base.html" %}
 {% load static %}
 
-{% block title %}About Us{% endblock %}
+{% block title %}Subscription Plans{% endblock %}
+
+{% block extra_head %}
+    <script src="https://js.stripe.com/v3/"></script>
+{% endblock %}
 
 {% block content %}
-    {% url "core:about_us" as title_url %}
-    {% include "customer/partials/breadcrumb.html" with title="Home" subtitle="About Us" title_url=title_url %}
+    {% url "core:home" as title_url %}
+    {% include "customer/partials/breadcrumb.html" with title="Home" subtitle="Subscription Plans" title_url=title_url %}
 
     <section  id="subscription_plan" class="bg-lgrey border-bottom border-t pb-6">
         <div class="container">
@@ -20,12 +24,18 @@
                             <div class="pg-title">
                                 <i class="icon fas fa-rocket display-6 bg-theme1 mb-2 white"></i>
                                 <h4 class="theme mb-0">{{object.name}}</h4>
-                                <h2 class="theme2"><i class="fas fa-rupee-sign"></i> {{object.plan}} <span class="grey">per user, per month</span></h2>
-                                <p>Hurry. Purchase a plan before your exclusive discount expires!</p>
+                                <h2 class="theme2"><i class="fas fa-rupee-sign"></i> {{object.price}}</h2>
                             </div>
                             <div class="pg-main">
-                                {{object.description|safe}}
-                                <button class="btn nir-btn mt-2">Subscribe</button>
+                                <ul class='d-flex flex-column'>
+                                    <li><i class="fas fa-check"></i> <strong class='text-success'>{{ object.max_listings }}</strong> Property Listings</li>
+                                    <li><i class="fas fa-check"></i> <strong class='text-success'>{{ object.duration_days }}</strong> Days</li>
+                                    <li><i class="fas fa-check"></i> <strong class='text-success'>{{ object.max_ads }}</strong> Advertisements</li>
+                                </ul>
+                                <div>
+                                    {{object.description|safe}}
+                                </div>
+                                <button class="btn nir-btn mt-2" onclick="SubscribePlan({{object.id}})">Subscribe</button>
                             </div>
                         </div>
                     </div>
@@ -58,4 +68,48 @@
             </div>
         </div>
     </section>
+{% endblock %}
+
+{% block extra_body %}
+    <script>
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        function SubscribePlan(id){
+            fetch('{% url "subscription:stripe_config" %}')
+            .then(res=>res.json())
+            .then(data=>{
+                const stripe = Stripe(data.publicKey);
+                let csrftoken = getCookie('csrftoken');
+                
+                fetch('{% url "subscription:checkout" %}',{
+                    method:"POST",
+                    headers:{
+                        'X-CSRFToken':csrftoken,
+                    }
+                })
+                .then(res=>res.json())
+                .then(data=>{
+                    console.log(data);
+                    return stripe.redirectToCheckout({sessionId: data.sessionId})
+                })
+                .then(res=>{
+                    console.log(res);
+                })
+            })
+        }
+    </script>
 {% endblock %}

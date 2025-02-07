@@ -5,6 +5,11 @@
 {% block title %}Edit Subscription Plan{% endblock %}
 
 {% block extra_head %}
+    <!-- Quill css -->
+    <link href="{% static "vendor/quill/quill.core.css" %}" rel="stylesheet" type="text/css" />
+    <link href="{% static "vendor/quill/quill.snow.css" %}" rel="stylesheet" type="text/css" />
+    <link href="{% static "vendor/quill/quill.bubble.css" %}" rel="stylesheet" type="text/css" />
+
     <!-- Vector Map css -->
     <link rel="stylesheet" href="{% static "vendor/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css" %}" />
 
@@ -63,6 +68,14 @@
                                             <div class='text-danger'>{{form.errors.max_ads}}</div>
                                         {% endif %}
                                     </div>
+                                    <div class="col-md-12 mb-2">
+                                        <label for="max_ads" class="form-label mb-0">Description</label>
+                                        <textarea id="about_us" name="description" class="form-control d-none">{{object.description|safe}}</textarea>
+                                        <div id="snow-editor" style="height: 300px;">{{object.description|safe}}</div>
+                                        {% if form.errors %}
+                                            <div class='text-danger'>{{form.errors.description}}</div>
+                                        {% endif %}
+                                    </div>
                                     <div class="col-12 mb-2">
                                         <div class="form-group">
                                             <button type="submit" name="submit" class="btn btn-primary float-end">Save</button>
@@ -76,4 +89,40 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block extra_body %}
+    <!-- Quill Editor js -->
+    <script src="{% static "vendor/quill/quill.min.js" %}"></script>
+
+    <!-- Dropzone File Upload js -->
+    <script src="{% static "vendor/dropzone/min/dropzone.min.js" %}"></script>
+    <script>
+        $(document).ready(function () {
+          var snowEditorOptions = {
+            theme: "snow",
+            modules: {
+              toolbar: [
+                [{ font: [] }, { size: [] }],
+                ["bold", "italic", "underline", "strike"],
+                [{ color: [] }, { background: [] }],
+                [{ script: "super" }, { script: "sub" }],
+                [{ header: [!1, 1, 2, 3, 4, 5, 6] }, "blockquote", "code-block"],
+                [
+                  { list: "ordered" },
+                  { list: "bullet" },
+                  { indent: "-1" },
+                  { indent: "+1" },
+                ],
+                ["direction", { align: [] }],
+              ],
+            },
+          };
+          var quill1 = new Quill("#snow-editor", snowEditorOptions);
+  
+          quill1.on("text-change", function () {
+            $("#about_us").val($("#snow-editor .ql-editor").html());
+          });
+        });
+    </script>
 {% endblock %}

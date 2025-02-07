@@ -110,9 +110,9 @@
                             </div> {% endcomment %}
                         </div>
 
-                        {% if object.reviews.count %}
+                        {% if reviews %}
                             <div class="single-comments single-box mb-4">
-                                <h4 class="mb-4">Showing {{ object.reviews.count }} verified guest comments</h4>
+                                <h4 class="mb-4">Showing verified guest comments</h4>
                                 {% for review in reviews %}
                                     <div class="comment-box">
                                         <div class="comment-image mt-2">

@@ -72,6 +72,7 @@ class PropertyAdmin(admin.ModelAdmin):
         "name",
         "post_type",
         "type",
+        "rating",
         "is_active",
         "is_verified",
         "created_at",

@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models import Count, Sum
+from django.db.models import Sum
 from slugify import slugify
 
 from accounts.models import User
@@ -107,19 +107,18 @@ class Property(models.Model):
         """
         Recalculate rating field
         """
-        # result = self.reviews.filter(status=self.reviews.model.APPROVED).aggregate(
-        #     sum=Sum("score"), count=Count("id")
-        # )
-        # reviews_sum = result["sum"] or 0
-        # reviews_count = result["count"] or 0
-        # rating = None
-        # if reviews_count > 0:
-        #     rating = float(reviews_sum) / reviews_count
-        # self.rating = rating
-        # self.save()
+        approved_reviews = self.reviews.filter(status="Approved")
+        reviews_count = approved_reviews.count()
+        if reviews_count > 0:
+            reviews_sum = approved_reviews.aggregate(sum=Sum("score"))["sum"]
+            self.rating = float(reviews_sum) / reviews_count
+        else:
+            self.rating = None
+        self.save()
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)
+        if not self.slug:
+            self.slug = slugify(self.name)
         return super().save(*args, **kwargs)
 
     def __str__(self):

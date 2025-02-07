@@ -26,7 +26,7 @@ PROJECT_DIR = Path(__file__).resolve().parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-9s8$n_0igxxsk5d@d^cn_9nfu_(dwylcf+^4r+&j8vz^8q%xwb"
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -167,14 +167,22 @@ LOGGING = {
         "file": {
             "level": "DEBUG",
             "class": "logging.FileHandler",
+            "formatter": "default",
             "filename": BASE_DIR / "error.log",
         },
     },
     "loggers": {
-        "django": {
+        "app": {
             "level": "DEBUG",
             "handlers": ["file"],
             "propagate": True,
         },
     },
 }
+
+
+STRIPE_PUBLISHABLE_KEY = os.environ.get("STRIPE_PUBLISHABLE_KEY")
+STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY")
+
+
+SITE_URL = "http://localhost:8000/"
