@@ -10,6 +10,12 @@ from django.contrib.auth.views import (
 from django.contrib.auth.views import (
     PasswordChangeView as CorePasswordChangeView,
 )
+from django.contrib.auth.views import (
+    PasswordResetConfirmView as CorePasswordResetConfirmView,
+)
+from django.contrib.auth.views import (
+    PasswordResetView as CorePasswordResetView,
+)
 from django.shortcuts import redirect
 from django.views.generic import FormView, TemplateView
 
@@ -138,7 +144,7 @@ class CustomerLoginView(CoreLoginView):
     template_name = "customer/pages/home.html"
 
     def form_valid(self, form):
-        messages.success(self.request, f"Welcome, {self.request.user.username}!")
+        messages.success(self.request, f"Welcome, {self.request.user.get_full_name()}!")
         return super().form_valid(form)
 
 
@@ -167,4 +173,22 @@ class ChangePasswordView(CorePasswordChangeView):
 
     def form_valid(self, form):
         messages.success(self.request, "Password Changed successfully")
+        return super().form_valid(form)
+
+
+class PasswordResetView(CorePasswordResetView):
+    template_name = "customer/base.html"
+    success_url = "/"
+
+    def form_valid(self, form):
+        messages.success(self.request, "Email sent successfully")
+        return super().form_valid(form)
+
+
+class PasswordResetConfirmView(CorePasswordResetConfirmView):
+    template_name = "customer/pages/password-reset.html"
+    success_url = "/"
+
+    def form_valid(self, form):
+        messages.success(self.request, "Password changed")
         return super().form_valid(form)

@@ -16,6 +16,8 @@ from .views import (
     GroupDeleteView,
     GroupListView,
     GroupUpdateView,
+    PasswordResetConfirmView,
+    PasswordResetView,
     UserCreateView,
     UserDeleteView,
     UserListView,
@@ -40,6 +42,12 @@ urlpatterns = [
     ),
     # customer
     path(r"logout/", CustomerLogoutView.as_view(), name="logout"),
+    path(r"password_reset/", PasswordResetView.as_view(), name="password_reset"),
+    path(
+        r"password_reset/<uidb64>/<token>/",
+        PasswordResetConfirmView.as_view(),
+        name="password_reset_confirm",
+    ),
     path(r"accounts/", CustomerDashboardView.as_view(), name="dashboard"),
     path(
         r"accounts/change-password/",

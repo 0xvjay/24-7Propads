@@ -72,6 +72,9 @@
                                 <li class="nav-item" role="presentation">
                                     <button aria-controls="register" aria-selected="true" class="nav-link" data-bs-target="#register" data-bs-toggle="tab" id="register-tab" role="tab" type="button">Register</button>
                                 </li>
+                                <li class="nav-item" role="presentation">
+                                    <button aria-controls="forgot-password" aria-selected="true" class="nav-link" data-bs-target="#forgot-password" data-bs-toggle="tab" id="forgot-password-tab" role="tab" type="button">Forgot Password</button>
+                                </li>
                             </ul>
                             <!-- tab contents -->
                             <div class="tab-content blog-full" id="postsTabContent">
@@ -144,6 +147,30 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div aria-labelledby="forgot-password-tab" class="tab-pane fade" id="forgot-password" role="tabpanel">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="blog-image">
+                                                <a href="#" style="background-image: url({% static "customer/images/Carousal/carousal-1.png" %});"></a>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <h4 class="text-center pb-2">Forgot Password</h4>
+                                            <form method="post" action="{% url "accounts:password_reset" %}" name="forgotpasswordform" id="forgotpasswordform">
+                                                {% csrf_token %}
+                                                <div class="form-group mb-2">
+                                                    <label for="email">Email Address</label>
+                                                    <input type="text" name="email" id="email" class="form-control" placeholder="Email Address">
+                                                    {% if form.errors %}<p class="text-danger">{{form.errors.email}}</p>{% endif %}
+                                                </div>
+                                                <div class="comment-btn mb-2 pb-2 text-center border-b">
+                                                    <input type="submit" class="nir-btn w-100" id="submit" value="Send Email">
+                                                </div>
+                                                <small>Please enter the email address you used to register with us and we will send you a link to reset your password</small>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -191,7 +218,7 @@
             <ul class="messages">
                 {% for message in messages %}
                     <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index:10;">
-                        <div class="toast align-items-center border-0 {% if message.tags == 'error' %}text-bg-danger{% elif message.tags == 'success' %}toast-success{% elif message.tags == 'warning' %}text-bg-warning{% elif message.tags == 'info' %}text-bg-info{% endif %}" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="3000">
+                        <div class="toast align-items-center border-0 {% if message.tags == 'error' %}text-danger{% elif message.tags == 'success' %}text-success{% elif message.tags == 'warning' %}text-warning{% elif message.tags == 'info' %}text-info{% endif %}" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="3000">
                             <div class="d-flex">
                                 <div class="toast-body">{{message}}</div>
                                 <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>

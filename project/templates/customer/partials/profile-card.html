@@ -38,23 +38,6 @@
             <div class="dashboard-nav-inner">
                 <ul>
                     <li {% if request.path == dashboard_url %}class="active"{% endif %}><a href="{% url "accounts:dashboard" %}"><i class="fa fa-bars"></i> Dashboard</a></li>
-                    <li>
-                        <form action="{% url "property:property_list" %}" method="get">
-                            <div class="form-control-sm">
-                                <div class="input-box">
-                                    <select name="type" class="bg-transparent btn btn-outline-dark form-select text-start" onchange="this.form.submit()">
-                                        <option value="" disabled selected>➕ Add listing</option>
-                                        <option value="flat">Flat</option>
-                                        <option value="villa">Villa</option>
-                                        <option value="house">Independent House</option>
-                                        <option value="office">Office/Commercial Space </option>
-                                        <option value="plot">Open Plot</option>
-                                        <option value="agriculture">Agriculture Land</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </form>
-                    </li>
                     <li {% if request.path == profile_url %}class="active"{% endif %}><a href="{% url "accounts:profile" %}"><i class="fa fa-user"></i> Profile</a></li>                     
                     <li {% if request.path == reviews_url %}class="active"{% endif %}><a href="{% url "accounts:reviews" %}"><i class="fa fa-star"></i> Reviews</a></li>
                     <li {% if request.path == listing_url %}class="active"{% endif %}><a href="{% url "accounts:listing" %}"><i class="fa fa-list-alt"></i> Listing</a></li>
