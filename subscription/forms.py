@@ -6,7 +6,7 @@ from .models import SubscriptionPlan
 class SubscriptionPlanForm(forms.ModelForm):
     class Meta:
         model = SubscriptionPlan
-        fields = "__all__"
+        fields = ("name", "price", "max_listings", "max_ads", "description")
 
     def clean_name(self):
         name = self.cleaned_data.get("name")

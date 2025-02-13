@@ -1,0 +1,30 @@
+{% extends "customer/base.html" %}
+{% load static %}
+
+{% block title %}Subscription Failed{% endblock %}
+
+{% block content %}
+    {% url "core:home" as title_url %}
+    {% include "customer/partials/breadcrumb.html" with title="Home" subtitle="Subscription" title_url=title_url %} 
+
+    <section class="about-us pb-6"> 
+        <div class="container">
+            <div class="about-image-box"> 
+                <div class="row d-flex align-items-center justify-content-center text-center"> 
+                    <div class="col-md-8">
+                        <h2 class="mb-4">Subscription Failed</h2>
+                        <p class="lead">
+                            We're sorry, but there was an issue processing your subscription. Please try again or contact support for assistance.
+                        </p>
+                        <a href="{% url 'core:home' %}" class="btn nir-btn btn-lg">Go to Homepage</a> 
+                        <a href="{% url 'core:contact_us' %}" class="btn nir-btn btn-lg">Contact Us</a> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% include "customer/partials/looking_to_buy.html" %} 
+    {% include "customer/partials/exclusive.html" %} 
+
+{% endblock %}

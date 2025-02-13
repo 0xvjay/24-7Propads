@@ -48,13 +48,6 @@
                                         {% endif %}
                                     </div>
                                     <div class="col-md-6 mb-2">
-                                        <label for="duration_days" class="form-label mb-0">Days</label>
-                                        <input type="text" id="duration_days" name="duration_days" class="form-control" placeholder="Enter Subscription Days" value="{{object.duration_days}}">
-                                        {% if form.errors %}
-                                            <div class='text-danger'>{{form.errors.duration_days}}</div>
-                                        {% endif %}
-                                    </div>
-                                    <div class="col-md-6 mb-2">
                                         <label for="max_listings" class="form-label mb-0">Listing</label>
                                         <input type="text" id="max_listings" name="max_listings" class="form-control" placeholder="Enter Listing" value="{{object.max_listings}}">
                                         {% if form.errors %}

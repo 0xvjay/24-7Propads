@@ -1,14 +1,17 @@
 from django.urls import path
 
 from .views import (
+    CheckoutCancelView,
+    CheckoutSessionCreateView,
+    CheckoutSuccessView,
+    CustomerSubscriptonListView,
+    StripeConfigView,
     SubscriptionPlanCreateView,
     SubscriptionPlanDeleteView,
     SubscriptionPlanListView,
     SubscriptionPlanUpdateView,
     UserSubscriptionListView,
-    CustomerSubscriptonListView,
-    CheckoutSessionCreateView,
-    stripe_config,
+    stripe_webhook,
 )
 
 app_name = "subscription"
@@ -46,5 +49,8 @@ urlpatterns = [
     path(
         r"subscriptions/checkout/", CheckoutSessionCreateView.as_view(), name="checkout"
     ),
-    path(r"config/", stripe_config, name="stripe_config"),
+    path(r"subscriptions/config/", StripeConfigView.as_view(), name="stripe_config"),
+    path(r"subscriptions/success/", CheckoutSuccessView.as_view(), name="success"),
+    path(r"subscriptions/cancel/", CheckoutCancelView.as_view(), name="cancel"),
+    path(r"subscriptions/stripe_webhook/", stripe_webhook),
 ]

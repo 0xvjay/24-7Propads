@@ -18,6 +18,10 @@ class User(AbstractUser):
     instagram = models.URLField()
     pinterest = models.URLField()
 
+    # stripe
+    stripe_id = models.CharField(max_length=255)
+    checkout_session_id = models.CharField(max_length=255)
+
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username"]
 

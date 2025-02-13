@@ -9,7 +9,7 @@ from .utils import is_valid_phone
 class CreateUserForm(forms.ModelForm):
     class Meta:
         model = User
-        exclude = ("date_joined",)
+        exclude = ("date_joined", "stripe_id", "checkout_session_id")
 
     def clean_phone(self):
         phone = self.cleaned_data.get("phone")
@@ -34,7 +34,7 @@ class EditUserForm(forms.ModelForm):
 
     class Meta:
         model = User
-        exclude = ("date_joined",)
+        exclude = ("date_joined", "stripe_id", "checkout_session_id")
 
     def clean_phone(self):
         phone = self.cleaned_data.get("phone")

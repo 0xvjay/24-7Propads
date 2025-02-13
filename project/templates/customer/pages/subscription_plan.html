@@ -21,7 +21,10 @@
                 {% for object in object_list %}
                     <div class="col-lg-4 col-md-12 mb-4">
                         <div class="pkg-container text-center box-shadow p-4 border">
-                            <div class="pg-title">
+                            <div class="pg-title position-relative">
+                                {% if request.user.subscription.plan == object %}
+                                    <span class="position-absolute top-0 start-100 translate-middle p-2 bg-success border border-light rounded-circle"></span>
+                                {% endif %}
                                 <i class="icon fas fa-rocket display-6 bg-theme1 mb-2 white"></i>
                                 <h4 class="theme mb-0">{{object.name}}</h4>
                                 <h2 class="theme2"><i class="fas fa-rupee-sign"></i> {{object.price}}</h2>
@@ -29,13 +32,14 @@
                             <div class="pg-main">
                                 <ul class='d-flex flex-column'>
                                     <li><i class="fas fa-check"></i> <strong class='text-success'>{{ object.max_listings }}</strong> Property Listings</li>
-                                    <li><i class="fas fa-check"></i> <strong class='text-success'>{{ object.duration_days }}</strong> Days</li>
                                     <li><i class="fas fa-check"></i> <strong class='text-success'>{{ object.max_ads }}</strong> Advertisements</li>
                                 </ul>
                                 <div>
                                     {{object.description|safe}}
                                 </div>
-                                <button class="btn nir-btn mt-2" onclick="SubscribePlan({{object.id}})">Subscribe</button>
+                                {% if request.user.subscription.plan != object %}
+                                    <button class="btn nir-btn mt-2" onclick="SubscribePlan({{object.id}})">Subscribe</button>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -89,26 +93,31 @@
         }
 
         function SubscribePlan(id){
-            fetch('{% url "subscription:stripe_config" %}')
+            let csrftoken = getCookie('csrftoken');
+
+            fetch('{% url "subscription:stripe_config" %}',{
+                method: "GET",
+                headers: {
+                    'X-CSRFToken': csrftoken,
+                },
+            })
             .then(res=>res.json())
             .then(data=>{
                 const stripe = Stripe(data.publicKey);
-                let csrftoken = getCookie('csrftoken');
                 
                 fetch('{% url "subscription:checkout" %}',{
-                    method:"POST",
-                    headers:{
-                        'X-CSRFToken':csrftoken,
-                    }
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrftoken,
+                    },
+                    body: JSON.stringify({'plan_id': id})
                 })
                 .then(res=>res.json())
                 .then(data=>{
                     console.log(data);
                     return stripe.redirectToCheckout({sessionId: data.sessionId})
-                })
-                .then(res=>{
-                    console.log(res);
-                })
+                });
             })
         }
     </script>

@@ -24,7 +24,6 @@ class SubscriptionPlanAdmin(admin.ModelAdmin):
         "id",
         "name",
         "price",
-        "duration_days",
         "max_listings",
         "max_ads",
     )
