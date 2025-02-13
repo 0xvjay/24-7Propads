@@ -1,9 +1,8 @@
-from datetime import datetime
-
+from dateutil.relativedelta import relativedelta
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Count, Value
-from django.db.models.functions import Coalesce
+from django.db.models.functions import Coalesce, TruncMonth
 from django.db.models.functions import Lower as LowerCase
 from django.shortcuts import redirect
 from django.views.generic import (
@@ -40,6 +39,7 @@ from .models import (
     SiteSettings,
     TermsAndCondition,
 )
+from .utils import get_date_range
 
 
 class AdminLoginRequired(LoginRequiredMixin):
@@ -75,49 +75,34 @@ class DashboardView(AdminLoginRequired, TemplateView):
         context["user_count"] = User.objects.count()
         context["property_count"] = Property.objects.count()
         context["type_count"] = PropertyType.objects.count()
-        latest_properties = Property.objects.order_by("-created_at")[:5]
-        viewed_properties = Property.objects.all()[:5]
-        popular_properties = Property.objects.all()[:5]
 
-        context.update(
-            {
-                "latest_properties": latest_properties,
-                "viewed_properties": viewed_properties,
-                "popular_properties": popular_properties,
-            }
-        )
+        context["latest_properties"] = Property.objects.order_by("-created_at")[:5]
+        context["viewed_properties"] = Property.objects.annotate(
+            view_count=Count("browsing_stats")
+        ).order_by("-view_count")[:5]
+        context["popular_properties"] = Property.objects.order_by("-rating")[:5]
 
-        current_month = datetime.now().month
-        months = [
-            "January",
-            "February",
-            "March",
-            "April",
-            "May",
-            "June",
-            "July",
-            "August",
-            "September",
-            "October",
-            "November",
-            "December",
-        ]
-
-        context["months"] = months[:current_month]
-
-        monthly_user_counts = (
-            User.objects.filter(date_joined__year=datetime.now().year)
-            .values("date_joined__month")
+        start_date, end_date = get_date_range()
+        qs = (
+            User.objects.filter(
+                date_joined__date__gte=start_date, date_joined__date__lte=end_date
+            )
+            .annotate(month=TruncMonth("date_joined"))
+            .values("month")
             .annotate(count=Count("id"))
+            .order_by("month")
         )
-        user_counts = {
-            entry["date_joined__month"]: entry["count"] for entry in monthly_user_counts
-        }
 
-        context["users"] = [
-            user_counts.get(month, 0) for month in range(1, current_month + 1)
-        ]
+        month_data = {entry["month"].strftime("%B"): entry["count"] for entry in qs}
+        month_list, user_counts = [], []
+        current = start_date
+        while current <= end_date:
+            month_name = current.strftime("%B")
+            month_list.append(month_name)
+            user_counts.append(month_data.get(month_name, 0))
+            current += relativedelta(months=1)
 
+        context.update({"months": month_list, "users": user_counts})
         return context
 
 
