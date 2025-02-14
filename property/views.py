@@ -233,6 +233,15 @@ class PropertyCreateView(BasePropertyCreateUpdateView):
         "6": "admin/pages/property/create/plot.html",
     }
 
+    def get(self, request, *args, **kwargs):
+        is_allowed, error_message = request.user.can_add_property()
+
+        if not is_allowed:
+            messages.error(request, error_message)
+            return redirect("/admin/properties/")
+
+        return super().get(request, *args, **kwargs)
+
     def done(self, form_list, **kwargs):
         property_form = form_list[0]
         other_form = form_list[1]
@@ -567,6 +576,12 @@ class CustomerPropertyCreateView(LoginRequiredMixin, SessionWizardView):
         return super().process_step(form)
 
     def get(self, request, *args, **kwargs):
+        is_allowed, error_message = request.user.can_add_property()
+
+        if not is_allowed:
+            messages.error(request, error_message)
+            return redirect("/properties/")
+
         self.storage.current_step = self.steps.first
         return self.render(self.get_form())
 

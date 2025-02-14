@@ -1,5 +1,7 @@
 from django.db import models
 
+from accounts.models import User
+
 
 class Advertisement(models.Model):
     class PositionTypes(models.TextChoices):
@@ -15,6 +17,10 @@ class Advertisement(models.Model):
     link = models.URLField()
     is_active = models.BooleanField(default=False)
     image = models.ImageField(upload_to="advertisements/")
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="advertisements"
+    )
+
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

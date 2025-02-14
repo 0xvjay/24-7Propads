@@ -85,7 +85,7 @@
                   <tr>
                     <td>
                       <div class="d-flex flex-row">
-                        <img src="{{property.image}}" width="40" height="40" alt="property" class="rounded-circle"/>
+                        <img src="{{property.images.all.0.image.url}}" width="40" height="40" alt="property" class="rounded-circle"/>
                         <div class="d-flex flex-column ms-2">
                           <a href="{% url "property:property" pk=property.pk %}"><span class="fs-5">{{property.name}}</span></a>
                           <div class="fw-bold">
@@ -113,7 +113,7 @@
                   <tr>
                     <td>
                       <div class="d-flex flex-row">
-                        <img src="{{property.image}}" width="40" height="40" alt="property" class="rounded-circle"/>
+                        <img src="{{property.images.all.0.image.url}}" width="40" height="40" alt="property" class="rounded-circle"/>
                         <div class="d-flex flex-column ms-2 w-100">
                           <a href="{% url "property:property" pk=property.pk %}"><span class="fs-5">{{property.name}}</span></a>
                           <div class="d-flex justify-content-between">
@@ -146,7 +146,7 @@
                   <tr>
                     <td>
                       <div class="d-flex flex-row">
-                        <img src="{{property.image}}" width="40" height="40" alt="property" class="rounded-circle"/>
+                        <img src="{{property.images.all.0.image.url}}" width="40" height="40" alt="property" class="rounded-circle"/>
                         <div class="d-flex flex-column ms-2 w-100">
                           <a href="{% url "property:property" pk=property.pk %}"><span class="fs-5">{{property.name}}</span></a>
                           <div class="d-flex justify-content-between">
